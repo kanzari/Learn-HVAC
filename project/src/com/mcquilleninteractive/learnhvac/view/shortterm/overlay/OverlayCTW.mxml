@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<overlay:OverlayBase xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns:overlay="com.mcquilleninteractive.learnhvac.view.shortterm.overlay.*"
+	width="670" height="500" 
+	creationComplete="onCC()">
+	
+	<mx:Script>
+		<![CDATA[
+						
+			import com.mcquilleninteractive.learnhvac.model.ApplicationModel
+			import com.mcquilleninteractive.learnhvac.model.ScenarioModel
+            import com.mcquilleninteractive.learnhvac.util.Logger
+            import com.mcquilleninteractive.learnhvac.model.SystemVariable
+            import com.mcquilleninteractive.learnhvac.model.ScenarioModel
+   			import com.mcquilleninteractive.learnhvac.event.ScenarioLoadedEvent;
+			import com.mcquilleninteractive.learnhvac.event.UnitsEvent
+			import mx.controls.Label 
+		        			
+		    
+			public function onCC():void
+			{	   								
+				//graphics to help indicate where values refer
+				this.graphics.lineStyle(1,0xCCCCCC,1)
+				
+				//temp out
+				/*
+				this.graphics.moveTo(425,150)
+				this.graphics.lineTo(425,185)
+				this.graphics.drawCircle(425,190,5)
+				
+				this.graphics.moveTo(355,400)
+				this.graphics.lineTo(400,400)
+				this.graphics.drawCircle(405,400,5)
+				*/
+			}
+
+			[Mediate(event="ScenarioLoadedEvent.SCENARIO_LOADED")]
+			public function scenarioLoaded(event:ScenarioLoadedEvent):void
+			{																												
+				//set visibility of labels	
+				/*	
+				lblCHLcondout.visible=lblCHLcondout_Title.visible=scenarioModel.getSysVar("CHLcondout").visible
+				lblCTWtout.visible=lblCTWtout_Title.visible=scenarioModel.getSysVar("CTWtout").visible
+				lblCHLcondflow.visible=lblCHLcondflow_Title.visible=scenarioModel.getSysVar("CHLcondflow").visible		
+				*/			
+			}
+
+
+			
+		]]>
+	</mx:Script>
+	
+	
+	<!--
+	<mx:Label id="lblCHLcondout_Title" text="Inlet Water Temp.: "  styleName="overlayTitle"
+					 x="200" y="395" textAlign="right" width="150"/>
+	<overlay:ValueDisplayLabel id="lblCHLcondout" text="0" 
+		sysVarName="CHLcondout"
+		styleName="overlayValue"
+		x="200" y="410"
+		textAlign="right" width="150"/>
+	
+	
+	<mx:Label id="lblCTWtout_Title" text="Outlet Water Temp.: "  styleName="overlayTitle"
+					 x="420" y="75" />
+	<overlay:ValueDisplayLabel id="lblCTWtout" 
+		sysVarName="CTWtout"
+		text="0" styleName="overlayValue"
+		x="420" y="90" />
+		
+		
+	<mx:Label id="lblCHLcondflow_Title" 
+		text="Outlet Water Flow Rate: "  
+		styleName="overlayTitle"
+		x="420" y="115" />
+	<overlay:ValueDisplayLabel id="lblCHLcondflow" 
+		sysVarName="CHLcondflow"
+		text="0" styleName="overlayValue"
+		x="420" y="130" />
+	-->
+	
+</overlay:OverlayBase>

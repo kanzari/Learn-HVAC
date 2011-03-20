@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox 	xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:validator="com.mcquilleninteractive.learnhvac.view.validators.*"
+			width="335" 
+			height="55"
+			paddingTop="5"
+			paddingLeft="6" 
+			horizontalScrollPolicy="off"
+			verticalScrollPolicy="off"
+			creationComplete="onCC()"
+			>
+	
+	<mx:Script>
+		<![CDATA[
+			import com.mcquilleninteractive.learnhvac.event.CloseScenarioEvent;
+			import com.mcquilleninteractive.learnhvac.event.LongTermImportEvent;
+			import com.mcquilleninteractive.learnhvac.event.ResetInputsEvent;
+			import com.mcquilleninteractive.learnhvac.event.SysVarInfoPopupEvent;
+			import com.mcquilleninteractive.learnhvac.event.UnitsEvent;
+			import com.mcquilleninteractive.learnhvac.model.ScenarioModel;
+			import com.mcquilleninteractive.learnhvac.util.Logger;
+			
+			import mx.controls.Image;
+			import mx.core.DragSource;
+			import mx.events.ValidationResultEvent;
+			import mx.managers.DragManager;
+			import mx.validators.NumberValidator;
+			
+			import org.swizframework.Swiz;
+       		
+       		[Embed(source='assets/DawaAssets.swf', symbol='mcInfoIconUp')]
+			[Bindable]
+			private var InfoIconUp:Class
+	       		
+			[Embed (source = '/assets/img/brick.png')]
+ 			[Bindable]
+ 			public var icoSysVar : Class;   			
+ 			
+			[Embed (source = '/assets/img/long_term_import_icon.png')]
+ 			[Bindable]
+ 			public var iconLTImport : Class;      		
+ 			
+ 			[Embed (source = '/assets/img/long_term_import_icon_disabled.png')]
+ 			[Bindable]
+ 			public var iconLTImportDisabled : Class;      		 			
+ 			
+			[Embed (source = '/assets/img/long_term_export_icon.png')]
+ 			[Bindable]
+ 			public var iconLTExport : Class;      
+ 			
+ 			[Bindable]
+			public var importEnabled:Boolean = false
+			
+			//flag for user change to input value
+			protected var _isDirty:Boolean = false; 
+			
+						
+			[Bindable]
+			protected var _sysVarEnabled:Boolean = true;
+			 				
+			protected function onCC():void
+			{
+				Swiz.addEventListener(UnitsEvent.UNITS_CHANGED, onUnitsChanged, false, 0, true)
+				Swiz.addEventListener(LongTermImportEvent.RUN_CHANGED, onLTRunToImportChanged, false, 0, true)
+				Swiz.addEventListener(ResetInputsEvent.SHORT_TERM_INPUTS_RESET, onReset, false, 0, true)
+					
+			}
+			
+			protected function onReset(event:ResetInputsEvent):void
+			{
+				refresh()
+			}
+			
+			protected function onUnitsChanged(event:UnitsEvent):void
+			{
+				refresh()
+			}
+						
+			public function onLTRunToImportChanged(event:LongTermImportEvent):void
+			{
+				if (event.runToImport==ScenarioModel.LT_IMPORT_NONE)
+				{
+				
+					imgLTImportIcon.source = new iconLTImportDisabled()
+					imgLTImportIcon.invalidateProperties()
+					imgLTImportIcon.toolTip = "This variable will be imported from the Long Term Simulation, but no long-term run has been selected."
+				}
+				else
+				{
+					
+					imgLTImportIcon.source = new iconLTImport()
+					imgLTImportIcon.invalidateProperties()
+					imgLTImportIcon.toolTip = "This variable is imported from the Long Term Simulation"
+				}
+			}
+			
+			override public function set data(value:Object):void
+      		{
+				super.data = value
+      			if (value!=null)
+      			{
+      				if (data.name == "SYSTAirDB")
+      				{
+      					Logger.debug("set data",this)
+      				}
+					
+	      			if (value.disabled)
+	      			{
+	      				txtInputItem.toolTip = "This input field has been disabled in this Scenario"
+	      			}
+	      			_sysVarEnabled = !value.disabled	
+	      			_isDirty = (data.localValue != data.currValue)
+	      			setBackground()
+      			}
+      			else
+      			{
+      				Logger.warn("#InputItem: " + InputItem + " passed a null data value. parent: " + this.parent)
+      				 
+      			}      			
+      		}
+      		
+      		public function refresh():void
+      		{ 			
+	      		if (data!=null) 
+	      		{
+	      			data.localValue = data.currValue
+      				_isDirty = false
+      				setBackground()      				
+      			}
+      			callLater(numV.validate)
+      		}
+      		
+      		private function setBackground():void
+      		{      			
+	      		if (_isDirty)
+				{
+					txtInputItem.setStyle("backgroundColor",0xFFFF99)
+				}
+				else
+				{
+					txtInputItem.setStyle("backgroundColor",0xFFFFFF)
+				}
+      		}
+      		
+      		
+      	
+			public function resetBg():void
+			{
+				Logger.debug("resetBg()",this)
+				//called by parent when update has been made and all inputs are current
+				txtInputItem.setStyle("backgroundColor",0xFFFFFF)
+				_isDirty=false
+			}
+								
+			public function outFocusHandler(event:Event):void
+			{
+				Logger.debug("onFocusHander()",this)
+				data.localValue = Number(txtInputItem.text)
+				_isDirty = (data.localValue != data.currValue) 				
+				setBackground()		
+			}
+					
+			
+			public function showInfoPanel():void
+			{
+				//TEMP
+				numV.validate()
+				
+				var event:SysVarInfoPopupEvent = new SysVarInfoPopupEvent(SysVarInfoPopupEvent.SHOW_INFO, true)
+				event.sysVarDescription = data.description
+				event.lowValue = data.lowValue
+				event.highValue = data.highValue
+				event.sysVarDisplayName = data.displayName
+				event.sysVarName = data.name
+				dispatchEvent(event)
+			}
+			
+			public function hideInfoPanel():void
+			{
+				var event:SysVarInfoPopupEvent = new SysVarInfoPopupEvent(SysVarInfoPopupEvent.HIDE_INFO, true)
+				dispatchEvent(event)
+			}
+									
+			public function onDrag(event:MouseEvent):void
+			{
+				 // Get the drag initiator component from the event object.
+            	 var dragInitiator:Image = event.currentTarget as Image;
+    
+            	 // Create a DragSource object.
+            	 var dragSource:DragSource = new DragSource();
+                
+            	 var itemArr:Array = [data]
+                        
+            	 dragSource.addData(itemArr, "items")
+                        
+             	// Create a copy of the graph image to use as a drag proxy.
+             	var dragProxy:Image = new Image();
+            	dragProxy.source = icoSysVar
+            	//dragProxy.x = inputsAndFaults.mouseX - 7
+            	//dragProxy.y = inputsAndFaults.mouseY - 7
+    
+             	// Call the DragManager doDrag() method to start the drag. 
+             	DragManager.doDrag(dragInitiator, dragSource, event, dragProxy, 0, 0, 1);
+			
+			}
+		
+ 			
+		]]>
+	</mx:Script>
+	
+	<!-- trying to get two-way binding -->
+	
+	<mx:NumberValidator id="numV" 
+        source="{txtInputItem}" 
+        property="text" 
+        minValue="{data.lowValue}" 
+        maxValue="{data.highValue}"
+        lowerThanMinError="The minimum allowed value is {data.lowValue}"
+        exceedsMaxError="The maximum allowed value is {data.highValue}"
+        />
+       
+	<mx:Text width="135" height="50" id="lblVarName" 
+		text="{data.displayName}" 
+		toolTip="{data.displayName}" 
+		fontSize="10"/>
+	<mx:TextInput 	id="txtInputItem"
+					width="65" 
+					height="20"
+					text="{data.localValue}"  
+					enabled="{_sysVarEnabled}"
+					focusOut="outFocusHandler(event)"/>
+	
+	<mx:Text width="30" height="35" fontSize="10"  id="lblUnits" text="{data.units}" />
+	<mx:Spacer width="15"/>
+	<mx:VBox>
+	
+		<mx:Button 	id="btnInfo" 
+				upSkin="{InfoIconUp}" 
+				overSkin="{InfoIconUp}"
+				downSkin="{InfoIconUp}" 
+				mouseOver="showInfoPanel()"
+				mouseOut="hideInfoPanel()"
+				/>	
+		<mx:Image source="{icoSysVar}" 
+			  mouseDown = "onDrag(event)"
+			  toolTip="Drag icon to watch panel"
+			  />
+		
+	</mx:VBox>
+	<mx:VBox>
+		<mx:Image id="imgLTImportIcon" 
+					source="{this.iconLTImportDisabled}" 
+			  		toolTip="This variable will be imported from the Long Term Simulation, but no long-term run has been selected."
+			  		visible="{this.data.isImportedFromLongTermSimToShortTermSim}"
+			  />
+		<mx:Image id="imgLTExportIcon" 
+					source="{iconLTExport}" 
+			  		toolTip="This variable is exported to the Long Term Simulation"
+			  		visible="{this.data.isImportedFromShortTermSimToLongTermSim}"
+			  />
+		
+	</mx:VBox>
+	
+			  
+	
+</mx:HBox>

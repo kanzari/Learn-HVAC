@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<overlay:OverlayBase  xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns:overlay="com.mcquilleninteractive.learnhvac.view.shortterm.overlay.*"
+	width="670" height="500" 
+    
+	creationComplete="onCC()">
+	
+	<mx:Script>
+		<![CDATA[						
+			import com.mcquilleninteractive.learnhvac.model.ApplicationModel
+			import com.mcquilleninteractive.learnhvac.model.ScenarioModel
+            import com.mcquilleninteractive.learnhvac.util.Logger
+            import mx.controls.Label 
+            import com.mcquilleninteractive.learnhvac.model.SystemVariable
+			
+   			import com.mcquilleninteractive.learnhvac.event.ScenarioLoadedEvent;
+			import com.mcquilleninteractive.learnhvac.event.UnitsEvent
+   			  		            			
+		    private var fuelUnits:String
+		    
+			public function onCC():void
+			{	
+	   			
+	   								
+				//graphics to help indicate where values refer
+				this.graphics.lineStyle(1,0xCCCCCC,1)
+				
+				//temp out
+				this.graphics.moveTo(160,115)
+				this.graphics.lineTo(160,190)
+				this.graphics.drawCircle(160,195,5)
+				
+				//temp in
+				this.graphics.moveTo(165,415)
+				this.graphics.lineTo(165,365)
+				this.graphics.drawCircle(165,360,5)
+				
+				//fuel rate
+				/*
+				this.graphics.moveTo(395,415)
+				this.graphics.lineTo(395,335)
+				this.graphics.drawCircle(395,330,5)
+				*/				
+				
+			}
+								
+			[Mediate(event="ScenarioLoadedEvent.SCENARIO_LOADED")]
+			public function scenarioLoaded(event:ScenarioLoadedEvent):void
+			{										
+				//set visibility of labels					
+				var varArr:Array = ["BOITLiqSup","BOILiqFlw","BOITLiqEnt"]									
+				setLabels(varArr) 	 				
+						
+			}
+			
+			
+			
+		]]>
+	</mx:Script>
+	
+	
+	<!--
+	<mx:Label id="lblBOIfuel_Title" text="Fuel Consumption Rate: "  styleName="overlayTitle"
+					 x="395" y="420"/>
+	<overlay:ValueDisplayLabel id="lblBOIfuel" text="0" 
+		styleName="overlayValue"
+		x="395" y="435" 
+		textAlign="left" 
+		sysVarName="BOIfuel"
+		width="150"/>
+	-->		
+	
+	
+	<mx:Label id="lblBOITLiqSup_Title" text="Temperature Out: "  styleName="overlayTitle"
+					 x="15" y="40" textAlign="right" width="150"/>
+	<overlay:ValueDisplayLabel id="lblBOITLiqSup" 
+		sysVarName="BOITLiqSup"
+		text="0" 
+		styleName="overlayValue"
+		x="15" y="55" 
+		textAlign="right"
+		 width="150"/>
+		
+	
+	<mx:Label id="lblBOILiqFlw_Title" text="Water Flow Rate: "  styleName="overlayTitle"
+					 x="15" y="75" textAlign="right" width="150"/>
+	<overlay:ValueDisplayLabel id="lblBOILiqFlw" text="0"
+		sysVarName="BOILiqFlw"
+		precision="4"
+		styleName="overlayValue"
+		x="15" y="90" 
+		textAlign="right"
+		width="150"/>	
+		
+	
+	<mx:Label id="lblBOITLiqEnt_Title" text="Temperature In: "  styleName="overlayTitle"
+					 x="20" y="415" textAlign="right" width="150"/>
+	<overlay:ValueDisplayLabel id="lblBOITLiqEnt" text="0" 
+		styleName="overlayValue"
+		sysVarName="BOITLiqEnt"
+		x="20"
+		y="430" 
+		textAlign="right"
+		width="150"/>	
+		
+</overlay:OverlayBase>

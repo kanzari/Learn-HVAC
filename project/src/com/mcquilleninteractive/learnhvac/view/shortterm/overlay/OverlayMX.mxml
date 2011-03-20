@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<overlay:OverlayBase  xmlns:mx="http://www.adobe.com/2006/mxml" 
+    	xmlns:overlay="com.mcquilleninteractive.learnhvac.view.shortterm.overlay.*"
+		width="670" height="500"  
+		creationComplete="onCC()"
+	    horizontalScrollPolicy="off"
+		>
+	
+	
+	<mx:Script>
+		<![CDATA[
+			
+			import com.mcquilleninteractive.learnhvac.model.ApplicationModel
+			import com.mcquilleninteractive.learnhvac.model.ScenarioModel
+            import com.mcquilleninteractive.learnhvac.util.Logger
+            import mx.controls.Label 
+            import com.mcquilleninteractive.learnhvac.model.SystemVariable
+			
+   			import com.mcquilleninteractive.learnhvac.event.ScenarioLoadedEvent;
+			import com.mcquilleninteractive.learnhvac.event.UnitsEvent
+   			        			        			
+		            			
+			public function onCC():void
+			{
+				//draw little helpful lines on overlay
+				this.graphics.lineStyle(1,0xAAAAAA,1)
+				this.graphics.moveTo(137,195)
+				this.graphics.lineTo(150,195)
+				this.graphics.lineTo(150,205)
+				
+				this.graphics.moveTo(365,195)
+				this.graphics.lineTo(375,195)
+				this.graphics.lineTo(375,205)
+				
+				this.graphics.moveTo(605,155)
+				this.graphics.lineTo(605,165)
+				this.graphics.lineTo(590,165)
+				
+				
+			}
+			
+			[Mediate(event="ScenarioLoadedEvent.SCENARIO_LOADED")]
+			public function scenarioLoaded(event:ScenarioLoadedEvent):void
+			{																												
+				//set visibility of labels	
+				var varArr:Array = ["SYSTAirDB","MXTAirRet","MXTAirMix",
+									"MXIntDampPos","MXRtnDampPos","MXExDampPos",
+									"MXMARH"]
+				
+				setLabels(varArr)
+						
+			}
+			
+			
+	
+		]]>
+	</mx:Script>	
+	
+	<mx:Label id="lblSYSTAirDB_Title" 
+			  	text="Outside Air Dry Bulb Temp: "  
+			  	styleName="overlayTitle"
+				x="100" y="90" 
+				width="150" 
+				textAlign="right"/>
+	<overlay:ValueDisplayLabel id="lblSYSTAirDB" 
+				text="0" 
+				sysVarName="SYSTAirDB"
+				styleName="overlayValue"
+				x="255" y="90" 
+				textAlign="left"
+				width="107"/>
+	
+	
+	<mx:Label 	id="lblSYSRHOutside_Title"
+				text="Rel. Humidity: "  
+				toolTip="Outdoor Air Relative Humidity"
+				styleName="overlayTitle" 
+				textAlign="right"
+				width="150" 
+				x="100" y="105" />
+	
+	<overlay:ValueDisplayLabel 	
+		id="lblSYSRHOutside" 
+		sysVarName="SYSRHOutside"
+		text="0" 
+		styleName="overlayValue" 
+		toolTip="Outdoor Air Relative Humidity"
+		x="255" y="105" />
+	
+	<!--				
+	<mx:Label id="lblMXTExhaust_Title" text="Exhaust Air&#13;Temp: "  styleName="overlayTitle"
+					  x="0" y="240" height="40" textAlign="right" width="70" />
+	<mx:Label id="lblMXTExhaust" text="0" styleName="overlayValue"
+					  x="0" y="275"
+					width="70" 
+					textAlign="right"
+					 />
+	-->				
+	
+	
+	
+	<mx:Label id="lblMXExDampPos_Title" 
+		text="Damper&#13;position: " 
+		styleName="overlayTitle"
+		x="30" y="150" 
+		height="40"
+		textAlign="right"
+		width="100" />	
+	<overlay:ValueDisplayLabel id="lblMXExDampPos" 		
+		sysVarName="MXExDampPos"
+		text="0" 
+		styleName="overlayValue"
+		x="30" y="185"  
+		textAlign="right" 
+		width="100"/>
+	
+								
+	<mx:Label id="lblMXRtnDampPos_Title" 
+		text="Damper&#13;position: "
+		styleName="overlayTitle"
+		x="260" y="150" 
+		height="40" 
+		textAlign="right" 
+		width="100" />	
+	<overlay:ValueDisplayLabel id="lblMXRtnDampPos"
+		sysVarName="MXRtnDampPos"
+		text="0" 
+		styleName="overlayValue"
+		x="260" y="185"  
+		textAlign="right"
+		width="100"/>						
+								
+	<mx:Label id="lblMXIntDampPos_Title"
+		text="Damper&#13;position: "
+		styleName="overlayTitle"
+		x="595" y="85" 
+		height="40" 
+		textAlign="left" 
+		width="100" />	
+	<overlay:ValueDisplayLabel id="lblMXIntDampPos"
+		sysVarName="MXIntDampPos"
+		text="0" styleName="overlayValue"
+		x="595" y="125"  
+		textAlign="left" 
+		width="100"/>		
+								
+								
+					
+	<mx:Label 	id="lblMXTAirRet_Title" 
+			  	text="Return Air Temp: " 
+			  	styleName="overlayTitle"
+				x="72" y="440" 
+				textAlign="right" 
+				width="100" />
+	<overlay:ValueDisplayLabel id="lblMXTAirRet" 
+				sysVarName="MXTAirRet"
+				text="0" 
+				styleName="overlayValue" 
+				x="72" y="460"  
+				textAlign="right" 
+				width="100"/>
+					
+	<mx:Label id="lblMXTAirMix_Title" 
+			  	text="Mixed Air Temp: " 
+			  	styleName="overlayTitle"
+				color="0x000000" 
+				x="455" y="250" 
+				width="100"
+				textAlign="right"/>
+	<overlay:ValueDisplayLabel id="lblMXTAirMix"
+				sysVarName="MXTAirMix"
+		 		text="0" 
+				styleName="overlayValue"
+				color="0x000000" 
+				width="100"
+				textAlign="right"
+				x="450" y="270" />
+	
+	<mx:Label id="lblMXMARH_Title" 
+			  text="Mixed Air Rel. Humidity: " 
+			  toolTip="Mixed Air Relative Humidity"
+			  styleName="overlayTitle"
+			  color="0x000000" 
+			  x="405" y="300" 
+			  width="150"
+			  textAlign="right"/>
+	<overlay:ValueDisplayLabel id="lblMXMARH"
+							   sysVarName="MXMARH"
+							   text="0" 
+							   styleName="overlayValue"
+							   color="0x000000" 
+							   width="100"
+							   textAlign="right"
+							   x="450" y="320" />
+
+</overlay:OverlayBase>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<overlay:OverlayBase  xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns:overlay="com.mcquilleninteractive.learnhvac.view.shortterm.overlay.*"
+	width="670" height="500"
+	creationComplete="onCC()"
+	>
+
+	<mx:Script>
+		<![CDATA[
+			
+			import com.mcquilleninteractive.learnhvac.model.ApplicationModel
+			import com.mcquilleninteractive.learnhvac.model.ScenarioModel
+            import com.mcquilleninteractive.learnhvac.util.Logger
+            import mx.controls.Label 
+            import com.mcquilleninteractive.learnhvac.model.SystemVariable
+			
+   			import com.mcquilleninteractive.learnhvac.event.ScenarioLoadedEvent;
+			import com.mcquilleninteractive.learnhvac.event.UnitsEvent
+   			import mx.core.UIComponent
+		            			
+		    
+		    //lines that help illustration location
+		    private var FANAirFlw_line:UIComponent
+		    private var VAVTAirLvg_line:UIComponent
+		    		    
+		            			
+			public function onCC():void
+			{
+				//lines that show relation of labels to motion on screen 
+				FANAirFlw_line = new UIComponent()
+				var line1:Shape = new Shape()
+				line1.graphics.lineStyle(1,0xCCCCCC,1)
+				line1.graphics.moveTo(298,34)
+				line1.graphics.lineTo(340,34)
+				line1.graphics.lineTo(340,102)
+				line1.graphics.drawCircle(340,105,5)
+				this.addChild(FANAirFlw_line)
+				FANAirFlw_line.addChild(line1)	
+				
+				VAVTAirLvg_line = new UIComponent()
+				line1 = new Shape()
+				line1.graphics.lineStyle(1,0xCCCCCC,1)
+				line1.graphics.moveTo(255,80)
+				line1.graphics.lineTo(340,80)
+				line1.graphics.lineTo(340,102)
+				line1.graphics.drawCircle(340,105,5)
+				this.addChild(VAVTAirLvg_line)	
+				VAVTAirLvg_line.addChild(line1)	
+				
+   					
+			}
+			
+			[Mediate(event="ScenarioLoadedEvent.SCENARIO_LOADED")]
+			public function scenarioLoaded(event:ScenarioLoadedEvent):void
+			{							
+				//set visibility of labels	
+				var varArr:Array = ["VAVTAirLvg","FANAirFlw","RMTemp"]
+				
+				setLabels(varArr)				 	
+			   				
+			}
+
+			
+			
+		]]>
+	</mx:Script>
+
+	<mx:Label 	id="lblFANAirFlw_Title" 
+			  	text="Entering Air Mass flow rate: " 
+			  	styleName="overlayTitle"
+				x="156" y="25" />
+	<overlay:ValueDisplayLabel id="lblFANAirFlw" 
+				sysVarName="FANAirFlw"
+				text="0" 
+				styleName="overlayValue"
+				x="157" y="45" />
+	
+	<mx:Label id="lblVAVTAirLvg_Title" 
+			  	text="Entering Air Temp: " 
+			  	styleName="overlayTitle"
+				x="156" y="70" />
+	<overlay:ValueDisplayLabel id="lblVAVTAirLvg"
+				sysVarName="VAVTAirLvg"
+				text="0" 
+				styleName="overlayValue"
+				x="157" y="90" />
+
+	<mx:Label id="lblRMTemp_Title" 
+			  	text="Room Temp: " 
+				styleName="overlayTitle"					
+				x="300" y="270" />
+	<overlay:ValueDisplayLabel id="lblRMTemp" 
+				sysVarName="RMTemp"
+				text="0" 
+				styleName="overlayValue"
+				x="300" y="290" />
+
+	</overlay:OverlayBase>

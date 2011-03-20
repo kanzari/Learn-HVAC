@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:view="com.mcquilleninteractive.learnhvac.view.*"
+	xmlns:viewControllers="com.mcquilleninteractive.learnhvac.view.controllers.*"
+	paddingTop="5"
+	paddingBottom="5"
+	height="40" width="100%" 
+	styleName="controlBar"
+    horizontalGap="5"
+    creationComplete="onCC()"
+	verticalScrollPolicy="off">
+	
+	<mx:Metadata>
+		[Event(name="onStartLTSimulation", type="flash.events.Event")]		
+	</mx:Metadata>
+	
+	<mx:Script>
+		<![CDATA[
+		
+			import com.mcquilleninteractive.learnhvac.model.ScenarioModel
+			import com.mcquilleninteractive.learnhvac.event.ScenarioLoadedEvent
+		            
+			[Bindable]
+			[Autowire]
+			public var scenarioModel:ScenarioModel	
+						
+		
+			public function onCC():void
+			{			
+			}
+			
+			[Mediate(event="ScenarioLoadedEvent.SCENARIO_LOADED")]
+			public function onScenarioLoaded(cgEvent:Event):void
+			{
+				lblScenarioName.text = scenarioModel.name
+			}
+			
+			public function startSimulation():void
+			{	
+				dispatchEvent(new Event("onStartLTSimulation"))
+			}
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Spacer width="10"/>
+	
+	<mx:Button id="btnRunEPlus" 
+		label="Start Simulation" 
+		toolTip="Start long-term simulation"
+	    icon="@Embed('assets/img/control_start.png')"
+		width="160"
+		height="30" 
+		styleName="btnBottomBar"
+		click="startSimulation()"
+	/>
+	
+		
+	<mx:Spacer 	width="100%" />		
+	
+	
+	
+	<mx:VBox width="400" 
+			 height="30"
+			 id="hbScenarioName"
+			 paddingTop="5"
+			 horizontalAlign="right"
+			 horizontalScrollPolicy="off"
+			 paddingLeft="10"	 
+			 verticalScrollPolicy="off" >
+		
+		<mx:HBox paddingRight="10">
+			<mx:Label text="Current scenario:" color="#FFFFFF"/>
+			<mx:Label id="lblScenarioName" text="{scenarioModel.name}" color="#FFFFFF" />
+		</mx:HBox>
+	</mx:VBox>
+	
+		
+				
+	
+</mx:HBox>

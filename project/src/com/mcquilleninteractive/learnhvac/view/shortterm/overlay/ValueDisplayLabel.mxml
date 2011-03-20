@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Label xmlns:mx="http://www.adobe.com/2006/mxml"
+	initialize="onInit()"
+	creationComplete="onCC()"
+	>
+	
+	<mx:Script>
+		<![CDATA[
+			import com.mcquilleninteractive.learnhvac.event.ScenarioLoadedEvent;
+			import com.mcquilleninteractive.learnhvac.event.ShortTermSimulationEvent;
+			import com.mcquilleninteractive.learnhvac.event.UnitsEvent;
+			import com.mcquilleninteractive.learnhvac.model.ApplicationModel;
+			import com.mcquilleninteractive.learnhvac.model.ScenarioModel;
+			import com.mcquilleninteractive.learnhvac.model.SystemVariable;
+			import com.mcquilleninteractive.learnhvac.util.Logger;
+			
+			import mx.formatters.NumberFormatter;
+			
+			import org.swizframework.Swiz;
+			
+			
+			
+			[Bindable]
+			[Autowire]
+			public var scenarioModel:ScenarioModel
+						
+			private var _numFormatter:NumberFormatter 
+			private var _units:String = ""
+			private var _sysVarName:String = ""
+			private var _sysVar:SystemVariable
+			private var _usePercent:Boolean = false
+			private var _precision:Number = 2
+			
+			public function onInit():void
+			{				
+				_numFormatter = new NumberFormatter()
+				_numFormatter.rounding = "nearest"
+				_numFormatter.precision = _precision
+						
+			}
+			
+			public function onCC():void
+			{
+				Swiz.addEventListener(ScenarioLoadedEvent.SCENARIO_LOADED, scenarioLoaded)
+				Swiz.addEventListener(ShortTermSimulationEvent.SIM_OUTPUT_RECEIVED, onShortTermOutputUpdated)
+			}
+			
+			public function scenarioLoaded(event:ScenarioLoadedEvent):void
+			{						
+				_sysVar = scenarioModel.getSysVar(_sysVarName)
+						
+				
+				if (_sysVar!=null)
+				{
+					_units = _sysVar.units
+				}				
+				else
+				{
+					Logger.error("Couldn't find sysVarName: " + _sysVarName, this)
+				}
+				
+				//call update function just to get labels showing initial loaded values
+				onShortTermOutputUpdated(null)
+			}
+			
+			public function refresh():void
+			{
+				_sysVar = scenarioModel.getSysVar(_sysVarName)
+			}
+			
+			public function onShortTermOutputUpdated(event:ShortTermSimulationEvent):void
+			{				
+				
+				if (_sysVar==null)
+				{
+					Logger.warn("Can't find system variable " + _sysVarName + " for ValueDisplayLabel", this)	
+					return					
+				} 
+				var value:Number = _sysVar.currValue
+				
+				//add units or other ending
+				if (_usePercent)
+				{
+					this.text = String(uint(value*100)) + "%"
+				}
+				else
+				{
+					this.text = _numFormatter.format(value).toString() + " " +_units
+				}
+			}
+			
+			[Mediate(event="UnitsEvent.UNITS_CHANGED")]					
+			public function onUnitsChange(event:UnitsEvent):void
+			{
+				if (_sysVar) _units = _sysVar.units
+				//refresh the display
+				onShortTermOutputUpdated(null)
+			}
+			
+			
+			/** Set the number of decimals this lable should show */
+			public function set precision(numDecimals:Number):void
+			{
+				_precision = numDecimals
+				if (_numFormatter)
+					_numFormatter.precision = _precision
+			}
+			
+			public function showValue(value:Number):void
+			{
+				this.text = _numFormatter.format(value).toString() + _units
+			}
+			
+			public function set sysVarName(sysVarName:String):void
+			{
+				_sysVarName = sysVarName					
+			}
+			
+			public function set usePercent(value:Boolean):void
+			{
+				_usePercent = value
+			}
+			
+			
+			
+		]]>
+	</mx:Script>
+	
+	
+</mx:Label>

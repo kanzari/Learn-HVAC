@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:LinkButton xmlns:mx="http://www.adobe.com/2006/mxml"
+    click="onClick()"
+    color="#BBBBBB"
+    label="{ApplicationModel.currUnits}"
+	toolTip="{_toolTip}"
+	>
+	
+	<mx:Script>
+		<![CDATA[
+			import com.mcquilleninteractive.learnhvac.event.SettingsEvent;
+			import com.mcquilleninteractive.learnhvac.event.UnitsEvent;
+			import com.mcquilleninteractive.learnhvac.model.ApplicationModel;
+			import com.mcquilleninteractive.learnhvac.util.Logger;
+			
+			[Bindable]
+			private var _toolTip:String = "";
+			
+			[Bindable]
+			[Autowire]
+			public var applicationModel:ApplicationModel
+						
+						
+			[Mediate(event="UnitsEvent.UNITS_CHANGED")]
+			public function onUnitsChange(event:UnitsEvent):void
+			{
+				if (ApplicationModel.currUnits=="SI")
+				{
+					_toolTip = "Click to change to IP units"
+				}
+				else
+				{					
+					_toolTip = "Click to change to SI units"
+				}
+			}
+			
+			private function onClick():void
+			{	
+				var newUnits:String
+					
+				if (this.label == "SI")
+				{
+					newUnits = "IP"
+				}
+				else
+				{
+					newUnits = "SI"
+				}
+							
+				var evt:UnitsEvent = new UnitsEvent(UnitsEvent.CHANGE_UNITS,true)
+				evt.units = newUnits
+				dispatchEvent(evt)
+			}
+				
+			
+		]]>
+	</mx:Script>
+	
+</mx:LinkButton>

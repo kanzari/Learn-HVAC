@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<overlay:OverlayBase  xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns:overlay="com.mcquilleninteractive.learnhvac.view.shortterm.overlay.*"
+	 width="670" height="500"
+	 creationComplete="onCC()">
+	
+	<mx:Script>
+		<![CDATA[
+		
+			import com.mcquilleninteractive.learnhvac.model.ApplicationModel
+			import com.mcquilleninteractive.learnhvac.model.ScenarioModel
+            import com.mcquilleninteractive.learnhvac.util.Logger
+            import mx.controls.Label 
+            import com.mcquilleninteractive.learnhvac.model.SystemVariable
+			
+   			import com.mcquilleninteractive.learnhvac.event.ScenarioLoadedEvent;
+			import com.mcquilleninteractive.learnhvac.event.UnitsEvent
+   			import com.mcquilleninteractive.learnhvac.event.ShowSchematicEvent
+   						
+		   			
+			[Embed(source='assets/DawaAssets.swf', symbol='HCValveOff')]
+			[Bindable]
+			private var HCValveOff:Class
+			
+			
+			[Embed(source='assets/DawaAssets.swf', symbol='HCValveOn')]
+			[Bindable]
+			private var HCValveOn:Class			
+   						
+   			
+			public function onCC():void
+			{
+			}
+			
+			
+			[Mediate(event="ScenarioLoadedEvent.SCENARIO_LOADED")]
+			public function scenarioLoaded(event:ScenarioLoadedEvent):void
+			{																					
+				//set visibility of labels					
+				var varArr:Array = ["HCTLiqEnt","HCPos","HCTAirEnt",
+									"HCTAirLvg","HCTLiqLvg", "BOILiqFlw"]
+									
+				setLabels(varArr) 				  				
+			}
+			
+									
+			
+			public function onHCValveClick(event:Event):void
+			{
+				var evt:ShowSchematicEvent = new ShowSchematicEvent(ShowSchematicEvent.SHOW_HC_LIQUIDS_POPUP, true)
+				dispatchEvent( evt )
+			}
+			
+		]]>
+	</mx:Script>
+	 
+	
+	 
+	 
+	<mx:Button 	id="btnHCValveSchematic"
+				x="160" y="350" click="onHCValveClick(event)"
+			    useHandCursor="true"
+				upSkin="{HCValveOff}" 
+				overSkin="{HCValveOn}"
+				downSkin="{HCValveOn}" />
+		
+		
+	<mx:Label id="lblHCPos_Title"  
+				x="40" y="330"
+				textAlign="right"
+				width="120" 
+				text="Valve Pos: " 
+				styleName="overlayTitle"
+			    color="0x000000"
+				/>
+			
+	<overlay:ValueDisplayLabel id="lblHCPos" 
+				sysVarName="HCPos"
+				x="40" y="350"
+				width="120" 
+				text="0" 
+				styleName="overlayValue" 
+				textAlign="right"
+			    color="0x000000"
+				/>	
+		
+		
+	<mx:Label id="lblHCTAirEnt_Title"  
+				x="100" y="80"
+				textAlign="right"
+				width="120" 
+				text="Entering Air Temp: " 
+				styleName="overlayTitle"
+				/>
+			
+	<overlay:ValueDisplayLabel id="lblHCTAirEnt" 
+				sysVarName="HCTAirEnt"
+				x="100" y="100"
+				width="120" 
+				text="0" 
+				styleName="overlayValue" 
+				textAlign="right"
+				/>
+					
+					
+					
+	<mx:Label id="lblHCTAirLvg_Title" 
+					x="360" y="117"
+					text="Leaving Air Temp: " 
+					styleName="overlayTitle"
+					  />
+					  
+	<overlay:ValueDisplayLabel id="lblHCTAirLvg" 
+				sysVarName="HCTAirLvg"
+					x="360" y="137"
+					text="0" 
+					styleName="overlayValue"
+					   />
+					   
+					   
+					   
+	<mx:Label id="lblHCTLiqEnt_Title" 
+					x="300" y="200" 
+					text="Entering Liq. Temp: " 
+					styleName="overlayTitle"
+					  />
+					  
+	<overlay:ValueDisplayLabel id="lblHCTLiqEnt" 
+					sysVarName="HCTLiqEnt"
+		 			x="300" y="230"
+		 			text="0" 
+		 			styleName="overlayValue"
+					/>
+
+	<mx:Label id="lblBOILiqFlw_Title" 
+			  text="Entering Liq. Flow: " 
+			  styleName="overlayTitle"
+			  x="300" y="270"/>
+
+	<overlay:ValueDisplayLabel id="lblBOILiqFlw" 							   
+							   sysVarName="BOILiqFlw"
+							   text="0" 
+							   precision="4"
+							   styleName="overlayValue"
+							   x="300" y="290" />
+					
+					
+	<mx:Label id="lblHCTLiqLvg_Title" 
+					x="115" y="240"
+					width="120" 
+					text="Leaving Liq. Temp: " 
+					styleName="overlayTitle"
+					textAlign="right"
+					/>
+	<overlay:ValueDisplayLabel id="lblHCTLiqLvg" 
+				sysVarName="HCTLiqLvg"
+				text="0"
+					x="115" y="260"
+					width="120"
+					styleName="overlayValue"
+					textAlign="right" />
+					 
+					 
+	
+</overlay:OverlayBase>

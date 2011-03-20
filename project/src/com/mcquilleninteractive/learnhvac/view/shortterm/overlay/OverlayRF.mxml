@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<overlay:OverlayBase  xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns:overlay="com.mcquilleninteractive.learnhvac.view.shortterm.overlay.*"
+	width="670" height="500"
+	creationComplete="onCC()" >
+	<mx:Script>
+		<![CDATA[
+			
+			import com.mcquilleninteractive.learnhvac.model.ScenarioModel
+            import com.mcquilleninteractive.learnhvac.util.Logger
+            import mx.controls.Label 
+            import com.mcquilleninteractive.learnhvac.model.SystemVariable
+			
+   			import com.mcquilleninteractive.learnhvac.event.ScenarioLoadedEvent;
+			import com.mcquilleninteractive.learnhvac.event.UnitsEvent
+   		
+		              				 
+		    
+			public function onCC():void
+			{		
+			}
+				
+			[Mediate(event="ScenarioLoadedEvent.SCENARIO_LOADED")]					
+			public function scenarioLoaded(event:ScenarioLoadedEvent):void
+			{	
+				//set visibility of labels	
+				var varArr:Array = ["SYSTAirDB"]
+				
+				setLabels(varArr)
+			}
+						
+		]]>
+	</mx:Script>
+	<mx:Label id="lblSYSTAirDB_Title" text="Outside Air Dry Bulb Temp: " 
+					color="0xFFFFFF" x="20" y="30"/>
+	<overlay:ValueDisplayLabel id="lblSYSTAirDB" 
+		sysVarName="SYSTAirDB"
+		text="24" styleName="overlayValue"
+					color="0xFFFFFF" x="180" y="30" />
+	
+</overlay:OverlayBase>

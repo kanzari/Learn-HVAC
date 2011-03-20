@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas 	xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:view="com.mcquilleninteractive.learnhvac.view.*" 
+			width="100%" 
+			height="100%"
+			horizontalScrollPolicy="off"
+			verticalScrollPolicy="off"
+			>
+	
+	<mx:Style>
+		.itemHeader{
+			font-weight:bold;	
+		}
+	</mx:Style>
+	
+	<mx:Script>
+	
+		<![CDATA[
+			import com.mcquilleninteractive.learnhvac.event.GetScenarioListEvent;
+			import com.mcquilleninteractive.learnhvac.event.LoadScenarioEvent;
+			import com.mcquilleninteractive.learnhvac.model.ApplicationModel;
+			import com.mcquilleninteractive.learnhvac.model.ScenarioLibraryModel;
+			import com.mcquilleninteractive.learnhvac.model.UserModel;
+			import com.mcquilleninteractive.learnhvac.util.Logger;
+			import com.mcquilleninteractive.learnhvac.view.popups.SimulationModal;
+			import com.mcquilleninteractive.learnhvac.view.scenario.SelectScenarioItemRenderer;
+			
+			import mx.collections.ArrayCollection;
+			import mx.events.ListEvent;
+			import mx.managers.PopUpManager;
+	
+	
+		[Bindable]
+		[Embed(source='assets/img/arrow_refresh.png')]
+		public var ServerIcon:Class
+		
+		[Bindable]
+		[Embed(source='assets/img/database_refresh.png')]
+		public var DiskIcon:Class
+				
+		[Bindable]
+		[Autowire]
+		public var scenarioLibraryModel:ScenarioLibraryModel
+		
+		[Bindable]
+		[Autowire]
+		public var userModel:UserModel
+				
+			
+		private function getLocalScenarioList():void
+		{
+			var event : GetScenarioListEvent = new GetScenarioListEvent(GetScenarioListEvent.GET_LOCAL_SCENARIO_LIST, true);
+			dispatchEvent( event );
+		}
+		
+		private function getRemoteScenarioList():void
+		{
+			var event : GetScenarioListEvent = new GetScenarioListEvent(GetScenarioListEvent.GET_REMOTE_SCENARIO_LIST, true);
+			dispatchEvent( event );
+		}	
+			
+		private function getDefaultScenarios():void
+		{
+			var event : GetScenarioListEvent = new GetScenarioListEvent(GetScenarioListEvent.GET_DEFAULT_SCENARIO_LIST, true);
+			dispatchEvent( event );
+		}
+		
+		
+		
+		
+		]]>
+
+	</mx:Script>
+	
+	<mx:VBox width="100%" height="100%" paddingLeft="10" paddingRight="10" paddingBottom="10" paddingTop="10" >
+		
+		<mx:HBox width="100%" height="100%">
+		
+			<mx:VBox backgroundAlpha="0" width="275" height="100%" >
+				<mx:Label x="10" y="45" text="Select Scenario" width="133" fontWeight="bold"/>
+				<mx:Text text="Load a list of available scenarios from the local computer or from the hvaceprimer website. " width="275" height="51"/>
+				
+				
+				<mx:Button label="Get scenarios from server" 
+					width="209" height="32" 
+					id="btnGetRemoteScenarioList" 
+					click="getRemoteScenarioList()"
+					visible = "{!userModel.loggedInAsGuest}"	
+					/>
+			
+				<mx:Button label="Get default scenarios"
+					 width="209" 
+					 height="32" 
+					 id="btnGetDefaultScenarioList" 	
+					 click="getDefaultScenarios()"/>
+					 
+				<mx:Text text="( NOTE: You must have an active internet connection to get scenarios from the server )" width="275" height="51"/>
+			</mx:VBox>
+			
+			<mx:Spacer width="10"/>
+		
+			<mx:Panel height="100%" width="670" title="{scenarioLibraryModel.scenarioListLocation}">
+				
+				<mx:List 	
+					id="lst"
+					selectable="false"
+					width="100%" 
+					height="100%" 
+					dataProvider="{scenarioLibraryModel.currScenarioList}"
+					alternatingItemColors="[#F1F1F1,#F9F9F9]" 
+					itemRenderer="com.mcquilleninteractive.learnhvac.view.scenario.SelectScenarioItemRenderer" 
+					>
+				
+				</mx:List>
+			</mx:Panel>
+	
+
+		</mx:HBox>
+	</mx:VBox>
+			
+</mx:Canvas>

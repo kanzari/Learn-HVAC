@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<util:DragPanel xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:util="com.mcquilleninteractive.learnhvac.util.*" 
+	title="ZONE ENERGY"    
+    minWidth="350"
+    minHeight="200"
+	width="350" height="250" xmlns:popups="com.mcquilleninteractive.learnhvac.view.popups.*">
+	
+	<mx:Script>
+		<![CDATA[
+			import com.mcquilleninteractive.learnhvac.event.LongTermImportEvent;
+			import com.mcquilleninteractive.learnhvac.event.ScenarioLoadedEvent;
+			import com.mcquilleninteractive.learnhvac.event.ShortTermSimulationEvent;
+			import com.mcquilleninteractive.learnhvac.event.UnitsEvent;
+			import com.mcquilleninteractive.learnhvac.model.ApplicationModel;
+			import com.mcquilleninteractive.learnhvac.model.LongTermSimulationDataModel;
+			import com.mcquilleninteractive.learnhvac.model.LongTermSimulationModel;
+			import com.mcquilleninteractive.learnhvac.model.ScenarioDataModel;
+			import com.mcquilleninteractive.learnhvac.model.ScenarioModel;
+			import com.mcquilleninteractive.learnhvac.model.SystemVariable;
+			import com.mcquilleninteractive.learnhvac.util.ColorSetting;
+			import com.mcquilleninteractive.learnhvac.util.Logger;
+			
+			import mx.collections.ArrayCollection;
+			
+			/* Specs from Brian
+			
+			zone level
+			* reheat coil power - ? (but for now, can use VAVRhcQd)
+			* lighting power - lighting load * size of zone 
+			* equipment power (ie. plug loads) - equipment load * size of zone
+			
+			*/
+			
+
+			[Bindable]
+			[Autowire]
+			public var scenarioDataModel:ScenarioDataModel
+			
+			[Bindable]
+			public var zoneEnergyUseAC:ArrayCollection;
+			
+			
+			[Mediate(event="LongTermImportEvent.RUN_CHANGED")]
+			public function longTermDataRunChanged(event:LongTermImportEvent):void
+			{
+				switch (event.runToImport)
+				{
+					case ScenarioModel.LT_IMPORT_NONE:
+						zoneEnergyUseAC = scenarioDataModel.zoneEnergyUseRun1AC
+						break
+					
+					case LongTermSimulationDataModel.RUN_1:
+						zoneEnergyUseAC = scenarioDataModel.zoneEnergyUseRun2AC
+						break
+					
+					case LongTermSimulationDataModel.RUN_2:
+						zoneEnergyUseAC = new ArrayCollection()
+						break
+				}
+			}
+			
+		
+			
+			private function onClose():void
+			{
+				Logger.debug("closing window.", this)
+			}
+			
+			
+			
+			
+		]]>
+	</mx:Script>
+	
+	<mx:SolidColor id="reheatFill" color="{ColorSetting.heatingColor}"/>
+	<mx:SolidColor id="lightingFill" color="{ColorSetting.lightingColor}"/>
+	<mx:SolidColor id="equipFill" color="{ColorSetting.equipmentColor}"/>
+	
+	<mx:HBox width="100%" height="100%">
+		
+		
+		 <mx:ColumnChart id="chart" type="stacked" 
+		 	width="100%" height="100%" 
+		 	dataProvider="{zoneEnergyUseAC}"
+		    maxColumnWidth="30"
+		    minWidth="150"
+		    minHeight="150"
+		    showDataTips="true">
+	        
+	        <mx:series>
+	            <mx:ColumnSeries xField="group" yField="VAVRhcQd"  displayName="Reheat Coil Power" fill="{reheatFill}"  />
+	            <mx:ColumnSeries xField="group" yField="lightingPower"  displayName="Lighting Power" fill="{lightingFill}"  />
+	            <mx:ColumnSeries xField="group" yField="equipPower"  displayName="Equipment Power" fill="{equipFill}"  /> 
+	        </mx:series>
+	        
+	        <mx:horizontalAxis>
+	           <mx:CategoryAxis  categoryField="group"  />
+	        </mx:horizontalAxis>
+		               
+	        <mx:verticalAxis >
+	     		<mx:LinearAxis title="" id="yAxis" />
+			</mx:verticalAxis>
+	
+			<mx:verticalAxisRenderers>
+	    		<mx:AxisRenderer axis="{yAxis}" verticalAxisTitleAlignment="vertical" />
+			</mx:verticalAxisRenderers>
+	
+	    </mx:ColumnChart>
+	
+		<popups:ZoneEnergyGraphLegend width="160" />
+    
+	
+	</mx:HBox>
+	
+</util:DragPanel>

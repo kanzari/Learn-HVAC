@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
+	width="300"
+	height="36"
+	horizontalScrollPolicy="off"
+	verticalScrollPolicy="off"
+	>
+	
+	<mx:Script>
+		<![CDATA[
+			import com.mcquilleninteractive.learnhvac.model.ShortTermSimulationModel;
+			
+			import com.mcquilleninteractive.learnhvac.model.ApplicationModel
+			import com.mcquilleninteractive.learnhvac.model.ScenarioModel
+			import com.mcquilleninteractive.learnhvac.event.ShortTermSimulationEvent
+			import com.mcquilleninteractive.learnhvac.event.ScenarioLoadedEvent
+            import mx.binding.utils.BindingUtils
+            import mx.binding.utils.ChangeWatcher
+            import com.mcquilleninteractive.learnhvac.util.Logger
+            
+            
+			[Bindable]
+			[Autowire]
+			public var shortTermSimulationModel:ShortTermSimulationModel
+
+            
+           	[Embed(source='assets/img/bg_sim_control.png')]
+			[Bindable]
+			private var SimControlBGOff:Class;
+			
+			[Embed(source='assets/img/bg_sim_status_on.png')]
+			[Bindable]
+			private var SimControlBGOn:Class;
+			
+			[Embed(source='assets/img/bg_sim_status_error.png')]
+			[Bindable]
+			private var SimControlBGError:Class;
+            
+            		    
+            [Bindable]
+            public var simTimerDisplay:Class
+            
+            public var onColor:Number = 0x86c09e
+            public var offColor:Number = 0x1d89dc
+            public var errorColor:Number = 0xe19893;
+            
+			
+			[Mediate(event="ScenarioLoadedEvent.SCENARIO_LOADED")]
+			public function onScenarioLoaded(event:ScenarioLoadedEvent):void
+			{
+				bgError.visible = false
+				bgOff.visible = true			
+				simStatus.text = "OK"
+			}
+			
+						
+			[Mediate(event="ShortTermSimulationEvent.SIM_START")]
+			public function onShortTermSimulationStarted(event:ShortTermSimulationEvent):void
+			{	
+				bgError.visible = false
+				bgOff.visible = true			
+				simStatus.text = "OK"
+			}
+		
+			[Mediate(event="ShortTermSimulationEvent.SIM_STOPPED")]
+			public function onShortTermSimulationStopped(event:ShortTermSimulationEvent):void
+			{
+				bgError.visible = false
+				bgOff.visible = true		
+				simStatus.text = "OFF"
+			}
+			
+			[Mediate(event="ShortTermSimulationEvent.SIM_ERROR")]
+			public function onShortTermSimulationCrash(event:ShortTermSimulationEvent):void
+			{
+				bgOff.visible = false
+				bgError.visible = true		
+				simStatus.text =  "SIMULATION ERROR"
+			}
+			
+			
+		]]>
+	</mx:Script>
+					
+	<mx:Image 	id="bgOff" 
+				source="{SimControlBGOff}"
+				x="0"
+				y="0"
+	/>
+	
+	<mx:Image id="bgOn"
+				source="{SimControlBGOn}"
+				x="0"
+				y="0"
+				visible="false"
+	/>
+				
+	<mx:Image id="bgError"
+				source="{SimControlBGError}"
+				x="0"
+				y="0"
+				visible="false"
+	/>	
+			
+	<mx:Label 	id="simTimer"
+				styleName="simTimer"
+				text="{shortTermSimulationModel.currTimeDisplay}"
+				x="55" y="9"
+				color="#FFFFFF"
+		/>
+	
+	<mx:Label 	id="simStatus"
+				styleName="simStatus"
+				text="OFF"
+				x="180" y="9"
+				color="#FFFFFF"
+		/>
+		
+
+	
+	
+</mx:Canvas>

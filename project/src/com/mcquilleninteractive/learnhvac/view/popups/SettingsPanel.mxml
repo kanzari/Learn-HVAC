@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" 
+	width="420" height="480"
+	title="Settings"
+	horizontalScrollPolicy ="off"
+	creationComplete="onCreationComplete()"
+	initialize="onInitialize()"
+	>
+	
+	<mx:Script>
+		<![CDATA[
+		
+			import com.mcquilleninteractive.learnhvac.event.UnitsEvent;
+			import com.mcquilleninteractive.learnhvac.model.ApplicationModel
+			import com.mcquilleninteractive.learnhvac.model.ScenarioModel
+			import com.mcquilleninteractive.learnhvac.util.Logger            
+			import mx.events.ValidationResultEvent;
+          	import mx.managers.PopUpManager;
+			
+			
+			[Bindable]
+			protected var _applicationModel:ApplicationModel
+		
+			[Autowire(bean="applicationModel")]
+			public function set applicationModel(model:ApplicationModel):void
+			{
+				_applicationModel = model
+				init()
+			}
+			
+			
+			public function onInitialize():void
+			{
+				
+			}
+			
+			public function onCreationComplete():void
+			{
+				//rdoUnits.selectedValue = ApplicationModel.currUnits
+			}
+			
+			private function init():void
+			{
+				rdoAnimation.selectedValue = _applicationModel.animationSpeed
+				//rdoUnits.selectedValue = ApplicationModel.currUnits
+			}
+			
+			private function onCancel():void
+			{
+				PopUpManager.removePopUp(this)	
+			}
+			
+			private function onOK():void
+			{
+				//update settings to user choices
+				if (performValidation() && _applicationModel)
+				{	
+					_applicationModel.animationSpeed = rdoAnimation.selectedValue.toString()													
+					_applicationModel.logToFile = cboLogToFile.selected																			
+					_applicationModel.mTrace = cboMTrace.selected											
+				}
+				
+				//then close popup	
+				PopUpManager.removePopUp(this)
+			}
+
+			private function onChange():void
+			{
+				btnOK.enabled = performValidation()
+			}
+			private function performValidation():Boolean
+			{
+				//TODO : add here any validations that have to happen 
+               return true
+            }
+			
+		]]>
+	</mx:Script>
+		
+	   	 
+	<mx:Form id="settingsForm" defaultButton="{btnOK}" width="100%">
+	
+			<!--
+	    	<mx:FormItem label="Units:">
+	    		<mx:RadioButtonGroup id="rdoUnits"/>
+        		<mx:RadioButton groupName="rdoUnits" id="unitsSI" value="{ApplicationModel.UNITS_SI}" 
+           			 label="SI units" width="150" />
+        		<mx:RadioButton groupName="rdoUnits" id="unitsIP" value="{ApplicationModel.UNITS_IP}" 
+          			 label="IP units" width="150" />
+	    	</mx:FormItem>
+			-->
+	    	<mx:FormItem label="Air Particle Animation:" >
+	    		<mx:RadioButtonGroup id="rdoAnimation"/>
+        		<mx:RadioButton groupName="rdoAnimation" id="animFull" value="{ApplicationModel.ANIMATION_SPEED_FULL}" 
+           			 label="Full" width="150" />
+        		<mx:RadioButton groupName="rdoAnimation" id="animNone" value="{ApplicationModel.ANIMATION_SPEED_NONE}" 
+          			  label="None" width="150" />
+	    	</mx:FormItem>
+	    	
+	    		    			
+			<mx:FormItem label="Write log messages to log.txt:" >
+				<mx:CheckBox id="cboLogToFile" label="Log to file" selected="{_applicationModel.logToFile}"/>
+	    	</mx:FormItem>
+	    		    		
+			<mx:FormItem label="Trace Modelica inputs/outputs:" >
+				<mx:CheckBox id="cboMTrace" label="Modelica trace" selected="{_applicationModel.mTrace}"/>
+	    	</mx:FormItem>
+	
+			<mx:Spacer height="10"/>
+	    	<mx:HBox width="100%"  horizontalAlign="right">
+	    		<mx:Button width="100" height="30" id="btnOK" label="OK" click="onOK()" textAlign="center" right="0"/>
+	    		<mx:Button width="100" height="30" id="btnCancel" label="Cancel" click="onCancel()" textAlign="center" right="0"/>
+	    		
+	    	</mx:HBox>
+	    	
+	    	</mx:Form>
+	
+	
+</mx:Panel>

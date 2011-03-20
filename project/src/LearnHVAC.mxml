@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:control="com.mcquilleninteractive.learnhvac.control.*" 
+	xmlns:business="com.mcquilleninteractive.learnhvac.business.*" 
+	xmlns:analysis="com.mcquilleninteractive.learnhvac.view.analysis.*" 
+	xmlns:scenario="com.mcquilleninteractive.learnhvac.view.scenario.*"
+	xmlns:event="com.mcquilleninteractive.learnhvac.event.*"
+	xmlns:view="com.mcquilleninteractive.learnhvac.view.*"
+	xmlns:util="com.mcquilleninteractive.learnhvac.util.*"    
+	xmlns:ext="nl.wv.extenders.panel.*"
+	xmlns:adobe="http://www.adobe.com/2009/flexUnitUIRunner"
+	xmlns:swizframework="org.swizframework.*"
+	xmlns:myComps="*"
+    preinitialize="onPreInit()"
+	applicationComplete="onAppComplete()"
+	pageTitle="Learn HVAC" 
+	width="100%" 
+	height="100%" 
+	styleName="main"
+	horizontalAlign="center"
+	layout="absolute"
+	historyManagementEnabled="false" 
+	frameRate="24"
+    themeColor="haloSilver"
+    verticalGap="0"
+    backgroundColor="#788f9b"
+    backgroundAlpha="1"
+   	>
+	
+	<mx:Script>
+		<![CDATA[
+			
+/*
+
+Learn HVAC License:
+-----------------------
+
+Copyright 2007 - 2009 The Institute for Sustainable Building Performance (SuPerB). 
+Licensed under the Open Software License version 3.0. 
+
+Credits:  Software concept and direction, Joseph J. Deringer.  Downloadable client-component 
+software development, McQuillen Interactive LLC.  3D graphics in client software by Killer3D.  
+Web-based administrative / instructor component software development, McQuillen Interactive LLC 
+with assistance from GoHalon.com LCC and from Martian Interactive LLC. SPARK and EnergyPLus 
+Simulations, HVAC component simulation models and related software development by Lawrence Berkeley 
+National Laboratory (LBNL), directed by Philip Haves, PhD, development by Brian Coffey.
+
+The open-source SWIZ framework is used within Learn HVAC as a framework. SWIZ’s license and 
+disclaimer are included immediately below. 
+ 
+			
+SWIZ License	
+			
+Copyright 2010 Swiz Framework Contributors
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations under
+the License.
+			
+*/
+			
+			
+			
+			import com.mcquilleninteractive.learnhvac.config.Beans
+			import mx.logging.LogEventLevel
+			
+			[Bindable]
+			[Embed(source='assets/img/bug.png')]
+			private var BugIcon:Class
+			
+		]]>
+	</mx:Script>
+	
+	<swizframework:SwizConfig 
+		strict="true"
+		eventPackages="com.mcquilleninteractive.learnhvac.event"
+		viewPackages="com.mcquilleninteractive.learnhvac.view"
+		mediateBubbledEvents="true"
+        injectionEvent="preinitialize"
+		beanLoaders="{[Beans]}"
+		logEventLevel="{LogEventLevel.WARN}"
+		/>
+
+	<mx:TraceTarget id="traceTarget"
+		level="{LogEventLevel.DEBUG}"
+		 filters="{['learnhvac']}"
+		/>
+
+	<mx:Style source="assets/css/styles.css"/>
+	<mx:Script source="LearnHVAC_class.as" />
+	
+	
+	<view:App width="100%" height="100%" />
+	
+	<!--
+	<adobe:TestRunnerBase id="uiListener" width="100%" height="100%"  />
+	-->
+
+</mx:WindowedApplication>

@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<overlay:OverlayBase xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns:overlay="com.mcquilleninteractive.learnhvac.view.shortterm.overlay.*"
+	creationComplete="onCC()"
+	width="670" height="500">
+	<mx:Script>
+		<![CDATA[
+			
+				
+			import com.mcquilleninteractive.learnhvac.model.ApplicationModel
+			import com.mcquilleninteractive.learnhvac.model.ScenarioModel
+            import com.mcquilleninteractive.learnhvac.util.Logger
+            import mx.controls.Label 
+            import com.mcquilleninteractive.learnhvac.model.SystemVariable
+			
+   			import com.mcquilleninteractive.learnhvac.event.ScenarioLoadedEvent;
+			import com.mcquilleninteractive.learnhvac.event.UnitsEvent
+   		
+		    private var unitsFannReal:String 	 
+		    private var unitsPAtm:String 	 
+		             					            			
+			public function onCC():void
+			{   				
+   				//draw lines for UI niceness
+   				
+   				//VAV valve pos
+				this.graphics.lineStyle(1,0xCCCCCC,1)
+				this.graphics.moveTo(525,270)
+				this.graphics.lineTo(525,230)
+								
+   				//VAV temp
+				this.graphics.lineStyle(1,0xCCCCCC,1)
+				this.graphics.moveTo(415,223)
+				this.graphics.lineTo(450,223)
+								
+				//Supply air temp
+				this.graphics.moveTo(600,85)
+				this.graphics.lineTo(600,160)
+				this.graphics.drawCircle(550,165,5)
+				
+				//return air damper
+				this.graphics.moveTo(215,80)
+				this.graphics.lineTo(225,90)
+				
+				//outside air damper
+				this.graphics.moveTo(225,65)
+				this.graphics.lineTo(235,75)
+				
+   				
+			}
+
+			[Mediate(event="ScenarioLoadedEvent.SCENARIO_LOADED")]
+			public function scenarioLoaded(event:ScenarioLoadedEvent):void
+			{		
+				
+				
+				//set visibility of labels					
+				var varArr:Array = ["SYSTAirDB","SYSRHOutside","HCPos","CCPos",
+									"RMTemp","VAVTAirLvg","VAVDampPos",
+									"VAVRhcPos", "RMRH"	]
+									
+				setLabels(varArr) 
+				return
+				
+				lblMXExDampPos.visible = scenarioModel.getSysVar("MXExDampPos").visible
+				lblMXRtnDampPos.visible = scenarioModel.getSysVar("MXRtnDampPos").visible
+				lblMXIntDampPos.visible = scenarioModel.getSysVar("MXIntDampPos").visible			
+				
+			}
+			
+			
+			
+		]]>
+	</mx:Script>
+	
+	<!-- outside info-->
+	
+	<mx:Label 	id="lblSYSTAirDB_Title"
+		text="DB Temp: "  
+		toolTip="Outdoor Air Dry Bulb Temperature"
+		styleName="overlayTitle" 
+		x="10" 
+		y="25"/>
+		
+	<overlay:ValueDisplayLabel 	
+		id="lblSYSTAirDB" 
+		sysVarName="SYSTAirDB"
+		text="0" 
+		styleName="overlayValue" 
+		toolTip="Outdoor Air Dry Bulb Temperature"
+		x="90"
+		y="25"/>
+	
+	
+	<mx:Label 	id="lblSYSRHOutside_Title"
+				text="Rel. Humidity: "  
+				toolTip="Outdoor Air Relative Humidity"
+				styleName="overlayTitle" 
+				x="10" 
+				y="40"/>
+	
+	<overlay:ValueDisplayLabel 	
+		id="lblSYSRHOutside" 
+		sysVarName="SYSRHOutside"
+		text="0" 
+		styleName="overlayValue" 
+		toolTip="Outdoor Air Relative Humidity"
+		x="90"
+		y="40"/>
+			
+	<!--
+	<mx:Label id="lblTwAirOut_Title" 
+		text="WB Temp: "  
+		toolTip="Outdoor Air Wet Bulb Temperature" 
+		styleName="overlayTitle" 
+		x="10" 
+		y="55"/>
+		
+	<overlay:ValueDisplayLabel 	
+		id="lblTwAirOut" 
+		sysVarName="TwAirOut"
+		text="0" 
+		styleName="overlayValue" 
+		toolTip="Outdoor Air Wet Bulb Temperature"
+		x="70" 
+		y="55"/>
+	-->
+	
+	<!-- supply air temp -->
+
+	<mx:Label
+		id="lblFANTAirLvg_Title"
+		text="Supply Air Temp: "
+		styleName="overlayTitle" 
+		textAlign="right"
+		width="150"
+		x="460" y="45"/>
+		
+	<overlay:ValueDisplayLabel 	
+		id="lblFANTAirLvg" 
+		sysVarName="FANTAirLvg"
+		text="0" 
+		styleName="overlayValue" 
+		textAlign="right"
+		width="150"
+		x="460" y="60"/>
+	 
+			
+	
+	<!-- HC and CC -->
+	<mx:Label 	
+		id="lblValvePos" 
+		text="Valve Pos." 
+		styleName="overlayTitle" 
+		x="363" y="35" color="0xCCCCCC"/>
+			 
+			 
+	<mx:Label 
+		id="lblHCPos_Title" 
+		text="HC:" 
+		styleName="overlayTitle" 
+		toolTip="Heating Coil valve (percent open)"
+		width="60"
+		x="355"
+		y="55"/>
+		
+	<overlay:ValueDisplayLabel 	
+		id="lblHCPos" 
+		sysVarName="HCPos"
+		text="0 %" 
+		styleName="overlayValue" 
+		toolTip="Heating Coil valve (percent open)"
+		x="355" 
+		y="70"/>
+			 
+			 
+	<mx:Label 
+		id="lblCCPos_Title" 
+		text="CC:" 
+		styleName="overlayTitle" 
+		width="60"
+		toolTip="Cooling Coil valve (percent open)"
+		x="405" y="55"/>
+		
+	<overlay:ValueDisplayLabel 	
+		id="lblCCPos" 
+		sysVarName="CCPos"
+		text="0 %" 
+		styleName="overlayValue" 
+		toolTip="Cooling Coil valve (percent open)"
+		x="405" y="70"/>
+		
+		
+		
+	<!-- ROOM -->
+			
+	<mx:Label 
+		id="lblRMTemp_Title" 
+		text="Room Temp: " 
+		styleName="overlayTitle" 
+		x="250" 
+		y="275" 
+		width="150" 
+		textAlign="right" />
+		
+	<overlay:ValueDisplayLabel 	
+		id="lblRMTemp" 
+		sysVarName="RMTemp"
+		text="84" 
+		styleName="overlayValue"
+		x="248" 
+		y="295" 
+		width="150" 
+		textAlign="right"/>
+	
+	
+	<mx:Label 
+		id="lblRMRH_Title" 
+		text="Rel. Humidity: " 
+		styleName="overlayTitle" 
+		x="150" 
+		y="275" 
+		width="150" 
+		toolTip="Relative Humidity"
+		textAlign="right" />
+	
+	<overlay:ValueDisplayLabel 	
+		id="lblRMRH" 
+		sysVarName="RMRH"
+		text="84" 
+		styleName="overlayValue"
+		x="148" 
+		y="295" 
+		width="150" 
+		textAlign="right"/>
+		
+			 
+	<!-- VAV -->
+	
+	<mx:Label
+		id="lblVAVTAirLvg_Title" 
+		text="VAV Output Temp "
+		styleName="overlayTitle" 
+		x="260" 
+		y="200" 
+		width="150" 
+		textAlign="right"/>
+		
+	<overlay:ValueDisplayLabel 	
+		id="lblVAVTAirLvg"
+		sysVarName="VAVTAirLvg"
+		text=""
+		styleName="overlayValue"
+		x="258" 
+		y="215"
+		width="150"
+		textAlign="right"/>
+			 			 
+			 			 
+	<mx:Label id="lblVAVDampPos_Title"
+		text="Damper Pos.: "
+		styleName="overlayTitle"
+		toolTip="VAV Damper Position (percent open)"
+		x="395" 
+		y="275"
+		width="125" 
+		textAlign="right"/>
+		
+	<overlay:ValueDisplayLabel 	
+		id="lblVAVDampPos"
+		sysVarName="VAVDampPos"
+		text=""
+		styleName="overlayValue"
+		toolTip="VAV Damper Position (percent open)"
+		x="520"
+		y="275"
+		width="100" 
+		textAlign="left"/>
+		
+	<mx:Label id="lblVAVRhcPos_Title"
+		text="Valve Pos.: "
+		styleName="overlayTitle"
+		toolTip="VAV Reheat Coil Valve Position (percent open)"
+		x="395" 
+		y="300"
+		width="125" 
+		textAlign="right"/>
+		
+	<overlay:ValueDisplayLabel 	
+		id="lblVAVRhcPos"
+		sysVarName="VAVRhcPos"
+		text=""
+		styleName="overlayValue"
+		toolTip="VAV Reheat Coil Valve Position (percent open)"
+		x="520"
+		y="300"
+		width="100" 
+		textAlign="left"/>
+		
+	<!-- Dampers -->
+	<overlay:ValueDisplayLabel 	
+		id="lblMXExDampPos"
+		sysVarName="MXExDampPos"
+		toolTip="Exhaust Air Damper Position (percent open)"
+		styleName="overlayValue"
+		x="100" 
+		y="70"
+		textAlign="right"/>
+			 	
+	<overlay:ValueDisplayLabel 	
+		id="lblMXRtnDampPos"
+		sysVarName="MXRtnDampPos"
+		toolTip="Return Air Damper Position (percent open)"
+		styleName="overlayValue"
+		x="190"
+		y="70"
+		textAlign="right"/>
+		
+	<overlay:ValueDisplayLabel 	
+		id="lblMXIntDampPos"
+		sysVarName="MXIntDampPos"
+		toolTip="Outdoor Air Damper Position (percent open)"
+		styleName="overlayValue"
+		x="205" 
+		y="45"
+		textAlign="right"/>
+		
+	
+</overlay:OverlayBase>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<overlay:OverlayBase  xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns:overlay="com.mcquilleninteractive.learnhvac.view.shortterm.overlay.*"
+	width="670" height="500" 
+	creationComplete="onCC()">
+	
+	<mx:Script>
+		<![CDATA[
+						
+			import com.mcquilleninteractive.learnhvac.event.ScenarioLoadedEvent;
+			import com.mcquilleninteractive.learnhvac.event.UnitsEvent;
+			import com.mcquilleninteractive.learnhvac.model.ApplicationModel;
+			import com.mcquilleninteractive.learnhvac.model.ScenarioModel;
+			import com.mcquilleninteractive.learnhvac.model.SystemVariable;
+			import com.mcquilleninteractive.learnhvac.util.Logger;
+			
+			import mx.controls.Label;
+   			         			
+		    private var unitsFltpreDrop:String 
+		    
+			[Bindable]
+			private var _fltPDropVisible:Boolean = true
+			
+			public function onCC():void
+			{				
+			}
+			
+			[Mediate(event="ScenarioLoadedEvent.SCENARIO_LOADED")]
+			public function scenarioLoaded(event:ScenarioLoadedEvent):void
+			{																																			
+				//set visibility of labels	
+				var sysVar:SystemVariable = scenarioModel.getSysVar("FLTPDrop")
+				if (sysVar)
+				{
+					_fltPDropVisible = sysVar.visible
+				}
+			}
+			
+			
+			
+		]]>
+	</mx:Script>
+	
+	
+	<mx:Label id="lblFLTPDrop_Title" 
+			  text="Pressure Drop: "  
+			  styleName="overlayTitle"
+			  x="430" y="100"
+			  visible="{_fltPDropVisible}"
+				
+				/>
+	<overlay:ValueDisplayLabel id="lblFLTPDrop"
+		precision="7"
+		sysVarName="FLTPDrop" 
+		text="0" 
+		styleName="overlayValue"
+		visible="{_fltPDropVisible}"
+		x="430" y="117"/>
+		
+</overlay:OverlayBase>

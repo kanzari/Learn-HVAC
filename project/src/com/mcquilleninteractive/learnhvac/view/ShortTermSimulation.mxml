@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<mx:Canvas 	xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:myComps="*" 
+			xmlns:view="com.mcquilleninteractive.learnhvac.view.*"
+			xmlns:viewControllers="com.mcquilleninteractive.learnhvac.view.controllers.*"
+			xmlns:util="com.mcquilleninteractive.learnhvac.util.*"
+			xmlns:shortterm="com.mcquilleninteractive.learnhvac.view.shortterm.*"
+			width="100%" 
+			height="100%"
+			creationComplete="onCC()" 
+			horizontalScrollPolicy="off"
+			verticalScrollPolicy="off"
+		    creationPolicy="all"
+		    hide="onHide()"
+		    show="onShow()"
+	  >
+	
+	<mx:Script>
+		<![CDATA[
+			
+		import com.mcquilleninteractive.learnhvac.event.ApplicationEvent;
+		import com.mcquilleninteractive.learnhvac.event.CloseScenarioEvent;
+		import com.mcquilleninteractive.learnhvac.event.GraphEvent;
+		import com.mcquilleninteractive.learnhvac.event.LoadScenarioEvent;
+		import com.mcquilleninteractive.learnhvac.event.LogoutEvent;
+		import com.mcquilleninteractive.learnhvac.event.ResetInputsEvent;
+		import com.mcquilleninteractive.learnhvac.event.ScenarioLoadedEvent;
+		import com.mcquilleninteractive.learnhvac.event.ShortTermSimulationEvent;
+		import com.mcquilleninteractive.learnhvac.event.ShortTermSimulationUIEvent;
+		import com.mcquilleninteractive.learnhvac.event.ShowSchematicEvent;
+		import com.mcquilleninteractive.learnhvac.event.SimNavEvent;
+		import com.mcquilleninteractive.learnhvac.event.SysVarInfoPopupEvent;
+		import com.mcquilleninteractive.learnhvac.event.ViewMovieEvent;
+		import com.mcquilleninteractive.learnhvac.event.VisualizationEvent;
+		import com.mcquilleninteractive.learnhvac.model.ApplicationModel;
+		import com.mcquilleninteractive.learnhvac.model.DialogManager;
+		import com.mcquilleninteractive.learnhvac.model.ScenarioModel;
+		import com.mcquilleninteractive.learnhvac.model.ShortTermSimulationDataModel;
+		import com.mcquilleninteractive.learnhvac.model.ShortTermSimulationModel;
+		import com.mcquilleninteractive.learnhvac.model.SystemNodeModel;
+		import com.mcquilleninteractive.learnhvac.util.DebugPanel;
+		import com.mcquilleninteractive.learnhvac.util.Logger;
+		import com.mcquilleninteractive.learnhvac.view.LongTermSimulation;
+		import com.mcquilleninteractive.learnhvac.view.popups.CCLiquidsSchematicPanel;
+		import com.mcquilleninteractive.learnhvac.view.popups.HCLiquidsSchematicPanel;
+		import com.mcquilleninteractive.learnhvac.view.popups.ShortTermSimulationPopup;
+		import com.mcquilleninteractive.learnhvac.view.popups.SimulationModal;
+		
+		import flash.events.Event;
+		
+		import mx.collections.ArrayCollection;
+		import mx.containers.Panel;
+		import mx.controls.Alert;
+		import mx.core.IFlexDisplayObject;
+		import mx.core.UIComponent;
+		import mx.managers.PopUpManager;
+
+		[Autowire]
+		public var dialogManager:DialogManager
+			
+		protected var dest:String 
+									
+		protected var hcLiquidsSchematic:HCLiquidsSchematicPanel = null
+		protected var ccLiquidsSchematic:CCLiquidsSchematicPanel = null
+		
+		protected var simModal:SimulationModal
+		
+		protected var _shortTermSimPopup:ShortTermSimulationPopup
+		
+		
+		[Bindable]
+		[Autowire]
+		public var scenarioModel:ScenarioModel
+		
+		[Bindable]
+		[Autowire]
+		public var shortTermSimulationModel:ShortTermSimulationModel
+		
+		
+		[Bindable]
+		[Embed(source='assets/img/long_term_import_icon.png')]
+		public var LongTermImportIcon:Class
+							
+		protected function onHide():void
+		{
+			dialogManager.hideAll()
+		}
+		
+		protected function onShow():void
+		{			
+			dialogManager.showAll()
+		}
+		
+		public function onCC():void
+		{
+			pnlViz.addEventListener("introAnimFinished", onIntroAnimFinished)		
+		}
+		   
+		[Mediate(event="CloseScenarioEvent.CLOSE_SCENARIO")]
+        public function onCloseScenario(event:CloseScenarioEvent):void
+        {
+        	clearSimPanel()
+        	controlBar.simStopped()
+        }
+		   
+		[Mediate(event="ShortTermSimulationEvent.SIM_ERROR")]
+        public function onShortTermSimulationCrash(event:ShortTermSimulationEvent):void
+        {
+        	if (_shortTermSimPopup!=null)
+        	{
+        		PopUpManager.removePopUp(_shortTermSimPopup)
+        		_shortTermSimPopup = null
+        	}
+        	controlBar.simError()        
+        }
+                
+		[Mediate(event="ShortTermSimulationEvent.SIM_STOPPED")]
+        public function onShortTermSimStopped(event:ShortTermSimulationEvent):void
+        {
+        	controlBar.simStopped() //reset buttons      	
+        }
+		
+		[Mediate(event="ApplicationEvent.SELECT_NEW_SCENARIO")]			
+		public function onSelectNewScenario(event:ApplicationEvent):void
+		{
+			clearSimPanel()					
+		}
+		
+		[Mediate(event="LogoutEvent.LOGOUT")]
+		public function onLogout(event:LogoutEvent):void
+		{
+			clearSimPanel()
+		}
+		
+		public function clearSimPanel():void
+		{
+			//clean up everything on screen to get ready for new scenario
+						
+			//Clean up input panel
+			if (pnlInput!=null) pnlInput.clearInputPanel() //if user logs out before loading a scenario, this will be null
+
+			//clean up VizPanel
+			if (pnlViz!=null) pnlViz.clearVizPanel() //if user logs out before loading a scenario, this will be null
+			
+			dialogManager.removeAllPopUps()
+									
+			//turn off AHU and Spark
+			if (scenarioModel != null)
+			{
+				if (shortTermSimulationModel.currentState == ShortTermSimulationModel.STATE_RUNNING)
+				{
+					stopSimulation()
+				}	
+			} 
+		}
+	
+		[Mediate(event="VisualizationEvent.NAVIGATION_CHANGE_NODE")]
+   		public function navChange(navEvent:VisualizationEvent):void
+		{
+			// This function catches the navEvent launched by the miniNav
+			// from within the Visualization window
+			
+			scenarioModel.setCurrNode(navEvent.toNode)
+						
+			// update the combobox to the new node
+			// this is a little tricky because the combobox uses a 
+			// different index than scenarioModel.currNodeIndex  (b/c it doesn't show SPARK) 
+			var len:Number = scenarioModel.sysNodesForNavAC.length
+			for (var i:Number=0;i<len; i++)
+			{
+				var sysNode:SystemNodeModel = SystemNodeModel(scenarioModel.sysNodesForNavAC[i])
+				if (sysNode.id == scenarioModel.currNode)
+				{
+					vizInfo.cboAhuNav.selectedIndex = i
+				}
+			}			
+			
+			// we can use events for this later but right now it's easiest to just 
+			// hit the input and output panel directly
+			if (navEvent.toNode == ScenarioModel.SN_ROOF)
+			{
+				//don't update the input and output panel when navigating to roof
+				//leave it as the last node viewed...this is a UI convention
+			}
+			else
+			{
+				pnlInput.onCurrNodeIndexChange()				
+			}
+		}
+		 
+				
+   		[Mediate(event="SysVarInfoPopupEvent.SHOW_INFO")]
+		public function onShowSysVarInfoPopup(event:SysVarInfoPopupEvent):void
+		{
+			pnlSysVarInfo.x = mouseX + 10
+			pnlSysVarInfo.y = mouseY - 140
+			pnlSysVarInfo.sysVarDisplayName.text = event.sysVarDisplayName 
+			pnlSysVarInfo.sysVarName.text = event.sysVarName
+			pnlSysVarInfo.description.text = event.sysVarDescription
+			pnlSysVarInfo.lowValue.text  = event.lowValue
+			pnlSysVarInfo.highValue.text = event.highValue
+			pnlSysVarInfo.visible = true
+			pnlSysVarInfo.startDrag()
+		}
+		
+   		[Mediate(event="SysVarInfoPopupEvent.HIDE_INFO")]
+		public function onHideSysVarInfoPopup(event:SysVarInfoPopupEvent):void
+		{			
+			pnlSysVarInfo.visible = false
+			pnlSysVarInfo.stopDrag()
+			pnlSysVarInfo.x = 0
+			pnlSysVarInfo.y = 0			
+		}
+					
+   		[Mediate(event="ScenarioLoadedEvent.SCENARIO_LOADED")]
+		public function onScenarioLoaded(event:Event):void
+		{	
+			//set combobox dataProvider
+			vizInfo.cboAhuNav.dataProvider = scenarioModel.sysNodesForNavAC			
+		}
+		
+		public function onIntroAnimFinished(e:Event):void
+		{
+			var evt:ShortTermSimulationUIEvent = new ShortTermSimulationUIEvent(ShortTermSimulationUIEvent.UI_READY, true)
+			dispatchEvent(evt)			
+		}
+		
+		[Mediate(event="ShowSchematicEvent.SHOW_HC_LIQUIDS_POPUP")]
+		public function onShowHCSchematicPopup(event:ShowSchematicEvent):void
+		{
+			dialogManager.showHCLiquidsSchematic()	
+		}
+		[Mediate(event="ShowSchematicEvent.SHOW_CC_LIQUIDS_POPUP")]
+   		public function onShowCCSchematicPopup(event:ShowSchematicEvent):void
+		{
+			dialogManager.showCCLiquidsSchematic()
+		}
+			
+		
+		public function onAddMiniGraph():void
+        {
+        	var evt:GraphEvent = new GraphEvent(GraphEvent.ADD_MINI_GRAPH, true)
+        	evt.host = this
+        	dispatchEvent(evt)
+        }
+       
+        
+        
+      	public function startSimulation():void
+		{	
+			
+			Logger.debug("startSimulation()",this)	
+			if (pnlInput.areInputsValid())
+			{	
+				// do one update event before starting to make sure values that the
+				// user entered are updated first 
+				pnlInput.onUpdateSimulation()
+								
+				controlBar.setStartStopButtonState("stop")
+				
+				//now launch start even
+				var event : ShortTermSimulationEvent = new ShortTermSimulationEvent(ShortTermSimulationEvent.SIM_START, true);
+				dispatchEvent(event);
+			}
+			else
+			{
+				mx.controls.Alert.show(pnlInput.inputsErrorMsg + "\n", "Input Errors");
+			}
+		}
+		
+					
+		public function stopSimulation():void
+		{			
+			var event : ShortTermSimulationEvent = new ShortTermSimulationEvent(ShortTermSimulationEvent.SIM_STOP, true);
+			dispatchEvent(event);			
+		}
+				
+		
+			
+		]]>
+	</mx:Script>
+	
+    <mx:Fade id="fadeIn" duration="200" alphaFrom="0.0" alphaTo="1.0"/>
+       
+    <mx:VBox width="100%" height="100%" id="mainHolder"  verticalGap="0" verticalScrollPolicy="off">
+    	
+    	<shortterm:ShortTermControlBar id="controlBar" 
+    		width="100%" 
+    		startSim="startSimulation()" 
+    		stopSim="stopSimulation()" />
+    	
+    	<mx:Spacer height="10"/>
+    	
+		<mx:Canvas id="innerCanvas" 
+			width="100%" height="100%"
+			>
+			
+			<shortterm:InputPanel id="pnlInput" 
+				x="10" y="0" 
+				width="365" 
+				height="540"
+			     />
+	
+	
+			<shortterm:VisualizationPanel id="pnlViz" x="385" y="0"  />
+			
+			<shortterm:VizPanelInfo id="vizInfo" x="383" y="500"/>					
+						
+			<!-- popup info and panels -->    
+			<shortterm:SysVarInfoPanel 
+				id="pnlSysVarInfo" 
+				visible="false"
+				showEffect="fadeIn"
+				x="20" y="20" />	
+    
+    		<!-- user PID controls 
+			<view:SetPointControl id="setPointControl" visible="false"  x="400" y="400"/>
+			-->
+			
+		</mx:Canvas> <!-- innerCanvas -->
+	
+	
+							
+	</mx:VBox>  
+    	
+</mx:Canvas>
+
+
+
+
+

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:yahoo="http://www.yahoo.com/astra/2006/mxml"
+	width="674" height="45"
+	horizontalScrollPolicy="off"
+	verticalScrollPolicy="off"
+	xmlns:shortterm="com.mcquilleninteractive.learnhvac.view.shortterm.*">
+	
+	<mx:Script>
+		<![CDATA[
+		
+			
+			import com.mcquilleninteractive.learnhvac.util.Logger
+			import com.mcquilleninteractive.learnhvac.model.ApplicationModel
+			import com.mcquilleninteractive.learnhvac.model.ScenarioModel
+			import com.mcquilleninteractive.learnhvac.event.SimNavEvent
+			import com.mcquilleninteractive.learnhvac.event.ScenarioLoadedEvent
+			import com.mcquilleninteractive.learnhvac.event.ScenarioDataEvent
+			
+			import mx.messaging.AbstractConsumer;
+			import mx.controls.Alert
+			
+			
+			[Bindable]
+			[Autowire]
+			public var scenarioModel:ScenarioModel
+
+			
+			[Embed (source='assets/img/anim_panel_bottom_border.png')]
+			[Bindable]
+			private var imgBG:Class
+			
+
+			[Bindable]
+			private var _stories:Number = 3;
+			
+			[Bindable]
+			private var _zoneOfInterest:Number = 1;
+
+			[Bindable]
+			private var _floorOfInterest:String = ""
+			
+			private var currentYear:Number = new Date().fullYear
+												
+			public function cboAhuNavChangeEvt(event:Event):void
+	        {
+	        	var newNode:String = scenarioModel.sysNodesForNavAC[event.currentTarget.selectedIndex].id
+	        	var evt:SimNavEvent = new SimNavEvent(SimNavEvent.NAVIGATION, true)
+	        	evt.node = newNode
+	        	dispatchEvent(evt)
+	        	
+	        }
+			
+			
+		]]>
+	</mx:Script>
+	<mx:Image source="{imgBG}"/>
+	
+	
+		
+	<mx:ComboBox 	id="cboAhuNav" 
+						x="20" y="8" 
+						change="cboAhuNavChangeEvt(event)"
+			    		rowCount = "12"
+						labelField="name" 
+				 />	
+					 
+				
+   <shortterm:SimTimer id="simTimer" x="360" y="2" />
+		
+		
+		
+	
+	
+	
+</mx:Canvas>

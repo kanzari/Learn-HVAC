@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox 	xmlns:mx="http://www.adobe.com/2006/mxml" 
+			xmlns:validator="com.mcquilleninteractive.learnhvac.view.validators.*"
+			width="315" 
+			height="65"
+		    creationComplete="onCreationComplete()"
+		    borderStyle="none"
+		    paddingLeft="0"
+		    paddingTop="0"
+		    paddingBottom="0"
+		    paddingRight="0"
+			horizontalScrollPolicy="off"
+			verticalScrollPolicy="off"
+		    >
+	
+	
+	<mx:Script>
+		<![CDATA[
+			import com.mcquilleninteractive.learnhvac.event.SysVarInfoPopupEvent;
+			import com.mcquilleninteractive.learnhvac.model.SystemVariable;
+			import com.mcquilleninteractive.learnhvac.util.Logger;
+			
+			import mx.controls.Image;
+			import mx.core.DragSource;
+			import mx.core.UIComponent;
+			import mx.events.SliderEvent;
+			import mx.events.ValidationResultEvent;
+			import mx.managers.DragManager;
+			import mx.validators.NumberValidator;
+       		
+		       		
+		    [Embed(source='assets/DawaAssets.swf', symbol='no_sign')]
+			[Bindable]
+			private var NoSign:Class
+			
+		    [Embed(source='assets/DawaAssets.swf', symbol='faultActiveBar')]
+			[Bindable]
+			private var FaultActiveBar:Class
+       		
+			[Embed (source = '/assets/img/brick.png')]
+ 			[Bindable]
+ 			public var icoSysVar : Class;      
+ 			
+ 			
+		    [Embed(source='assets/DawaAssets.swf', symbol='mcSliderDragger')]
+ 			[Bindable]
+ 			public var SliderDragger : Class;      
+ 			
+		    [Embed(source='assets/DawaAssets.swf', symbol='mcSliderDraggerDisabled')]
+ 			[Bindable]
+ 			public var SliderDraggerDisabled : Class;      
+ 			
+		    [Embed(source='assets/DawaAssets.swf', symbol='mcInfoIconUp')]
+ 			[Bindable]
+ 			public var InfoIconUp : Class;      
+ 			
+			private var origBGColor:Number
+			private var activeBarOff:UIComponent
+			private var activeBarOn:UIComponent
+			private var faultItemInitialized:Boolean = false;
+				
+			[Bindable]
+			protected var _faultSliderSnapInterval:int = 1;
+			
+			protected var _isDirty:Boolean = false
+				
+			
+			private function onCreationComplete():void
+			{
+				graphics.beginFill(0xFFFFFF, alpha=.75)
+				graphics.drawRoundRect(230,38,60,22,2,2)
+			}
+			
+			
+      		override public function set data(value:Object):void
+      		{
+      			super.data = value
+      			if (data == null) return;
+      			
+				var sysVar:SystemVariable = SystemVariable(data)
+      	     			      			
+      			faultItemInitialized = true
+					
+  				//when faultItem is first set via binding
+ 				//do a little housekeeping to make sure control is in right state
+ 						
+ 				//show checkbox or no sign
+      			cboFaultIsActive.visible = !sysVar.disabled
+				cboFaultIsActive.selected = sysVar.faultIsActive
+      			btnDisabled.visible = sysVar.disabled
+      			
+  				if (sysVar.faultWidgetType==SystemVariable.FAULT_CHECKBOX)
+  				{
+  					//hide controls associated with slider
+  					lblLeftLabel.visible = false
+  					lblRightLabel.visible = false
+  					sldFaultValue.visible = false
+  					lblCurrFaultValue.visible = false
+  				}
+  				else if (sysVar.faultWidgetType==SystemVariable.FAULT_SLIDER)
+  				{
+  					//show controls associated with slider
+  					lblLeftLabel.visible = true
+  					lblRightLabel.visible = true
+  					sldFaultValue.visible = true
+  				
+  					lblCurrFaultValue.visible = sysVar.faultIsActive
+					sldFaultValue.enabled = sysVar.faultIsActive && (!sysVar.disabled)
+  				
+  					//set only first and last tickmark
+  					sldFaultValue.tickValues = [sysVar.lowValue, sysVar.highValue]
+  				
+  					//make sure current value is showing
+  					if (lblCurrFaultValue.text=="")  lblCurrFaultValue.text = sldFaultValue.value.toString()
+						
+					//set precision
+					if (data.highValue>1000)
+					{
+						fmtSlider.precision = 0
+						_faultSliderSnapInterval = 10
+					}
+					else if (data.highValue>10)
+					{
+						fmtSlider.precision = 1
+						_faultSliderSnapInterval = 1
+					}
+					else
+					{
+						fmtSlider.precision = 2
+						_faultSliderSnapInterval = .5	
+					}
+					sldFaultValue.invalidateProperties()
+					
+  				}
+  				else
+  				{
+  					Logger.error("#FaultItem: unrecognized faultWidgetType: " + sysVar.faultWidgetType)
+  				}
+      		}
+					
+			private function sliderDataTip(val:Number):String
+			{
+				var displayVal:String  = val.toString()				
+				var sysVar:SystemVariable = SystemVariable(data)
+				if (sysVar.isPercentage)
+				{
+					return String(Math.round(val))+"%"
+				}
+				return fmtSlider.format(val).toString()
+						
+			}		
+			
+			public function checkboxChange(event:Event):void
+			{
+				var cboSelected:Boolean = event.target.selected
+				var sysVar:SystemVariable = SystemVariable(data)
+				sysVar.faultIsActive = cboSelected
+				_isDirty = cboSelected				
+			}
+			
+			public function sliderChange(event:Event):void
+			{					
+				SystemVariable(data).localValue = sldFaultValue.value
+				_isDirty = true
+			}
+			
+			public function showInfoPanel():void
+			{
+				var event:SysVarInfoPopupEvent = new SysVarInfoPopupEvent(SysVarInfoPopupEvent.SHOW_INFO, true)
+				
+				var sysVar:SystemVariable = SystemVariable(data)
+				event.sysVarDescription = sysVar.description
+				event.lowValue = sysVar.lowValue.toString()
+				event.highValue = sysVar.highValue.toString()
+				event.sysVarDisplayName = sysVar.displayName
+				event.sysVarName = sysVar.name
+				dispatchEvent(event)
+			}
+			
+			public function hideInfoPanel():void
+			{
+				var event:SysVarInfoPopupEvent = new SysVarInfoPopupEvent(SysVarInfoPopupEvent.HIDE_INFO, true)
+				dispatchEvent(event)
+			}
+			
+			public function onDrag(event:MouseEvent):void
+			{
+				 // Get the drag initiator component from the event object.
+            	 var dragInitiator:Image = event.currentTarget as Image;
+    
+            	 // Create a DragSource object.
+            	 var dragSource:DragSource = new DragSource();
+                
+            	 var itemArr:Array = [data]
+                        
+            	 dragSource.addData(itemArr, "items")
+                        
+             	// Create a copy of the graph image to use as a drag proxy.
+             	var dragProxy:Image = new Image();
+            	dragProxy.source = icoSysVar
+            	//dragProxy.x = inputsAndFaults.mouseX - 7
+            	//dragProxy.y = inputsAndFaults.mouseY - 7
+    
+             	// Call the DragManager doDrag() method to start the drag. 
+             	DragManager.doDrag(dragInitiator, dragSource, event, dragProxy, 0, 0, 1);
+			
+			}
+			
+		]]>
+	</mx:Script>
+	
+	<mx:NumberFormatter id="fmtSlider" precision="2" rounding="nearest" />
+	   
+    <mx:Canvas id="mainCanvas">
+    	
+    	<mx:Image id="activeBar"
+    			  source="{FaultActiveBar}" 
+    			  visible = "{data.faultIsActive}"
+    			  x="0" y="0"
+    			  width="7"
+    			  toolTip="Fault is active."
+    	/>
+    	
+	
+	
+		<mx:Button 	id="btnDisabled"
+					x="17" y="5"
+					upSkin="{NoSign}" 
+					overSkin="{NoSign}"
+					downSkin="{NoSign}"
+				    toolTip="Fault is disabled in this scenario"
+		/>
+		
+		<mx:CheckBox id="cboFaultIsActive" 
+    				x="15" y="1"
+    				selected="{data.faultIsActive}" 
+    				change="checkboxChange(event)"
+					toolTip="Activate/deactivate fault"
+    				
+    		/>
+		
+		
+    	<mx:Label 	id="lblTitle"
+					x="35" y="2" 
+				  	text="{data.displayName}"
+				  	textAlign="left"
+				  	color="0x222222"
+				  	width="220"
+		/>
+    	
+    	
+    		
+    	<mx:Label 	id="lblLeftLabel"
+					x="35" y="19" 
+				  	text="{data.leftLabel}"
+				  	textAlign="left"
+				  	color="0x555555"
+		/>
+	
+		<mx:Label 	id="lblRightLabel"
+					x="130" y="19" 
+					width="100"
+				  	text="{data.rightLabel}"
+				  	textAlign="right"
+				  	color="0x555555"
+		/>
+			 		
+		<mx:HSlider id="sldFaultValue"
+					x="35" y="35"
+					width="185"
+					height="25" 
+				    snapInterval="{_faultSliderSnapInterval}"
+				    value="{data.localValue}"
+					minimum="{data.lowValue}"
+					maximum="{data.highValue}"
+					dataTipFormatFunction="sliderDataTip"
+					change="sliderChange(event)"
+					thumbDownSkin="{SliderDragger}" 
+        			thumbOverSkin="{SliderDragger}"
+        			thumbUpSkin="{SliderDragger}"
+        			thumbDisabledSkin="{SliderDraggerDisabled}"
+					fillAlphas="[1, 1, 1, 1]"
+
+				    
+		/>
+		
+		<mx:Label 	id="lblCurrFaultValue"
+					x="230" y="40"
+					width="60" height="22" 
+				  	textAlign="right"
+				  	text="{data.localValue}"
+		/>
+			 
+		<mx:Button 	x="300" y="6"
+					upSkin="{InfoIconUp}" 
+					overSkin="{InfoIconUp}"
+					downSkin="{InfoIconUp}"
+					mouseOver="showInfoPanel()"
+					mouseOut="hideInfoPanel()" 
+		/>
+		
+		<mx:Image source="{icoSysVar}" 
+			  x="300" y="25"
+			  mouseDown = "onDrag(event)"
+			  toolTip="Drag icon to watch panel"
+			  />		 
+		
+				 
+    </mx:Canvas>
+      	
+	
+	
+	
+</mx:HBox>

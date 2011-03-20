@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:view="com.mcquilleninteractive.learnhvac.view.*"
+	xmlns:viewControllers="com.mcquilleninteractive.learnhvac.view.controllers.*"
+	paddingTop="5"
+	paddingBottom="5"
+	height="40" width="100%" 
+	styleName="controlBar"
+	creationComplete="onCC()"
+    horizontalGap="5"
+	verticalScrollPolicy="off">
+		
+	<mx:Metadata>
+		[Event(name="startSim", type="flash.events.Event")]		
+		[Event(name="stopSim", type="flash.events.Event")]			
+	</mx:Metadata>
+	
+	<mx:Script>
+		<![CDATA[
+			import com.mcquilleninteractive.learnhvac.event.LongTermImportEvent;
+			import com.mcquilleninteractive.learnhvac.event.ScenarioLoadedEvent;
+			import com.mcquilleninteractive.learnhvac.event.ShortTermSimulationEvent;
+			import com.mcquilleninteractive.learnhvac.model.ApplicationModel;
+			import com.mcquilleninteractive.learnhvac.model.DialogManager;
+			import com.mcquilleninteractive.learnhvac.model.LongTermSimulationDataModel;
+			import com.mcquilleninteractive.learnhvac.model.ScenarioModel;
+			import com.mcquilleninteractive.learnhvac.model.ShortTermSimulationDataModel;
+			import com.mcquilleninteractive.learnhvac.model.data.EnergyPlusData;
+			import com.mcquilleninteractive.learnhvac.util.Logger;
+			import com.mcquilleninteractive.learnhvac.view.popups.SystemEnergyGraph;
+			import com.mcquilleninteractive.learnhvac.view.popups.ZoneEnergyGraph;
+			
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.managers.PopUpManager;
+			
+			public static var START_SIM:String = "startSim"
+			public static var STOP_SIM:String = "stopSim";
+			
+			[Bindable]
+			[Autowire]
+			public var scenarioModel:ScenarioModel
+			
+			[Autowire]
+			public var dialogManager:DialogManager
+			
+			[Embed('assets/img/control_start.png')]
+			[Bindable]
+			protected var StartIcon:Class;
+			
+			[Embed('assets/img/control_rewind.png')]
+			[Bindable]
+			protected var RewindIcon:Class;
+				
+			[Embed('assets/img/control_bar_divider.png')]
+			[Bindable]
+			protected var ControlBarDivider:Class;
+				
+			[Embed('assets/img/stop_icon.png')]
+			[Bindable]
+			protected var StopIcon:Class;
+				
+			
+			[Embed(source='assets/img/bg_tools.png')]
+			[Bindable]
+			protected var ToolsIcon:Class;
+			
+		
+			
+			[Embed(source='assets/img/watch_panel.png')]
+			[Bindable]
+			protected var WatchPanelIcon:Class			
+			
+			
+			[Embed(source='assets/img/movie.png')]
+			[Bindable]
+			private var MovieIcon:Class
+			
+			
+			[Embed(source='assets/img/output_panel.png')]
+			[Bindable]
+			protected var OutputPanelIcon:Class
+			
+			[Embed(source='assets/img/chart_bar.png')]
+			[Bindable]
+			protected var SystemEnergyIcon:Class	
+			
+			
+			[Embed(source='assets/img/zone_energy.png')]
+			[Bindable]
+			protected var ZoneEnergyIcon:Class	
+			
+	
+			[Embed(source='assets/img/black_arrow.png')]
+			[Bindable]
+			protected var BlackArrow:Class
+							
+			
+			protected var systemEnergyGraphPopup:SystemEnergyGraph 
+			protected var zoneEnergyGraphPopup:ZoneEnergyGraph
+			protected var _startStopButtonState:String = "start"
+			
+			protected function onCC():void
+			{
+			}
+				
+				
+			protected function startStopSimulation():void
+			{
+				if (_startStopButtonState=="start")
+				{	
+					//clear out the red display 
+					dispatchEvent(new Event(START_SIM))			
+				}
+				else
+				{
+					stopSimulation()
+					setStartStopButtonState("start")
+				}
+			}
+			
+			
+			public function setStartStopButtonState(state:String):void
+			{
+				if (state=="start")
+				{
+					btnStartStop.label="Start Simulation"
+					btnStartStop.setStyle("icon", StartIcon);
+				}
+				else
+				{
+					btnStartStop.label="Stop Simulation" 
+					btnStartStop.setStyle("icon", StopIcon);					
+				}
+				_startStopButtonState = state
+			}
+			
+			protected function getButtonState():String
+			{
+				return 	_startStopButtonState				
+			}
+			
+				
+			protected function stopSimulation():void
+			{
+				simStopped()
+				dispatchEvent(new Event(STOP_SIM))
+			}
+	
+			public function simStarted():void
+			{
+				setStartStopButtonState("stop")
+			}
+			
+			public function simStopped():void
+			{					
+				setStartStopButtonState("start")
+			}
+			
+			public function simError():void
+			{
+				simStopped()
+			}
+			
+			protected function rewindSimulation():void
+			{
+				var evt:ShortTermSimulationEvent = new ShortTermSimulationEvent(ShortTermSimulationEvent.SIM_RETURN_TO_START, true)
+				dispatchEvent(evt)
+			}
+				
+			public function onViewOutput():void
+			{
+				dialogManager.showOutputPanel()
+			}
+			
+			public function onViewWatch():void
+			{
+				dialogManager.showWatchPanel()			
+			}
+				
+				
+			public function onViewMovie():void
+			{
+				dialogManager.showMovieViewer()
+			}
+          	
+          	
+          	public function onSystemEnergy():void
+          	{
+          		dialogManager.showSystemEnergyGraph()
+          	}
+          	
+          		
+          	public function onZoneEnergy():void
+          	{          		
+          		dialogManager.showZoneEnergyGraph()
+          	}
+			
+		]]>
+	</mx:Script>
+		
+	<mx:Spacer width="10"/>
+	
+	
+	<mx:Button 	styleName="btnBottomBar"
+				id="btnRewind" 
+				toolTip="Return to start time"
+    			y="13"
+    			icon="{RewindIcon}"
+				width="30" 
+				height="30"
+				click="rewindSimulation()" />
+	
+	
+	<mx:Button 	label="Start Simulation" 
+				styleName="btnBottomBar"
+				id="btnStartStop" 
+				toolTip="Start short-term simulation"
+    			y="13"
+    			icon="{StartIcon}"
+				width="145" 
+				height="30"
+				click="startStopSimulation()" />
+	
+	<mx:Spacer width="20"/>
+								
+	<mx:Button id="btnOutputPanel" 
+   			width="35"
+   			height="30"
+			toolTip="Open output data window"
+   			icon="{OutputPanelIcon}"
+			click="onViewOutput()" 
+   			styleName="sectionToolBarButton"
+			 />	 
+			                											
+	<!-- set point control 
+	<mx:Button id="btnSPC" 
+   			width="35"
+   			height="100%"
+   			styleName="btnNavIcon"
+			label="Setpoint" 
+			toolTip="View setpoint control"
+   			icon="{SPCIcon}"
+			click="onShowSetPointControl(event)" 
+			 />	 -->
+
+					
+	<mx:Button id="btnWatchPanel" 
+   			width="35"
+   			height="30"
+			toolTip="Open watch panel"
+			icon="{WatchPanelIcon}"
+   			enabled="true"
+   			click="onViewWatch()"
+   			styleName="sectionToolBarButton"
+			 />	 
+	
+	<!--
+	<mx:Button id="btnSystemEnergyGraph" 
+   			width="35"
+   			height="30"
+			toolTip="Open System Energy Graph"
+			icon="{SystemEnergyIcon}"
+   			enabled="true"
+   			click="onSystemEnergy()"
+   			styleName="sectionToolBarButton"
+			 />	 
+
+	<mx:Button id="btnZoneEnergyGraph" 
+   			width="35"
+   			height="30"
+			toolTip="Open Zone Energy Graph"
+			icon="{ZoneEnergyIcon}"
+   			enabled="true"
+   			click="onZoneEnergy()"
+   			styleName="sectionToolBarButton"
+			 />	 
+			 
+	<mx:Button id="btnViewMovie" 
+   			width="35"
+   			height="30"
+   			icon="{MovieIcon}"
+			click="onViewMovie()" 
+			enabled="{scenarioModel.movieAvailable}"
+			toolTip="{scenarioModel.movieToolTip}"
+   			styleName="sectionToolBarButton"
+			 />
+	--> 	
+					
+	<mx:Spacer width="100%" />		
+				
+	<mx:VBox width="400" 
+		height="30"
+		id="hbScenarioName"
+		paddingTop="5"
+	    horizontalAlign="right"
+		horizontalScrollPolicy="off"
+		paddingLeft="10"	 
+		verticalScrollPolicy="off" >
+		
+		<mx:HBox paddingRight="10">
+			<mx:Label text="Current scenario:" color="#FFFFFF"/>
+			<mx:Label id="lblScenarioName" text="{scenarioModel.name}" color="#FFFFFF" />
+		</mx:HBox>
+	</mx:VBox>
+					
+
+			
+									
+</mx:HBox>	
+    

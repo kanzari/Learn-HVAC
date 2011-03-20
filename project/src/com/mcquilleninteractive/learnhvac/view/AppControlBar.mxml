@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
+	width="100%"
+	horizontalScrollPolicy="off"
+	verticalScrollPolicy="off"
+	paddingBottom="0"
+	paddingLeft="0"
+	paddingTop="0"
+	paddingRight="0"
+	height="35"
+	styleName="appControlBar"
+	xmlns:view="com.mcquilleninteractive.learnhvac.view.*" xmlns:components="com.mcquilleninteractive.learnhvac.components.*">
+    
+	
+	<mx:Script>
+		<![CDATA[
+			import com.mcquilleninteractive.learnhvac.event.ApplicationEvent;
+			import com.mcquilleninteractive.learnhvac.event.GraphEvent;
+			import com.mcquilleninteractive.learnhvac.event.LogoutEvent;
+			import com.mcquilleninteractive.learnhvac.event.ScenarioDataEvent;
+			import com.mcquilleninteractive.learnhvac.event.ScenarioLoadedEvent;
+			import com.mcquilleninteractive.learnhvac.model.ApplicationModel;
+			import com.mcquilleninteractive.learnhvac.model.LongTermSimulationDataModel;
+			import com.mcquilleninteractive.learnhvac.model.ShortTermSimulationDataModel;
+			import com.mcquilleninteractive.learnhvac.model.UserModel;
+			import com.mcquilleninteractive.learnhvac.util.DebugPanel;
+			import com.mcquilleninteractive.learnhvac.util.Logger;
+			import com.mcquilleninteractive.learnhvac.view.popups.SettingsPanel;
+			
+			import flash.net.URLRequest;
+			import flash.net.navigateToURL;
+			
+			import mx.binding.utils.BindingUtils;
+			import mx.charts.chartClasses.ChartElement;
+			import mx.containers.Panel;
+			import mx.controls.Alert;
+			import mx.events.CloseEvent;
+			import mx.events.ItemClickEvent;
+			import mx.events.MenuEvent;
+			import mx.managers.PopUpManager;
+			
+			import org.swizframework.Swiz;
+			
+			
+			[Autowire]
+			public var userModel:UserModel
+          	          				
+			[Bindable]
+            [Embed(source="assets/img/weather_sun.png")]
+            private var SunIcon:Class;
+
+            [Bindable]
+            [Embed(source="assets/img/building.png")]
+            private var BuildingIcon:Class;
+
+            [Bindable]
+            [Embed(source="assets/img/chart_curve_add.png")]
+            private var ChartIcon:Class;
+            
+            [Bindable]
+            [Embed(source="assets/img/icon_help.png")]
+            private var InfoIcon:Class;
+       		
+       		[Bindable]
+            [Embed(source="assets/img/wrench_orange.png")]
+            private var SettingsIcon:Class;
+            
+            
+       		[Bindable]
+            [Embed(source="assets/img/bug.png")]
+            private var BugIcon:Class;
+						
+				
+			[Embed(source='assets/img/graph_icon_off.png')]
+			[Bindable]
+			private var GraphIcon:Class
+			
+			[Embed(source='assets/img/spc_icon.png')]
+			[Bindable]
+			private var SPCIcon:Class	
+			
+			[Bindable]
+			[Autowire]
+			public var applicationModel:ApplicationModel 
+			
+			
+			private var settingsPopup:SettingsPanel
+									
+					
+			public function onNewScenario():void
+			{
+				Alert.show("Are you sure you start a new Scenario?", "New Scenario", Alert.OK|Alert.CANCEL, null, onNewScenarioAlertListener)
+			}
+			
+			public function onNewScenarioAlertListener(evt:CloseEvent):void
+			{
+				if (evt.detail == Alert.OK)
+				{
+					var event:ApplicationEvent = new ApplicationEvent(ApplicationEvent.SELECT_NEW_SCENARIO, true)
+					dispatchEvent(event)				
+				}
+			}
+			
+			public function onLogout():void
+			{
+				Alert.show("Are you sure you want to log out?", "Logout", Alert.OK|Alert.CANCEL, null, onLogoutAlertListener)
+			}
+			
+			
+			
+			public function onLogoutAlertListener(evt:CloseEvent):void
+			{
+				if (evt.detail == Alert.OK)
+				{
+					Logger.debug("#LogoutCommand: user confirmed intention to log out. Launching app event...")
+					var event:LogoutEvent = new LogoutEvent(LogoutEvent.LOGOUT, true)
+					dispatchEvent(event)
+				}
+				else
+				{
+					//do nothing
+				}
+			}
+			
+		
+			public function onTabClick(event:ItemClickEvent):void
+			{
+                // Access target TabBar control.
+                var tabBar:TabBar = TabBar(event.currentTarget);
+                var cmd:String = tabBar.dataProvider[event.index].data
+                switch(cmd)
+                {
+                	case "eplus":
+                		applicationModel.viewing = ApplicationModel.PANEL_LONG_TERM_SIMULATION
+                		break
+                	case "modelica": 	             		
+						applicationModel.viewing = ApplicationModel.PANEL_SHORT_TERM_SIMULATION
+                		break
+                	case "analysis":
+						applicationModel.viewing = ApplicationModel.PANEL_ANALYSIS
+						
+                		break
+                		
+                }
+   			}
+		
+			
+		
+						
+			
+			public function onInformation():void
+			{
+				//var myBrowser:Browser = new mdm.Browser(0, 0, 400, 350,  "http://www.learnhvac.org/help/help_files.php", true)
+				var url:String = "http://www.learnhvac.org/help/help_files.php";
+            	var request:URLRequest = new URLRequest(url);
+            	try {            
+                	navigateToURL(request);
+            	}
+            	catch (e:Error) {
+                	// handle error here
+            	}
+				
+			}
+			
+			public function onSettings():void
+			{
+				//show modal dialog for settings
+				settingsPopup = SettingsPanel(PopUpManager.createPopUp(this.parent, SettingsPanel, true)); // popup modal dialog	
+				PopUpManager.centerPopUp(settingsPopup)
+			}
+			
+			private function closeDialog(event : CloseEvent) : void {
+             	PopUpManager.removePopUp(settingsPopup); // close this dialog
+          	}
+          	
+           	public function onLoadEPlus(runID:String):void
+          	{
+          		var event:ScenarioDataEvent = new ScenarioDataEvent(ScenarioDataEvent.LOAD_EPLUS_DATA_EVENT, true)
+          		event.runID = runID
+          		dispatchEvent(event)
+          	}
+          	
+          	public function onLoadSpark(runID:String):void
+          	{
+          		var event:ScenarioDataEvent = new ScenarioDataEvent(ScenarioDataEvent.LOAD_MODELICA_DATA_EVENT, true)
+          		event.runID = runID
+          		dispatchEvent(event)
+          	}
+		
+          	public function onSaveEPlus(runID:String):void
+          	{
+          		var event:ScenarioDataEvent = new ScenarioDataEvent(ScenarioDataEvent.SAVE_EPLUS_DATA_EVENT, true)
+				event.runID = runID
+          		dispatchEvent(event)
+          	}
+          	
+          	public function onSaveSpark(runID:String):void
+          	{
+          		var event:ScenarioDataEvent = new ScenarioDataEvent(ScenarioDataEvent.SAVE_MODELICA_DATA_EVENT, true)
+				event.runID = runID
+          		dispatchEvent(event)
+          	}
+          
+         	public function onDebug():void
+			{
+				Logger.debug("show debug panel",this)
+			 	var pnlDebug:DebugPanel = new DebugPanel()
+				PopUpManager.addPopUp(pnlDebug, this)
+				pnlDebug.width=800
+				pnlDebug.height=600
+				PopUpManager.centerPopUp(pnlDebug)	
+				pnlDebug.addEventListener(Event.CLOSE, onDebugClose)				
+			}
+			
+			public function onDebugClose(event:Event):void
+			{
+				var pnlDebug:DebugPanel = DebugPanel(event.target)
+				pnlDebug.removeEventListener(Event.CLOSE, onDebugClose)
+				PopUpManager.removePopUp(pnlDebug)	
+			}
+          	
+	          	
+	          	
+			private function onShowSetPointControl(event:Event):void
+			{
+				//setPointControl.visible=true
+			}	
+			
+			
+          	
+		]]>
+	</mx:Script>		
+				
+ 
+    <mx:HBox id="scenarioTabs"
+    		 	x="10"
+    		 	y="7"
+       		  	backgroundAlpha="0"
+    		 	height="30"
+    		 	horizontalScrollPolicy = "off"
+    		 	verticalScrollPolicy="off"
+    		  	verticalAlign="bottom"
+       		 	horizontalGap="0" 
+    		 	horizontalAlign="left"
+		    	visible="{applicationModel.viewing != ApplicationModel.PANEL_SELECT_SCENARIO}"
+    		  	>
+    		  	
+		<mx:TabBar 
+			id="appTabBar"
+			styleName="appTabBar"
+			height="28"
+		    itemClick="onTabClick(event)"
+		    selectedIndex="0"
+		    focusEnabled="false"
+		   
+			>
+			<mx:dataProvider>       
+				<mx:Object label="Short-term Sim."  
+						icon="{BuildingIcon}"
+						data="modelica"/>
+				<mx:Object label="Long-term Sim." 
+						icon="{SunIcon}"
+						data="eplus"/>
+   				<mx:Object label="Analysis"  
+						icon="{ChartIcon}"
+   						data="analysis"/>                    
+			</mx:dataProvider>
+		</mx:TabBar>
+		
+   			 
+    </mx:HBox>
+        		
+            
+	<mx:HBox width="200" 
+		height="30"
+		id="barButtons"  
+		horizontalGap="0"  
+	    right="0"
+	    horizontalAlign="right"
+		horizontalScrollPolicy="off"
+		verticalScrollPolicy="off"
+		>
+		    <components:UnitsButton
+		    			id="btnUnits"
+       					width="35"
+       					height="100%"			
+       					styleName="btnNavIcon"		    
+			    		toolTip="Toggle units"	
+				/>
+		
+			<mx:Button id="btnDebug" 
+       					width="35"
+       					height="100%"			
+       					styleName="btnNavIcon"		    
+			    		toolTip="Open debug window"
+						icon="{BugIcon}"
+						visible="{userModel.role!='student' || applicationModel.showDebug}"
+						click="onDebug()" 	
+				/>
+		
+    		<mx:Button id="btnSettings" 
+       					width="35"
+       					height="100%"
+       					styleName="btnNavIcon"
+       					toolTip="Settings" 
+       					icon="{SettingsIcon}"
+       					click="onSettings()"
+       		/>
+       			 	
+       		<mx:Button id="btnInfo" 
+       					width="35"
+       					height="100%"
+       					styleName="btnNavIcon"
+       		   	 		toolTip="Open help files in your browser"
+       					icon="{InfoIcon}"
+       					click="onInformation()"
+       		/>
+       		
+       		<!--	 
+       		<mx:Button id="btnLogout" 
+       					width="60"
+       					height="100%"
+       					styleName="btnLogout"
+       					label="Logout"
+       					click="onLogout()" 
+       		/>-->
+	</mx:HBox>
+             					
+			
+</mx:Canvas>

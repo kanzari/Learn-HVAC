@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:myComps="*"
+	horizontalScrollPolicy="off"
+	verticalScrollPolicy="off"
+	width="670" 
+	height="500"
+	creationComplete="onCreationComplete()"
+	>
+	
+	<mx:Script>
+		<![CDATA[
+		
+			// NOTE: For some reason databinding isn't working with systemVariable.baseSIValue...
+			//       so I'm binding to currValue (which does work) and grabbing SI value manually
+			// 		 This isn't as efficiency but since we're only doing this a couple times 
+			//       per update the cost shouldn't be too significant
+		
+			import com.mcquilleninteractive.learnhvac.event.ScenarioLoadedEvent;
+			import com.mcquilleninteractive.learnhvac.event.ShortTermSimulationEvent;
+			import com.mcquilleninteractive.learnhvac.model.ApplicationModel;
+			import com.mcquilleninteractive.learnhvac.model.ScenarioModel;
+			import com.mcquilleninteractive.learnhvac.model.ShortTermSimulationModel;
+			import com.mcquilleninteractive.learnhvac.util.Logger;
+			
+			import flash.geom.ColorTransform;
+			
+			import mx.binding.utils.BindingUtils;
+			
+			import org.swizframework.Swiz;
+			
+			[Autowire]
+			[Bindable]
+			public var scenarioModel:ScenarioModel											
+									
+			[Bindable]
+			[Autowire]
+			public var shortTermSimulationModel:ShortTermSimulationModel		
+			
+			public var _active:Boolean = false
+			
+			public function onCreationComplete():void
+			{		
+			
+			}
+			
+		
+			
+			
+			[Mediate(event="ShortTermSimulationEvent.SIM_STARTED")]
+			public function onShortTermSimStarted(event:ShortTermSimulationEvent):void
+			{
+				updatePipes()
+			}
+			
+			[Mediate(event="ShortTermSimulationEvent.SIM_OUTPUT_RECEIVED")]
+			public function onShortTermSimUpdate(event:ShortTermSimulationEvent):void
+			{				
+				updatePipes()
+			}
+			
+			
+			[Mediate(event="ShortTermSimulationEvent.SIM_STOPPED")]
+			public function onShortTermSimStopped(event:ShortTermSimulationEvent):void
+			{
+				liquidsCC.turnAllPipesOff()
+			}
+			
+						
+			
+			public function updatePipes():void
+			{
+				try
+				{
+					setTLiqEntValve(scenarioModel.getSysVar("CCTLiqEnt").baseSIValue)
+					setTLiqLvg(scenarioModel.getSysVar("CCTLiqLvg").baseSIValue)
+					setmLiqEnt(scenarioModel.getSysVar("CHLLiqFlw").baseSIValue	)			
+				}
+				catch(error:Error)
+					
+				{
+					Logger.error("Error getting variables for CC: " + error, this)
+				}
+			}
+				
+			public function set active(state:Boolean):void
+			{
+				_active = state
+				this.visible = state
+				if (state)
+				{
+					//user has entered system node where this component should be visible
+					//get latest current values if AHU is on
+					
+					if (shortTermSimulationModel.currentState == ShortTermSimulationModel.STATE_RUNNING)
+					{
+						updatePipes()				
+					}
+				}
+				else
+				{
+					//turn off component, no longer visible
+					liquidsCC.turnAllPipesOff()	
+				}
+			}
+					
+					
+			public function setTLiqEntValve(value:Number):void
+			{
+				if (isNaN(value))return
+				if (!_active) return				
+				liquidsCC.setTemp(value, 0)
+				liquidsCC.setTemp(value, 1)
+			}			
+					
+			public function setTLiqLvg(value:Number):void
+			{
+				if (isNaN(value))return
+				if (!_active) return									
+				liquidsCC.setTemp(value, 2)
+				liquidsCC.setTemp(value, 3)
+			}
+					
+			public function setmLiqEnt(value:Number):void
+			{
+				if (isNaN(value))return
+				//we need to adjust becuase the value is so low  between 0 and .0013
+				value = value * 10000
+				liquidsCC.setFlow(value, 0)
+				liquidsCC.setFlow(value, 1)
+				liquidsCC.setFlow(value, 2)
+				liquidsCC.setFlow(value, 3)
+			}
+			
+				
+			
+		]]>
+	</mx:Script>
+	
+	<myComps:CCPipes id="liquidsCC" />
+	
+</mx:Canvas>
