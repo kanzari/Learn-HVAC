@@ -13,7 +13,7 @@
 			the application. Optional.
 -->
 
-	<supportedProfiles>extendedDesktop</supportedProfiles>
+	<supportedProfiles>extendedDesktop desktop</supportedProfiles>
 	
 	<!-- The application identifier string, unique to this application. Required. -->
 	<id>com.superb.learnhvac</id>

@@ -465,7 +465,7 @@
        		
        		<!-- background elements -->
         	<mx:backgroundElements>
-            	<mx:GridLines direction="horizontal"
+            	<mx:GridLines 
                     horizontalTickAligned="true">
                 	<mx:horizontalFill>
                     	<mx:SolidColor color="0xF6F6F6"/>

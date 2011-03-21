@@ -3,10 +3,6 @@
 	width="100%"
 	horizontalScrollPolicy="off"
 	verticalScrollPolicy="off"
-	paddingBottom="0"
-	paddingLeft="0"
-	paddingTop="0"
-	paddingRight="0"
 	height="35"
 	styleName="appControlBar"
 	xmlns:view="com.mcquilleninteractive.learnhvac.view.*" xmlns:components="com.mcquilleninteractive.learnhvac.components.*">

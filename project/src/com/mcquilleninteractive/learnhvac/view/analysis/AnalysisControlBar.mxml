@@ -29,7 +29,6 @@
 	<analysis:AnalysisTabs 
 			id="analysisTabs"
 			x="460"
-			paddingTop="3"
 			height="35" width="400" 
 	    	creationPolicy="all" 
 			/>

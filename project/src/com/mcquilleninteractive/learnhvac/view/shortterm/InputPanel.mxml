@@ -363,8 +363,6 @@
 	<mx:TabBar itemClick="tabClickHandler(event);"  
 		styleName="tabNavigator"
 		paddingBottom="0"
-		borderStyle="none" 
-	   
 		>
 		<mx:dataProvider>
            	<mx:String>RUN OPTIONS</mx:String>
@@ -378,7 +376,7 @@
 					 width="100%" 
 					 horizontalScrollPolicy="off" 
 					 verticalScrollPolicy="off"
-					 paddingBottom="10">
+					 >
    	 
    	
 	<importControls:ShortTermOptions id="optionsPanel" visible="true"/> 
@@ -389,7 +387,7 @@
 					 width="100%" 
 					 horizontalScrollPolicy="off" 
 					 verticalScrollPolicy="off"
-					 paddingBottom="10"
+
 					 visible = "false"
 					 >
 					 
