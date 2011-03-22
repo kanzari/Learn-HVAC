@@ -82,7 +82,7 @@ package com.mcquilleninteractive.learnhvac.business
 		public function LongTermSimulationDelegate()
 		{						
 			_energyPlusDir = File.userDirectory.resolvePath(_energyPlusPath)
-			_weatherFileDir = File.userDirectory.resolvePath(_weatherFilesPath)
+			_weatherFileDir = File.userDirectory.resolvePath( _weatherFilesPath)
 			
 			_EPMacroProcess  = new NativeProcess()
 			_energyPlusProcess = new NativeProcess()
@@ -355,7 +355,7 @@ package com.mcquilleninteractive.learnhvac.business
 			_energyPlusProcess.addEventListener(ProgressEvent.STANDARD_OUTPUT_DATA, onEnergyPlusStandardOutput)
 			_energyPlusProcess.addEventListener(ProgressEvent.STANDARD_ERROR_DATA, onEnergyPlusStandardError)
 			
-			Logger.debug("Run EnergyPlus as : " + _energyPlusDir.nativePath + _energyPlusExecutable, this)
+			Logger.debug("Run EnergyPlus as : " + startupInfo.executable.nativePath, this)
 			
 			try
 			{

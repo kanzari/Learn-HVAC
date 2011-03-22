@@ -139,7 +139,12 @@
 						cboCity.dataProvider = longTermSimulationModel.northeastCitiesAC
 						cboCity.selectedIndex = 0
 						break
-						
+					
+					case "Midwest":
+						cboCity.dataProvider = longTermSimulationModel.midwestCitiesAC
+						cboCity.selectedIndex = 0
+						break
+					
 					case "South":
 						cboCity.dataProvider = longTermSimulationModel.southCitiesAC
 						cboCity.selectedIndex = 0
@@ -166,13 +171,13 @@
 
 	<mx:HBox>
 		<mx:Label id="lblRegion" text="Region:" width="100" styleName="longTermOptionsLabel"/>
-		<mx:ComboBox id="cboRegion" change="onRegionChange()" />	
+		<mx:ComboBox id="cboRegion" change="onRegionChange()" rowCount="9" />	
 	</mx:HBox>
 	
 	
 	<mx:HBox>		
 		<mx:Label id="lblCity" text="City:" width="100" styleName="longTermOptionsLabel"/>
-		<mx:ComboBox id="cboCity" change="onCityChange()"/>
+		<mx:ComboBox id="cboCity" change="onCityChange()" rowCount="9" />
 	</mx:HBox>
 				
 </mx:VBox>

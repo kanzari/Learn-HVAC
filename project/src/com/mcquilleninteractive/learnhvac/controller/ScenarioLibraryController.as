@@ -76,7 +76,7 @@ package com.mcquilleninteractive.learnhvac.controller
 		public var defaultScenariosModel:DefaultScenariosModel
 		
 		//this array describes how the nodes should be ordered in the array collection -- for navigation
-		private var sortOrderArr:Array = ["SYS","MX", "FAN","FLT","HC","CC","VAV","DIF","PLT","BOI","CHL","CTW","DCT","RM"]
+		private var sortOrderArr:Array = ["SYS","MX", "FLT","HC","CC","FAN","VAV","DIF","PLT","BOI","CHL","CTW","DCT","RM"]
 		
 		
 		protected var _simModal:SimulationModal

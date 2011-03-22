@@ -26,7 +26,7 @@
 	<name>LearnHVAC</name>
 
 	<!-- An application version designator (such as "v1", "2.5", or "Alpha 1"). Required. -->
-	<version>2.0.1</version>
+	<version>2.0.3</version>
 
 	<!-- Description, displayed in the AIR application installer.
 	     May have multiple values for each language. See samples or xsd schema file. Optional. -->
@@ -64,10 +64,10 @@
 		<!-- <resizable></resizable> -->
 
 		<!-- The window's initial width. Optional. -->
-		<width>800</width>
+		<width>1076</width>
 
 		<!-- The window's initial height. Optional. -->
-		<height>600</height>
+		<height>938</height>
 
 		<!-- The window's initial x position. Optional. -->
 		<!-- <x></x> -->

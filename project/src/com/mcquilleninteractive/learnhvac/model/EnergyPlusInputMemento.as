@@ -80,7 +80,7 @@ package com.mcquilleninteractive.learnhvac.model
 		
 		public function get storyHeight():Number
 		{
-			if (ApplicationModel.currUnits=="SI")
+			if (ApplicationModel.currUnits=="IP")
 			{
 				return Conversions.metersToFeet(_storyHeight)				
 			}

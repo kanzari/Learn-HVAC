@@ -530,6 +530,7 @@
 	
 	<viz:PipeLiquidsHC id="pipeLiquidsHC" visible="false"/>
 	<viz:PipeLiquidsCC id="pipeLiquidsCC" visible="false"/>
+	
 	<myComps:VAVDamper id="vavDamper" visible="false" />
 	<myComps:MixingBox id="mixingBox" />
 	<myComps:Fan id="fan" />

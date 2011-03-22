@@ -5,6 +5,7 @@
 			height="100%"
 			horizontalScrollPolicy="off"
 			verticalScrollPolicy="off"
+			addedToStage="canvas1_addedToStageHandler(event)"
 			>
 	
 	<mx:Style>
@@ -68,6 +69,12 @@
 		
 		
 		
+
+			protected function canvas1_addedToStageHandler(event:Event):void
+			{
+				getDefaultScenarios();
+			}
+
 		]]>
 
 	</mx:Script>

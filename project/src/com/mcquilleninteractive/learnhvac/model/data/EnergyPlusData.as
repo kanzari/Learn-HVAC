@@ -290,10 +290,12 @@ package com.mcquilleninteractive.learnhvac.model.data
 			ac.addItem({name:"Region",value:energyPlusInputsMemento.region})
 			ac.addItem({name:"Building length",value:energyPlusInputsMemento.buildingLength})
 			ac.addItem({name:"Building width",value:energyPlusInputsMemento.buildingWidth})
-			ac.addItem({name:"Story height",value:energyPlusInputsMemento.storyHeight})
+			ac.addItem({name:"Story height",value:Math.round((energyPlusInputsMemento.storyHeight)*100)/100})
 			ac.addItem({name:"Floor of interest",value:energyPlusInputsMemento.floorOfInterest})
 			
 			
+			
+				
 			ac.addItem({name:"Window type", value:energyPlusInputsMemento.windowType})
 			ac.addItem({name:"Win. ratio West", value:energyPlusInputsMemento.windowRatioWest})
 			ac.addItem({name:"Win. ratio East", value:energyPlusInputsMemento.windowRatioEast})
@@ -314,9 +316,7 @@ package com.mcquilleninteractive.learnhvac.model.data
 			ac.addItem({name:"Cooling coil UA", value:energyPlusInputsMemento.ccUA})
 			ac.addItem({name:"VAV heating coil UA", value:energyPlusInputsMemento.vavHcUA})
 			*/
-				
-			
-				
+		
 			return ac			
 		}
 		

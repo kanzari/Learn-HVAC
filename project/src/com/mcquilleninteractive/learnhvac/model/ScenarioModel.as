@@ -248,6 +248,7 @@ package com.mcquilleninteractive.learnhvac.model
             /* Set the ArrayCollection object's sort property to our custom sort, and refresh the ArrayCollection. */
             sysNodesAC.sort = numericDataSort;
             sysNodesForNavAC.sort = numericDataSort
+				
             sysNodesAC.refresh();
             sysNodesForNavAC.refresh();
 

@@ -56,30 +56,40 @@ package com.mcquilleninteractive.learnhvac.model
 		
 		public var regionsAC:ArrayCollection = new ArrayCollection([	{label:"Pacific", data:"Pacific"},
 																		{label:"Northeast", data:"Northeast"},
+																		{label:"Midwest", data:"Midwest"},
 																		{label:"South", data:"South"}
 																	]);
 
 
-		public var pacificCitiesAC:ArrayCollection = new ArrayCollection([{label:"San Francisco", data:"USA_CA_San.Francisco.Intl.AP.724940_TMY3.epw"},
-												{label:"Los Angeles", data:"USA_CA_Los.Angeles.Intl.AP.722950_TMY3.epw"},
-												{label:"Phoenix", data:"USA_AZ_Phoenix-Deer.Valley.AP.722784_TMY3.epw"},
-												{label:"Salem", data:"USA_OR_Salem-McNary.Field.726940_TMY3.epw"},
-												{label:"Boise", data:"USA_ID_Boise.Air.Terminal.726810_TMY3.epw"},
-												{label:"Helena", data:"USA_MT_Helena.Rgnl.AP.727720_TMY3.epw"}
+		public var pacificCitiesAC:ArrayCollection = new ArrayCollection([
+												{label:"San Francisco, California", data:"USA_CA_San.Francisco.Intl.AP.724940_TMY3.epw"},
+												{label:"Los Angeles, California", data:"USA_CA_Los.Angeles.Intl.AP.722950_TMY3.epw"},
+												{label:"Phoenix, Arizona", data:"USA_AZ_Phoenix-Deer.Valley.AP.722784_TMY3.epw"},
+												{label:"Salem, Oregon", data:"USA_OR_Salem-McNary.Field.726940_TMY3.epw"},
+												{label:"Boise, Idaho", data:"USA_ID_Boise.Air.Terminal.726810_TMY3.epw"},
+												{label:"Helena, Montana", data:"USA_MT_Helena.Rgnl.AP.727720_TMY3.epw"},
+												{label:"Fairbanks, Alaska", data:"USA_AK_Fairbanks.Intl.AP.702610_TMY3.epw"}	
 												])
-
-		public var northeastCitiesAC:ArrayCollection = new ArrayCollection([{label:"Baltimore", data:"USA_MD_Baltimore-Washington.Intl.AP.724060_TMY3.epw"},
-												{label:"Burlington", data:"USA_VT_Burlington.Intl.AP.726170_TMY3.epw"},
-												{label:"Chicago", data:"USA_IL_Chicago-Midway.AP.725340_TMY3.epw"},
-												{label:"Duluth", data:"USA_MN_Duluth.Intl.AP.727450_TMY3.epw"},
-												{label:"Fairbanks", data:"USA_AK_Fairbanks.Intl.AP.702610_TMY3.epw"}	
+			
+			
+		public var midwestCitiesAC:ArrayCollection = new ArrayCollection([
+								{label:"Chicago, Illinois", data:"USA_IL_Chicago-Midway.AP.725340_TMY3.epw"},
+								{label:"Duluth, Minnesota", data:"USA_MN_Duluth.Intl.AP.727450_TMY3.epw"}
+		])
+			
+		public var northeastCitiesAC:ArrayCollection = new ArrayCollection([
+												{label:"Baltimore, Maryland", data:"USA_MD_Baltimore-Washington.Intl.AP.724060_TMY3.epw"},
+												{label:"Burlington, Vermont", data:"USA_VT_Burlington.Intl.AP.726170_TMY3.epw"},
 												]);
 		
-		public var southCitiesAC:ArrayCollection = new ArrayCollection([{label:"Miami", data:"USA_FL_Miami-Kendall-Tamiami.Executive.AP.722029_TMY3.epw"},
-												{label:"Houston", data:"USA_TX_Houston-Bush.Intercontinental.AP.722430_TMY3.epw"},
-												{label:"Memphis", data:"USA_TN_Memphis.Intl.AP.723340_TMY3.epw"},
-												{label:"El Paso", data:"USA_TX_El.Paso.Intl.AP.722700_TMY3.epw"},
-												{label:"Albuquerque", data:"USA_NM_Albuquerque.Intl.AP.723650_TMY3.epw"}	
+		
+		
+		public var southCitiesAC:ArrayCollection = new ArrayCollection([
+												{label:"Miami, Florida", data:"USA_FL_Miami-Kendall-Tamiami.Executive.AP.722029_TMY3.epw"},
+												{label:"Houston, Texas", data:"USA_TX_Houston-Bush.Intercontinental.AP.722430_TMY3.epw"},
+												{label:"Memphis, Tennessee", data:"USA_TN_Memphis.Intl.AP.723340_TMY3.epw"},
+												{label:"El Paso, Texas", data:"USA_TX_El.Paso.Intl.AP.722700_TMY3.epw"},
+												{label:"Albuquerque, New Mexico", data:"USA_NM_Albuquerque.Intl.AP.723650_TMY3.epw"}	
 												]);
 		
 		
@@ -339,14 +349,25 @@ package com.mcquilleninteractive.learnhvac.model
 					//return southCitiesAC.getItemAt(citySelectedIndex).data
 					cityName = southCitiesAC.getItemAt(citySelectedIndex).label				
 					break
+				case "Midwest":
+					//return southCitiesAC.getItemAt(citySelectedIndex).data
+					cityName = midwestCitiesAC.getItemAt(citySelectedIndex).label				
+					break
 				default:
 					Logger.error("unexpected region index", this)
 			}
+			
+			
 			//return regionsAC.getItemAt(regionSelectedIndex).data
 			if (removeSpaces)
 			{
-				cityName = cityName.replace(" ","")
+				var arr:Array = cityName.split(",");
+				
+				cityName = arr[0];
+				cityName = cityName.replace(" ","");
+				
 			}
+			
 			return cityName
 		}
 		

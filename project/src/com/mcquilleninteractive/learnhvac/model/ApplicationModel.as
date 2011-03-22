@@ -11,12 +11,16 @@ package com.mcquilleninteractive.learnhvac.model
 	public class ApplicationModel extends EventDispatcher
 	{
 		
+		
+		public static const DEFAULT_USERNAME:String = ""
+		public static const DEFAULT_PASSWORD:String = ""
+			
 		public static const BASE_SERVICE_URL:String = "http://app.learnhvac.org/api/"
 		public static const baseStorageDirPath:String = "LearnHVAC/"
 					
 		// ATTRIBUTES FOR CONTROLLING TEST/MOCK MODE
 		//This flag makes debugging easier --> will cause certain functions to auto-submit (login)
-		public static var debugMode:Boolean = false		
+		public static var debugMode:Boolean = true		
 		
 		//run testing suite
 		public static var runTests:Boolean = false
@@ -25,7 +29,7 @@ package com.mcquilleninteractive.learnhvac.model
 		public static var mockEPlusData:Boolean = false
 		
 		//always act like this is first run of this version
-		public static var alwaysFirstRun:Boolean = false	
+		public static var alwaysFirstRun:Boolean = true	
 					
 		// REGULAR CLASS ATTRIBUTES
 		
