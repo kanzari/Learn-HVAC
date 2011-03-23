@@ -154,7 +154,7 @@
 								
 			public function outFocusHandler(event:Event):void
 			{
-				Logger.debug("onFocusHander()",this)
+				Logger.debug("outFocusHandler()",this)
 				data.localValue = Number(txtInputItem.text)
 				_isDirty = (data.localValue != data.currValue) 				
 				setBackground()		
@@ -223,12 +223,17 @@
 		text="{data.displayName}" 
 		toolTip="{data.displayName}" 
 		fontSize="10"/>
+	
+	
+	
 	<mx:TextInput 	id="txtInputItem"
 					width="65" 
 					height="20"
 					text="{data.localValue}"  
 					enabled="{_sysVarEnabled}"
 					focusOut="outFocusHandler(event)"/>
+	
+
 	
 	<mx:Text width="30" height="35" fontSize="10"  id="lblUnits" text="{data.units}" />
 	<mx:Spacer width="15"/>

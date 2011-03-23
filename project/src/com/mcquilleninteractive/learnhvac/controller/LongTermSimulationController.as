@@ -14,6 +14,8 @@ package com.mcquilleninteractive.learnhvac.controller
 	
 	import mx.controls.Alert;
 	import mx.core.Application;
+	import mx.core.FlexGlobals;
+	
 	import mx.managers.PopUpManager;
 	
 	import org.swizframework.Swiz;
@@ -71,7 +73,7 @@ package com.mcquilleninteractive.learnhvac.controller
 								
 			//show progress modal dialog 
 			_popUp = new RunningLongTermSimulationPopup()
-			PopUpManager.addPopUp(_popUp, Application.application as DisplayObject,true)
+			PopUpManager.addPopUp(_popUp, FlexGlobals.topLevelApplication as DisplayObject,true)
 			PopUpManager.centerPopUp(_popUp)
 			
 			//set flag for cancelling parsing

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" 
+	width="460" height="320"
+	title="About"
+	horizontalScrollPolicy ="off"
+	>
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.managers.PopUpManager;
+			import com.mcquilleninteractive.learnhvac.util.AboutInfo;
+			
+			private function onOK():void
+			{
+				PopUpManager.removePopUp(this)
+			}
+
+			
+		]]>
+	</mx:Script>
+	
+	
+	<mx:VBox height="100%" width="100%"  styleName="aboutPanelText" horizontalAlign="center" >
+		
+		<mx:Image id="logo" source="@Embed('assets/img/learnHVAC_header.png')"/> 
+		<mx:Spacer height="40" />
+		
+		<mx:Label text="{'version: ' + AboutInfo.applicationVersion}" styleName="aboutPanelLabel" />
+		<mx:Label text="© 2011 all rights reserved" styleName="aboutPanelLabel" />
+		<mx:Label text="Institute for the Sustainable Performance of Buildings" />
+
+		<mx:Spacer height="20" />
+		
+		<mx:HBox width="100%" horizontalAlign="center">
+			<mx:Button width="100" height="30" id="btnOK" label="OK" click="onOK()" textAlign="center" right="0"/>
+		</mx:HBox>
+
+	</mx:VBox>
+	
+	
+</mx:Panel>

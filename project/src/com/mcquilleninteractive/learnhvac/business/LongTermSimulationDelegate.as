@@ -494,9 +494,9 @@ package com.mcquilleninteractive.learnhvac.business
 			}
 			else if (rviFileName=="outputMeter.rvi")
 			{
-				var evt:EnergyPlusEvent = new EnergyPlusEvent(EnergyPlusEvent.ENERGY_PLUS_OUTPUT,true)
-				evt.output = "Running outputMeter.rvi" 
-				Swiz.dispatchEvent(evt)		
+				var evt2:EnergyPlusEvent = new EnergyPlusEvent(EnergyPlusEvent.ENERGY_PLUS_OUTPUT,true)
+				evt2.output = "Running outputMeter.rvi" 
+				Swiz.dispatchEvent(evt2)		
 				_readVarsESOProcess.addEventListener(NativeProcessExitEvent.EXIT, onReadVarsEplusoutMeterFinished)
 				_readVarsESOProcess.start(startupInfo)
 			}

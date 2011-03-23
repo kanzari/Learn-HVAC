@@ -1,31 +1,11 @@
 /* CSS file */
 
 /* ELEMENTS (Flex classes) */
-TitleWindow 
-{
-	closeButtonSkin: Embed("assets/img/close_off.png");
-    closeButtonDisabledSkin: Embed("assets/img/close_disabled.png");
-    closeButtonDownSkin: Embed("assets/img/close_over.png");
-    closeButtonOverSkin: Embed("assets/img/close_over.png");
-    closeButtonUpSkin: Embed("assets/img/close_off.png");
-}
 
-DragPanel
-{
-	borderAlpha:.8;	
-	color:#000000;
 
-}
 
-DateField 
-{
-	skin: Embed("assets/img/calendar.png");
-	/* null the skins defined in default.css */
-	upSkin: ClassReference(null);
-	overSkin: ClassReference(null);
-	downSkin: ClassReference(null);
-	disabledSkin: ClassReference(null);
-}
+
+/* not used
 
 Alert
 {
@@ -42,6 +22,35 @@ Alert
 	footer-colors : #799dc2, #ffffff;
 	border-color : #5970a0;
 }
+
+DateField 
+{
+	skin: Embed("assets/img/calendar.png");
+
+	upSkin: ClassReference(null);
+	overSkin: ClassReference(null);
+	downSkin: ClassReference(null);
+	disabledSkin: ClassReference(null);
+}
+
+
+DragPanel
+{
+	borderAlpha:.8;	
+	color:#000000;
+
+}
+
+TitleWindow 
+{
+	closeButtonSkin: Embed("assets/img/close_off.png");
+    closeButtonDisabledSkin: Embed("assets/img/close_disabled.png");
+    closeButtonDownSkin: Embed("assets/img/close_over.png");
+    closeButtonOverSkin: Embed("assets/img/close_over.png");
+    closeButtonUpSkin: Embed("assets/img/close_off.png");
+}
+ */ 
+
 
 .alertTitle
 {
@@ -62,6 +71,25 @@ Alert
 /* -----------------*/
 
 /* analysis section */
+
+
+.aboutPanelText {
+	color: #AAAAAA;
+	fontSize: 16;
+	fontWeight: bold;
+	paddingLeft: 0;
+	paddingTop: 0;
+	fontFamily: Myriad;	
+}
+
+
+.aboutPanelLabel {
+	padding-bottom:0;
+	padding-top:0;
+	
+}
+
+
 
 .analysisEnergySectionHeader
 {
@@ -501,14 +529,15 @@ Alert
            U+0061-U+007A, /* Lower-Case a-z */
            U+0030-U+0039, /* Numbers [0..9] */ 
            U+002E-U+002E; /* Period [.] */
+	embedAsCFF:false;
 }
 
 @font-face {
     src: url("../fonts/MyriadWebPro-Bold.ttf") ;
     fontFamily: Myriad;
     fontWeight: bold;
-    unicodeRange:
-           U+0041-U+005A; /* Upper-Case [A..Z] */
+
+	embedAsCFF:false;
 }
 
 @font-face {   

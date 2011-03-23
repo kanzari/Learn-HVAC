@@ -3,8 +3,6 @@
 	width="420" height="480"
 	title="Settings"
 	horizontalScrollPolicy ="off"
-	creationComplete="onCreationComplete()"
-	initialize="onInitialize()"
 	>
 	
 	<mx:Script>
@@ -29,16 +27,7 @@
 			}
 			
 			
-			public function onInitialize():void
-			{
-				
-			}
-			
-			public function onCreationComplete():void
-			{
-				//rdoUnits.selectedValue = ApplicationModel.currUnits
-			}
-			
+
 			private function init():void
 			{
 				rdoAnimation.selectedValue = _applicationModel.animationSpeed

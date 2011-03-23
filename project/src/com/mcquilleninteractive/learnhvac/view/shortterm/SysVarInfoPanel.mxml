@@ -4,7 +4,7 @@
 	backgroundColor="0xffffce"
     backgroundAlpha="0"
     dropShadowColor="0x000000"
-	dropShadowEnabled="true"
+
     horizontalScrollPolicy="off"
     verticalScrollPolicy="off"
 	>

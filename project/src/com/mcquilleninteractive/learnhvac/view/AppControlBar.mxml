@@ -37,7 +37,7 @@
 			
 			import org.swizframework.Swiz;
 			
-			
+			[Bindable]
 			[Autowire]
 			public var userModel:UserModel
           	          				

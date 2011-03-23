@@ -87,8 +87,8 @@ public class TaskBarManager
 		    {
 			applicationControlBar.visible = true;
 			visible = true;
-			Application.application.invalidateProperties();
-			Application.application.invalidateSize();
+			FlexGlobals.topLevelApplication.invalidateProperties();
+			FlexGlobals.topLevelApplication.invalidateSize();
 		    }
 		item.parent.removeChild(item);
 		applicationControlBar.addChild(item);
@@ -115,7 +115,7 @@ public class TaskBarManager
 		if(!itemsInfo)
 		    {
 			itemsInfo = new Dictionary();
-			var root:Application = Application.application as Application;
+			var root:Application = FlexGlobals.topLevelApplication as Application;
 			root.addChild(applicationControlBar);
 
 	        var sm:ISystemManager;
@@ -168,7 +168,7 @@ public class TaskBarManager
     {
 	var applicationControlBar2:ApplicationControlBar;
 
-	var root:Application = Application.application as Application;
+	var root:Application = FlexGlobals.topLevelApplication as Application;
 
 	applicationControlBar2 = new ApplicationControlBar();
 	applicationControlBar2.width = root.width;

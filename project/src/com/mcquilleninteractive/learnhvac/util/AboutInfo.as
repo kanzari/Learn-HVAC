@@ -1,8 +1,12 @@
 package com.mcquilleninteractive.learnhvac.util
 {
 	import flash.desktop.NativeApplication;
-	import flash.system.System;	
 	import flash.system.Capabilities;
+	import flash.system.System;
+	
+	import mx.core.FlexGlobals;
+	
+	import mx.core.FlexGlobals;
 	
 	public class AboutInfo
 	{
@@ -10,7 +14,8 @@ package com.mcquilleninteractive.learnhvac.util
 		/* TODO: implement this class so that it grabs version and name info from AIR (if this is an AIR app) or from MDM (if this is a zinc app) */
 		
 		public static var applicationName:String = "LearnHVAC"
-		
+		private static var applicationVersionString:String = ""
+			
 		public function AboutInfo()
 		{
 		
@@ -19,12 +24,20 @@ package com.mcquilleninteractive.learnhvac.util
 	
 		public static function get applicationVersion():String
 		{
-			var appXML:XML = NativeApplication.nativeApplication.applicationDescriptor
-			var air:Namespace = appXML.namespaceDeclarations()[0]
-			var version:String = appXML.air::version
+			//var appXML:XML = NativeApplication.nativeFlexGlobals.topLevelApplicationDescriptor
 			
-			if (version.indexOf("v")==0) version = version.substr(1)
-			return version
+			if (applicationVersionString == "") {
+				
+				var appXML:XML = NativeApplication.nativeApplication.applicationDescriptor;
+				var air:Namespace = appXML.namespaceDeclarations()[0]
+				var version:String = appXML.air::version
+				
+				if (version.indexOf("v")==0) version = version.substr(1)
+				applicationVersionString = version;
+			} 
+			
+			return applicationVersionString;
+
 		}
 		
 		

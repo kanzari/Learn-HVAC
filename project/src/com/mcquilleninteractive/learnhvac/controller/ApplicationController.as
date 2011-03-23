@@ -26,6 +26,10 @@ package com.mcquilleninteractive.learnhvac.controller
 	import mx.collections.ArrayCollection;
 	import mx.controls.Alert;
 	import mx.core.Application;
+	import mx.core.FlexGlobals;
+	
+	
+	
 	import mx.managers.ToolTipManager;
 	
 	import org.swizframework.Swiz;
@@ -81,7 +85,7 @@ package com.mcquilleninteractive.learnhvac.controller
 			//setup tooltips
 			ToolTipManager.toolTipClass = HTMLToolTip;	
 			
-			Application.application.addEventListener(Event.CLOSING, onAppClose, false, 0, true)	
+			FlexGlobals.topLevelApplication.addEventListener(Event.CLOSING, onAppClose, false, 0, true)	
 			
 					
 		}

@@ -357,6 +357,12 @@
 			
 			public function setAxisTitles():void
 			{
+				
+				if (graphVars.length<1) {
+					return;
+				}
+				
+				
 				if (graphType==GraphPanel.TIME_SERIES_GRAPH )
 				{
 					if (dataSourceType==EnergyPlusData.ENERGY_PLUS_DATA_TYPE)
@@ -377,6 +383,7 @@
 				}
 				else if (graphType==GraphPanel.XY_PLOT_GRAPH )
 				{
+
 					_horizontalTitle = graphVars[0]
 					if (graphVars.length>1)
 					{
@@ -439,14 +446,14 @@
 	
 
 			
-	<mx:Stroke id="var1Stroke" 
+	<mx:SolidColorStroke id="var1Stroke" 
        	 	color="{var1Color}" 
        	 	weight="2" 
       	  	alpha="1"
        	 	caps="square"
 	/>
 
-	<mx:Stroke id="var2Stroke" 
+	<mx:SolidColorStroke id="var2Stroke" 
       	  	color="{var2Color}" 
        	 	weight="2" 
        	 	alpha="1"
@@ -501,7 +508,7 @@
        		     	 displayName="" 
        		     	 selectable="true">
        	     		<mx:lineStroke> 
-       	         	<mx:Stroke 
+       	         	<mx:SolidColorStroke 
        	            		color="{var1Color}" 
        	            	 	weight="3"
        	    	      	 	caps="round"
@@ -513,7 +520,7 @@
             	</mx:LineSeries>
             	<mx:LineSeries id="lineSeries2" xField="time" yField="value2" displayName="">
               		<mx:lineStroke> 
-                		<mx:Stroke 
+                		<mx:SolidColorStroke 
                    			color="{var2Color}" 
                    	 		weight="3"
                  	 		caps="round"

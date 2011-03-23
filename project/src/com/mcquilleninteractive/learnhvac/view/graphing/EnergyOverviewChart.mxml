@@ -171,37 +171,37 @@
          <mx:series>
             	<mx:LineSeries yField="fans" xField="date" displayName="Fans" >
 	            	<mx:lineStroke>
-	                    <mx:Stroke color="{ColorSetting.fansColor}" weight="2" />
+	                    <mx:SolidColorStroke color="{ColorSetting.fansColor}" weight="2" />
 	                </mx:lineStroke>
             	</mx:LineSeries>
             	<mx:LineSeries yField="lighting" xField="date" displayName="Lighting" >
 	            	<mx:lineStroke>
-	                    <mx:Stroke color="{ColorSetting.lightingColor}" weight="2" />
+	                    <mx:SolidColorStroke color="{ColorSetting.lightingColor}" weight="2" />
 	                </mx:lineStroke>
             	</mx:LineSeries>
             	<mx:LineSeries yField="equipment" xField="date" displayName="Equipment" >
 	            	<mx:lineStroke>
-	                    <mx:Stroke color="{ColorSetting.equipmentColor}" weight="2" />
+	                    <mx:SolidColorStroke color="{ColorSetting.equipmentColor}" weight="2" />
 	                </mx:lineStroke>
             	</mx:LineSeries>
             	<mx:LineSeries yField="cooling" xField="date" displayName="Cooling" >
 	            	<mx:lineStroke>
-	                    <mx:Stroke color="{ColorSetting.coolingColor}" weight="2" />
+	                    <mx:SolidColorStroke color="{ColorSetting.coolingColor}" weight="2" />
 	                </mx:lineStroke>
             	</mx:LineSeries>
             	<mx:LineSeries yField="heating" xField="date" displayName="Heating" >
 	            	<mx:lineStroke>
-	                    <mx:Stroke color="{ColorSetting.heatingColor}" weight="2" />
+	                    <mx:SolidColorStroke color="{ColorSetting.heatingColor}" weight="2" />
 	                </mx:lineStroke>
             	</mx:LineSeries>
             	<mx:LineSeries yField="pumps" xField="date" displayName="Pumps" >
 	            	<mx:lineStroke>
-	                    <mx:Stroke color="{ColorSetting.pumpsColor}" weight="2" />
+	                    <mx:SolidColorStroke color="{ColorSetting.pumpsColor}" weight="2" />
 	                </mx:lineStroke>
             	</mx:LineSeries>
             	<mx:LineSeries yField="subTotal" xField="date" displayName="Total">
 	            	<mx:lineStroke>
-	                    <mx:Stroke color="#000000" weight="2" />
+	                    <mx:SolidColorStroke color="#000000" weight="2" />
 	                </mx:lineStroke>
             	</mx:LineSeries>
 	    </mx:series>

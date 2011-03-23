@@ -54,10 +54,10 @@ package com.mcquilleninteractive.learnhvac.model
 			event.graphDataModelID =  currRunID
 			Swiz.dispatchEvent(event)
 				
-			var event:ScenarioDataLoadedEvent = new ScenarioDataLoadedEvent(ScenarioDataLoadedEvent.SHORT_TERM_SYSVARS_LOADED,true)
-			event.graphDataModel = IGraphDataModel(runsArr[ShortTermSimulationDataModel.RUN_2])
-			event.graphDataModelID =  ShortTermSimulationDataModel.RUN_2
-			Swiz.dispatchEvent(event)
+			var event2:ScenarioDataLoadedEvent = new ScenarioDataLoadedEvent(ScenarioDataLoadedEvent.SHORT_TERM_SYSVARS_LOADED,true)
+			event2.graphDataModel = IGraphDataModel(runsArr[ShortTermSimulationDataModel.RUN_2])
+			event2.graphDataModelID =  ShortTermSimulationDataModel.RUN_2
+			Swiz.dispatchEvent(event2)
 			
 		}
 				

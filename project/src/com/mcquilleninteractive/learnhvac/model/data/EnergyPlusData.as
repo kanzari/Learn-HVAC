@@ -421,11 +421,12 @@ package com.mcquilleninteractive.learnhvac.model.data
 					if (floorZoneLookupArr[col]!=null) 
 					{
 						var obj:Object = floorZoneLookupArr[col]
-						var vo:LongTermValuesForShortTermSimVO = floorZoneDataArr[rowIndex][obj.floor-1][obj.zone-1]
-						vo.setValue(obj.voVarName, val)
-						vo.rowIndex = rowIndex
-						vo._tAirOut = tAirOut
-						vo._rhOutside = relativeHumidity
+						var vo2:LongTermValuesForShortTermSimVO = floorZoneDataArr[rowIndex][obj.floor-1][obj.zone-1];
+						
+						vo2.setValue(obj.voVarName, val)
+						vo2.rowIndex = rowIndex
+						vo2._tAirOut = tAirOut
+						vo2._rhOutside = relativeHumidity
 						
 					}								
 				}

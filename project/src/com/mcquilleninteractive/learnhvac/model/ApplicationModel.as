@@ -12,15 +12,21 @@ package com.mcquilleninteractive.learnhvac.model
 	{
 		
 		
-		public static const DEFAULT_USERNAME:String = ""
-		public static const DEFAULT_PASSWORD:String = ""
+	//	public static const DEFAULT_USERNAME:String = "rrd"
+	//	public static const DEFAULT_PASSWORD:String = "rrdrrd"
 			
+		//public static const DEFAULT_USERNAME:String = "muttcanbark"
+		//public static const DEFAULT_PASSWORD:String = "muttcanbark"
+			
+		public static const DEFAULT_USERNAME:String = ""
+		public static const DEFAULT_PASSWORD:String = ""		
+		
 		public static const BASE_SERVICE_URL:String = "http://app.learnhvac.org/api/"
 		public static const baseStorageDirPath:String = "LearnHVAC/"
 					
 		// ATTRIBUTES FOR CONTROLLING TEST/MOCK MODE
 		//This flag makes debugging easier --> will cause certain functions to auto-submit (login)
-		public static var debugMode:Boolean = true		
+		public static var debugMode:Boolean = false		
 		
 		//run testing suite
 		public static var runTests:Boolean = false

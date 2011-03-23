@@ -8,6 +8,8 @@ package com.mcquilleninteractive.learnhvac.model
 	import flash.events.Event;
 	
 	import mx.core.Application;
+	import mx.core.FlexGlobals;
+	
 	import mx.managers.PopUpManager;	
 	public class DialogManager
 	{
@@ -48,7 +50,7 @@ package com.mcquilleninteractive.learnhvac.model
 			{
 				_outputPopUp = new OutputPanel()
 				_outputPopUp.addEventListener(Event.CLOSE, onOutputPanelClose)
-				PopUpManager.addPopUp(_outputPopUp,  Application.application as DisplayObject, false);
+				PopUpManager.addPopUp(_outputPopUp,  FlexGlobals.topLevelApplication as DisplayObject, false);
 			}			
 			_outputPopUp.x=385
 			_outputPopUp.y=660
@@ -73,7 +75,7 @@ package com.mcquilleninteractive.learnhvac.model
 			{
 				_watchPopUp = new WatchPanel()
 				_watchPopUp.addEventListener(Event.CLOSE, onWatchPanelClose)
-				PopUpManager.addPopUp(_watchPopUp,  Application.application as DisplayObject, false);
+				PopUpManager.addPopUp(_watchPopUp,  FlexGlobals.topLevelApplication as DisplayObject, false);
 			}			
 			_watchPopUp.x=9
 			_watchPopUp.y=660	
@@ -99,7 +101,7 @@ package com.mcquilleninteractive.learnhvac.model
 			{
 				_moviePopUp = new MovieViewer()
 				_moviePopUp.addEventListener(Event.CLOSE, onMovieViewClose)
-				PopUpManager.addPopUp(_moviePopUp,  Application.application as DisplayObject, false);
+				PopUpManager.addPopUp(_moviePopUp,  FlexGlobals.topLevelApplication as DisplayObject, false);
 				PopUpManager.centerPopUp(_moviePopUp)
 			}			
 			PopUpManager.centerPopUp(_moviePopUp)
@@ -122,7 +124,7 @@ package com.mcquilleninteractive.learnhvac.model
 			{
 				_hcLiquidsSchematic = new HCLiquidsSchematicPanel()
 				_hcLiquidsSchematic.addEventListener(Event.CLOSE, onHCLiquidsSchematicClose)
-				PopUpManager.addPopUp(_hcLiquidsSchematic, Application.application as DisplayObject, false)
+				PopUpManager.addPopUp(_hcLiquidsSchematic, FlexGlobals.topLevelApplication as DisplayObject, false)
 				PopUpManager.centerPopUp(_hcLiquidsSchematic)
 			}
 		}
@@ -144,7 +146,7 @@ package com.mcquilleninteractive.learnhvac.model
 			{		
 				_ccLiquidsSchematic = new CCLiquidsSchematicPanel()
 				_ccLiquidsSchematic.addEventListener(Event.CLOSE, onCCLiquidsSchematicClose)
-				PopUpManager.addPopUp(_ccLiquidsSchematic, Application.application as DisplayObject, false)
+				PopUpManager.addPopUp(_ccLiquidsSchematic, FlexGlobals.topLevelApplication as DisplayObject, false)
 				PopUpManager.centerPopUp(_ccLiquidsSchematic)
 			}
 		}
@@ -167,7 +169,7 @@ package com.mcquilleninteractive.learnhvac.model
 			{		
 				_sysEnergyGraph = new SystemEnergyGraph()
 				_sysEnergyGraph.addEventListener(Event.CLOSE, onSysEnergyGraphClose)
-				PopUpManager.addPopUp(_sysEnergyGraph, Application.application as DisplayObject, false)
+				PopUpManager.addPopUp(_sysEnergyGraph, FlexGlobals.topLevelApplication as DisplayObject, false)
 				PopUpManager.centerPopUp(_sysEnergyGraph)
 			}
 		}
@@ -190,7 +192,7 @@ package com.mcquilleninteractive.learnhvac.model
 			{		
 				_zoneEnergyGraph = new ZoneEnergyGraph()
 				_zoneEnergyGraph.addEventListener(Event.CLOSE, onZoneEnergyGraphClose)
-				PopUpManager.addPopUp(_zoneEnergyGraph, Application.application as DisplayObject, false)
+				PopUpManager.addPopUp(_zoneEnergyGraph, FlexGlobals.topLevelApplication as DisplayObject, false)
 				PopUpManager.centerPopUp(_zoneEnergyGraph)
 			}
 		}

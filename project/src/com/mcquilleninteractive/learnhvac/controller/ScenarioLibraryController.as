@@ -32,6 +32,8 @@ package com.mcquilleninteractive.learnhvac.controller
 	import mx.collections.ArrayCollection;
 	import mx.controls.Alert;
 	import mx.core.Application;
+	import mx.core.FlexGlobals;
+	
 	import mx.managers.PopUpManager;
 	import mx.rpc.AsyncToken;
 	import mx.rpc.events.FaultEvent;
@@ -39,6 +41,8 @@ package com.mcquilleninteractive.learnhvac.controller
 	
 	import org.swizframework.Swiz;
 	import org.swizframework.controller.AbstractController;
+	
+	
 	
 	public class ScenarioLibraryController  extends AbstractController
 	{
@@ -386,7 +390,7 @@ package com.mcquilleninteractive.learnhvac.controller
 			}
 			
 			_simModal = new SimulationModal()
-			PopUpManager.addPopUp(_simModal, Application.application as DisplayObject, true)
+			PopUpManager.addPopUp(_simModal, FlexGlobals.topLevelApplication as DisplayObject, true)
 			_simModal.message = SimulationModal.DOWNLOADING
 			PopUpManager.centerPopUp(_simModal)
 		}
@@ -600,13 +604,13 @@ package com.mcquilleninteractive.learnhvac.controller
 		public function onCloseScenario(event:CloseScenarioEvent):void
 		{
 			//if simulation is still running, stop it
-			if (shortTermSimulationModel.currentState = ShortTermSimulationModel.STATE_RUNNING)
+			if (shortTermSimulationModel.currentState == ShortTermSimulationModel.STATE_RUNNING)
 			{
 				var stEvent:ShortTermSimulationEvent = new ShortTermSimulationEvent(ShortTermSimulationEvent.SIM_STOP, true)
 				Swiz.dispatchEvent(stEvent)
 			}
 			
-			if (longTermSimulationModel.currentState = LongTermSimulationModel.STATE_RUNNING)
+			if (longTermSimulationModel.currentState == LongTermSimulationModel.STATE_RUNNING)
 			{
 				var ltEvent:LongTermSimulationEvent = new LongTermSimulationEvent(LongTermSimulationEvent.SIM_CANCEL, true)
 				Swiz.dispatchEvent(ltEvent)

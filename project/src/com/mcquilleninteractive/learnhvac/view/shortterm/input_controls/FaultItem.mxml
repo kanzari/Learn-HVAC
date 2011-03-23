@@ -72,6 +72,15 @@
 			}
 			
 			
+			public function outFocusHandler(event:Event):void
+			{
+				Logger.debug("outFocusHandler()",this)
+					
+				data.localValue = Number(txtCurrFaultValue.text)
+				_isDirty = (data.localValue != data.currValue) 				
+			}
+
+			
       		override public function set data(value:Object):void
       		{
       			super.data = value
@@ -95,7 +104,7 @@
   					lblLeftLabel.visible = false
   					lblRightLabel.visible = false
   					sldFaultValue.visible = false
-  					lblCurrFaultValue.visible = false
+					txtCurrFaultValue.visible = false
   				}
   				else if (sysVar.faultWidgetType==SystemVariable.FAULT_SLIDER)
   				{
@@ -104,14 +113,14 @@
   					lblRightLabel.visible = true
   					sldFaultValue.visible = true
   				
-  					lblCurrFaultValue.visible = sysVar.faultIsActive
+					txtCurrFaultValue.visible = sysVar.faultIsActive
 					sldFaultValue.enabled = sysVar.faultIsActive && (!sysVar.disabled)
   				
   					//set only first and last tickmark
   					sldFaultValue.tickValues = [sysVar.lowValue, sysVar.highValue]
   				
   					//make sure current value is showing
-  					if (lblCurrFaultValue.text=="")  lblCurrFaultValue.text = sldFaultValue.value.toString()
+  					if (txtCurrFaultValue.text=="")  txtCurrFaultValue.text = sldFaultValue.value.toString()
 						
 					//set precision
 					if (data.highValue>1000)
@@ -280,17 +289,26 @@
         			thumbUpSkin="{SliderDragger}"
         			thumbDisabledSkin="{SliderDraggerDisabled}"
 					fillAlphas="[1, 1, 1, 1]"
-
-				    
 		/>
 		
-		<mx:Label 	id="lblCurrFaultValue"
+		<mx:TextInput id="txtCurrFaultValue"
+				x="230" y="40"
+				width="60" height="22" 
+				textAlign="right"
+				text="{data.localValue}"
+				focusOut="outFocusHandler(event)"
+		/>
+		
+		
+		<!--
+		<mx:Label 	id="lblCurrFaultValue2"
 					x="230" y="40"
 					width="60" height="22" 
 				  	textAlign="right"
 				  	text="{data.localValue}"
 		/>
-			 
+		-->
+		
 		<mx:Button 	x="300" y="6"
 					upSkin="{InfoIconUp}" 
 					overSkin="{InfoIconUp}"

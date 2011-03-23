@@ -208,7 +208,7 @@
 				//var w:uint = longTermSimulationModel.getWidthForElevation(_currElevationView,'IP')
 				//var storyHeight:Number = longTermSimulationModel.storyHeight
 				var w:uint = 100
-				var storyHeight = 12				
+				var storyHeight:int = 12				
 				var stories:Number = longTermSimulationModel.stories
 				var winRatio:Number = longTermSimulationModel.getWindowRatioForElevation(_currElevationView)
 				var winType:String = longTermSimulationModel.windowType

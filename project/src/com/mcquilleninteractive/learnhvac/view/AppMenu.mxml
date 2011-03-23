@@ -22,12 +22,22 @@
 			import mx.binding.utils.BindingUtils						
 			
 			import mx.core.Application;
+			import mx.core.FlexGlobals;
+			import mx.managers.PopUpManager;
+			
+			import com.mcquilleninteractive.learnhvac.view.popups.SettingsPanel;
+			import com.mcquilleninteractive.learnhvac.view.popups.AboutPanel;
+			
 			private var cwViewing:ChangeWatcher
 			
 			[Bindable]
 			[Autowire]
 			public var applicationModel:ApplicationModel
 						
+			private var settingsPopup:SettingsPanel
+			private var aboutPopup:AboutPanel
+			
+			
 			
 			private function onInit():void
 			{
@@ -48,22 +58,29 @@
 					/* COMFEN */ 	
 						
 					case "about":
+						aboutPopup = AboutPanel(PopUpManager.createPopUp(this.parent, AboutPanel, true)); // popup modal dialog	
+						PopUpManager.centerPopUp(aboutPopup)
 						break
 						
 					case "quit":
+						FlexGlobals.topLevelApplication.exit();
 						break
 						
 					case "hide":
-						Application.application.minimize()
+						FlexGlobals.topLevelApplication.minimize()
 						break
 						
 					case "logout":
 						onLogout()
 						break
 						
-					case "preferences":
+					case "settings":
+						//show modal dialog for settings
+						settingsPopup = SettingsPanel(PopUpManager.createPopUp(this.parent, SettingsPanel, true)); // popup modal dialog	
+						PopUpManager.centerPopUp(settingsPopup)
 						break
 						
+					
 					/* File */ 
 					
 					/*
@@ -153,7 +170,7 @@
 			<util:MenuItem label="Learn HVAC" id="learnhvac">
 				<util:MenuItem label="About Learn HVAC" id="about" data="about"/>
 				<util:MenuItem type="separator"/>
-				<util:MenuItem label="Preferences" id="preferences" data="preferences"/>
+				<util:MenuItem label="Settings" id="settings" data="settings" />
 				<util:MenuItem type="separator"/>
 				<util:MenuItem label="Hide Learn HVAC" id="hide" data="hide"/>
 				<util:MenuItem type="separator"/>

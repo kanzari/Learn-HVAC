@@ -35,6 +35,8 @@
 			public function setGraphType (graphType:String) :void
 			{
 					
+				//if (graphPanel.graphVars.length ==0) return;
+				
 				graphPanel.graphType = graphType
 				
 				if (graphType=="XY")
