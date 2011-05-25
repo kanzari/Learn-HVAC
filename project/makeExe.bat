@@ -1,0 +1,1 @@
+C:\_Daniel_McQuillen\flex_sdk_4.1_air2.02\bin\adt -package -target native "C:\projects\superb\Learn HVAC\LearnHVAC_AIR4\project\LearnHVAC.exe" "C:\projects\superb\Learn HVAC\LearnHVAC_AIR4\project\LearnHVAC.air"
