@@ -18,7 +18,6 @@
         </excludedEntries>
       </libraryPathEntry>
       <libraryPathEntry kind="1" linkType="1" path="libs"/>
-      <libraryPathEntry kind="3" linkType="1" path="C:/AdobeSDKs/forLearnHvac/datavisualization_sdk3.5/frameworks/locale/en_US/datavisualization_rb.swc" useDefaultLinkType="false"/>
     </libraryPath>
     <sourceAttachmentPath/>
   </compiler>
