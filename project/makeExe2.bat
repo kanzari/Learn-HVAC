@@ -1,1 +1,2 @@
-C:\_Daniel_McQuillen\flex_sdk_4.1_air2.5\bin\adt -package -target native "C:\projects\superb\FlashBuilderWorkspace\LearnHVAC_AIR4\project\LearnHVAC_2.0.10_setup.exe" "C:\projects\superb\FlashBuilderWorkspace\LearnHVAC_AIR4\project\LearnHVAC.air"
+::before urnning this open the project in FLash Builder and go to Project | Export Release Build...
+C:\AdobeSDKs\forLearnHvac\flex_sdk_4.1.0.16076\bin\adt -package -target native "C:\projects\superb\FlashBuilderWorkspace4.5\LearnHVAC_AIR4\project\LearnHVAC_2.1.02_upgrade.exe" "C:\projects\superb\FlashBuilderWorkspace4.5\LearnHVAC_AIR4\project\LearnHVAC.air"
