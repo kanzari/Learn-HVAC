@@ -5,15 +5,18 @@ import com.mcquilleninteractive.learnhvac.util.Logger;
 import flash.filesystem.*;
 import mx.logging.Log;
 import org.swizframework.Swiz;
+import mx.controls.Alert;
 
 /*************** lifecycle event handlers *****************/
 
 
 private function onPreInit():void
 {		
-	Log.addTarget(traceTarget)
-	Logger.debug("onPreInit()",this)
-	Swiz.dispatchEvent(new ApplicationEvent(ApplicationEvent.INIT_APP, true))
+	Log.addTarget(traceTarget);
+	Logger.debug("onPreInit()",this);
+	Swiz.dispatchEvent(new ApplicationEvent(ApplicationEvent.INIT_APP, true));
+		
+//	Alert.show( "This is a test" );
 }
 
 

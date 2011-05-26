@@ -280,13 +280,18 @@ package com.mcquilleninteractive.learnhvac.controller
 				
 				//Make sure client version and scenario version match
 				var scenarioVersion:String = scenXML.client.version
-				if (scenarioVersion != AboutInfo.applicationVersion)
+				if (!AboutInfo.canParseScenarioVersion(scenarioVersion))
 				{					
 					//scenario and model are out of since
-					var msg:String = "Scenario version does not match client version.\nScenario version: " + scenarioVersion + "\nClient version:   " + AboutInfo.applicationVersion
-					Alert.show(msg, "Version mismatch")
+					//var msg:String = "Scenario version does not match client version.\nScenario version: " + scenarioVersion + "\nClient version:   " + AboutInfo.applicationVersion
+					
+					var msg:String = "This scenerio was created for client version: " + scenarioVersion + 
+							"\nYou can only open scenerios created for client version " + 
+							AboutInfo.minimumScenerioVersionStr + " or later."
+					
+					Alert.show(msg, "Version mismatch");
 					Logger.error("error message: " + msg, this);
-					removeSimulationModal()
+					removeSimulationModal();
 					return					
 				}
 					
