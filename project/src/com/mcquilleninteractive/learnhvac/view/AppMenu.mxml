@@ -28,6 +28,9 @@
 			import com.mcquilleninteractive.learnhvac.view.popups.SettingsPanel;
 			import com.mcquilleninteractive.learnhvac.view.popups.AboutPanel;
 			
+			import com.mcquilleninteractive.learnhvac.event.ShortTermSimulationEvent;
+			import com.mcquilleninteractive.learnhvac.event.LongTermSimulationEvent;
+			
 			private var cwViewing:ChangeWatcher
 			
 			[Bindable]
@@ -142,6 +145,14 @@
 			{
 				if (evt.detail == Alert.OK)
 				{	
+					
+					var shortEvent:ShortTermSimulationEvent = new ShortTermSimulationEvent(ShortTermSimulationEvent.SIM_RETURN_TO_START, true)
+					dispatchEvent(shortEvent)
+					
+					var longEvent:LongTermSimulationEvent = new LongTermSimulationEvent(LongTermSimulationEvent.SIM_CANCEL, true)
+					dispatchEvent(longEvent)
+					
+					
 					Logger.debug("#LogoutCommand: user confirmed intention to log out. Launching app event...")
 					var event:LogoutEvent = new LogoutEvent(LogoutEvent.LOGOUT, true)
 					dispatchEvent(event)

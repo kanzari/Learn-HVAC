@@ -47,13 +47,26 @@
 		public var epochTimeArr:Array			
 		//where the simulation will start from when first started or reset
 		//(this will be set by model based on Scenario)
-		public var realtimeStartDatetime:Date
-					
+		private var _realtimeStartDatetime:Date
+		
+		public function get realtimeStartDatetime() : Date
+		{
+			return _realtimeStartDatetime;
+		}	
+		
+		public function set realtimeStartDatetime(value : Date) : void
+		{
+			_realtimeStartDatetime = value;
+		}	
+		
+		
 		//for debugging 
 		public var modelicaInputsTraceFile:File		
 		public var modelicaInputsTrace:String = ""
 		
 		
+			
+			
 		public var currentState:String = STATE_OFF
 			
 		public function ShortTermSimulationModel()

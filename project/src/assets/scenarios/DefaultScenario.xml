@@ -7,7 +7,7 @@
   <level type="Integer">1</level>
   <client>
 
-    <version type="String">2.0.1</version>
+    <version type="String">2.1.04</version>
     <url type="String">http://github.com/danielmcquillen/LearnHVAC_AIR/downloads</url>
     <release_date>
       <year type="Integer">2010</year>

@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" 
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:controls="com.mcquilleninteractive.controls.*"
 	label="PROPERTIES"  	
 	implements="com.mcquilleninteractive.learnhvac.view.longterm.ILongTermOptionsPanel"
 	creationComplete="onCC()"
 	paddingTop="10"
 	paddingLeft="10"
 	paddingRight="10"
-	width="100%" height="100%">
+	width="100%" height="100%"
+
+	>
 	
 	<mx:Metadata>
 		[Event(name="buildingPropsChange", type="flash.events.Event")]
@@ -22,9 +25,11 @@
 			import com.mcquilleninteractive.learnhvac.util.Logger;
 			import com.mcquilleninteractive.learnhvac.view.LongTermSimulation;
 			import com.mcquilleninteractive.learnhvac.vo.LongTermSimulationVO;
+
 			
 			import mx.events.ItemClickEvent;
 			import mx.events.SliderEvent;
+			import flash.events.Event;
 			import mx.validators.Validator;	
 			
 			[Bindable]
@@ -119,18 +124,18 @@
 				//initialize sliders				
 				if (currUnits =="SI")
 				{										
-					sldStoryHeight.minimum = 2.5
-					sldStoryHeight.maximum = 6.0
+/*  					sldStoryHeight.minimum = 2.5
+					sldStoryHeight.maximum = 6.0  */
 					lblStoryHeightLeftLabel.text = "2.5"
 					lblStoryHeightRightLabel.text = "6.0"
 										
-					sldBldgLength.minimum = 10
-					sldBldgLength.maximum = 100
+/* 					sldBldgLength.minimum = 10
+					sldBldgLength.maximum = 100 */
 					lblBldgLengthLeftLabel.text = "10"
 					lblBldgLengthRightLabel.text = "100"
 					
-					sldBldgWidth.minimum = 10
-					sldBldgWidth.maximum = 100
+/* 					sldBldgWidth.minimum = 10
+					sldBldgWidth.maximum = 100 */
 					lblBldgWidthLeftLabel.text = "10"
 					lblBldgWidthRightLabel.text = "100"
 					
@@ -142,18 +147,18 @@
 				else
 				{
 					
-					sldStoryHeight.minimum = 8
-					sldStoryHeight.maximum = 20
+/* 					sldStoryHeight.minimum = 8
+					sldStoryHeight.maximum = 20 */
 					lblStoryHeightLeftLabel.text = "8'"
 					lblStoryHeightRightLabel.text = "20'"
 										
-					sldBldgLength.minimum = 50
-					sldBldgLength.maximum = 300
+/* 					sldBldgLength.minimum = 50
+					sldBldgLength.maximum = 300 */
 					lblBldgLengthLeftLabel.text = "50'"
 					lblBldgLengthRightLabel.text = "300'"
 					
-					sldBldgWidth.minimum = 50
-					sldBldgWidth.maximum = 300
+/* 					sldBldgWidth.minimum = 50
+					sldBldgWidth.maximum = 300 */
 					lblBldgWidthLeftLabel.text = "50'"
 					lblBldgWidthRightLabel.text = "300'"
 										
@@ -162,9 +167,9 @@
 					lblBldgWidthUnits.text = "ft."
 				}				
 				
-				sldStoryHeight.invalidateProperties()
+/* 				sldStoryHeight.invalidateProperties()
 				sldBldgWidth.invalidateProperties()
-				sldBldgLength.invalidateProperties()
+				sldBldgLength.invalidateProperties() */
 			
 			}
 			
@@ -214,85 +219,62 @@
 				var winType:String = longTermSimulationModel.windowType
 				_elevationView.drawFloors(w, stories, storyHeight, winRatio, winType)
 			}
+		
 			
-			private function sliderChange(event:SliderEvent):void
+			private function sliderChangeNorth(event:flash.events.Event):void
 			{
-				if (!_zoneSelector) return
 				
-				var val:Number = event.target.value					
-				switch (event.target.id)
-				{
-					/*
-					case "sldStories":
-						longTermSimulationModel.stories = val
-						if (longTermSimulationModel.floorOfInterest > val) {
-							longTermSimulationModel.floorOfInterest= val
-						}
-						_elevationView.setFloorOfInterest(longTermSimulationModel.floorOfInterest)
-						drawFloors()
-						break
+				var val:Number = event.target.value;
+				longTermSimulationModel.windowRatioNorth = event.target.value;
 					
-					
-					case "sldStoryHeight":
-						longTermSimulationModel.storyHeight = val
-						//txtStoryHeight.text = String(val)
-						//bldgModel.changeStoryHeight(val)
-						drawFloors()
-						break
-					
-					
-					case "sldBldgWidth":
-						longTermSimulationModel.buildingWidth = val
-						if (_currElevationView == LongTermSimulationModel.NORTH || _currElevationView == LongTermSimulationModel.SOUTH) 
-						{
-							drawFloors()
-						}
-						//bldgModel.changeWidth(val)						
-						_zoneSelector.drawZones( longTermSimulationModel.buildingLength, longTermSimulationModel.buildingWidth, longTermSimulationModel.northAxis, 0)		
-						break
-						
-					case "sldBldgLength":
-						longTermSimulationModel.buildingLength = val
-						if (_currElevationView == LongTermSimulationModel.EAST || _currElevationView == LongTermSimulationModel.WEST) 
-						{
-							drawFloors()
-						}
-						//bldgModel.changeLength(val)
-						_zoneSelector.drawZones( longTermSimulationModel.buildingLength, longTermSimulationModel.buildingWidth, longTermSimulationModel.northAxis, 0)		
-						break
-					*/	
-					case "sldNorth":
-						longTermSimulationModel.windowRatioNorth = val
-						txtNorth.text = String(val)
-						//bldgModel.changeRatio(LongTermSimulation.NORTH, val)
-						if (_currElevationView == LongTermSimulationModel.NORTH) {
-							_elevationView.setWindowRatio(val)
-						}
-						break
-						
-					case "sldSouth":
-						longTermSimulationModel.windowRatioSouth = val
-						//bldgModel.changeRatio(LongTermSimulation.SOUTH,val)
-						if (_currElevationView == LongTermSimulationModel.SOUTH) _elevationView.setWindowRatio(val)
-						break
-						
-					case "sldEast":
-						longTermSimulationModel.windowRatioEast = val
-						//bldgModel.changeRatio(LongTermSimulation.EAST,val)
-						if (_currElevationView == LongTermSimulationModel.EAST) _elevationView.setWindowRatio(val)
-						break
-					case "sldWest":
-						longTermSimulationModel.windowRatioWest = val
-						//bldgModel.changeRatio(LongTermSimulation.WEST,val)
-						if (_currElevationView == LongTermSimulationModel.WEST) _elevationView.setWindowRatio(val)
-						break
-					
-					default:
-							
+				if (_currElevationView == LongTermSimulationModel.NORTH) {
+					_elevationView.setWindowRatio(val);
 				}
 				
-				dispatchEvent(new Event("buildingPropsChange"))
+				dispatchEvent(new Event("buildingPropsChange"));
+				
 			}
+			private function sliderChangeSouth(event:flash.events.Event):void
+			{
+				
+				var val:Number = event.target.value;
+				longTermSimulationModel.windowRatioSouth = event.target.value;
+					
+				if (_currElevationView == LongTermSimulationModel.SOUTH) {
+					_elevationView.setWindowRatio(val);
+				}
+				
+				dispatchEvent(new Event("buildingPropsChange"));
+				
+			}
+			private function sliderChangeEast(event:flash.events.Event):void
+			{
+				
+				var val:Number = event.target.value;
+				longTermSimulationModel.windowRatioEast = event.target.value;
+					
+				if (_currElevationView == LongTermSimulationModel.EAST) {
+					_elevationView.setWindowRatio(val);
+				}
+				
+				dispatchEvent(new Event("buildingPropsChange"));
+				
+			}
+			
+			
+			private function sliderChangeWest(event:flash.events.Event):void
+			{
+				
+				var val:Number = event.target.value;
+				longTermSimulationModel.windowRatioWest = event.target.value;
+					
+				if (_currElevationView == LongTermSimulationModel.WEST) {
+					_elevationView.setWindowRatio(val);
+				}
+				
+				dispatchEvent(new Event("buildingPropsChange"));
+			}
+			
 			
 			
 			public function onWindowTypeChange():void
@@ -334,6 +316,15 @@
 				//TODO: Add building age property
 			}
 			
+			public function outFocusHandler(event:Event):void
+			{
+				Logger.debug("outFocusHandler()",this)
+				
+			//	data.localValue = Number(txtCurrFaultValue.text)
+			//	_isDirty = (data.localValue != data.currValue) 				
+			}
+			
+			
 		]]>
 	</mx:Script>
 
@@ -370,7 +361,7 @@
 		
 		<mx:Label text="3" width="25"  textAlign="right" 
 				  visible="false" />
-		<mx:HSlider 
+<!--		<mx:HSlider 
 				id="sldStories"
 				dataTipOffset="2"
 				labelStyleName="sliderLable"
@@ -388,7 +379,7 @@
 				thumbUpSkin="{SliderDragger}"
 				thumbDisabledSkin="@Embed('/assets/DawaAssets.swf', symbol='mcSliderDraggerDisabled')"
 				
-				/>		
+				/>		-->
 		<mx:Label text="30" width="40"
 				  visible="false" />
 		
@@ -410,7 +401,7 @@
 		<mx:Label id="lblStoryHeightUnits" paddingLeft="0" text="ft." width="20"/>
 		<mx:Label id="lblStoryHeightLeftLabel" text="8'" width="25" textAlign="right" 
 				  visible="false"/>
-		<mx:HSlider 
+<!--		<mx:HSlider 
 				id="sldStoryHeight"									
 				value="{longTermSimulationModel.storyHeight}"
 				dataTipOffset="2"
@@ -426,7 +417,7 @@
 				thumbOverSkin="{SliderDragger}"
 				thumbUpSkin="{SliderDragger}"
 				thumbDisabledSkin="@Embed('/assets/DawaAssets.swf', symbol='mcSliderDraggerDisabled')"
-				/>	
+				/>	-->
 		<mx:Label text="50'" width="40" id="lblStoryHeightRightLabel" 
 				  visible="false"/>	
 		
@@ -446,7 +437,7 @@
 		<mx:Label id="lblBldgWidthUnits" paddingLeft="0" text="ft." width="20"/>
 		<mx:Label id="lblBldgWidthLeftLabel" text="50'" width="25" textAlign="right"
 				  visible="false"/>
-		<mx:HSlider 
+<!--		<mx:HSlider 
 			id="sldBldgWidth"
 				dataTipOffset="2"
 				dataTipFormatFunction="formatBldgWidthDataTip"
@@ -462,7 +453,7 @@
 				thumbOverSkin="{SliderDragger}"
 				thumbUpSkin="{SliderDragger}"
 				thumbDisabledSkin="@Embed('/assets/DawaAssets.swf', symbol='mcSliderDraggerDisabled')"
-				/>	
+				/>	-->
 		<mx:Label id="lblBldgWidthRightLabel"  text="300'"  width="40"  
 				  visible="false"/>
 		
@@ -480,10 +471,13 @@
 				text="{numFormatter.format(longTermSimulationModel.buildingLength)}" 
 				textAlign="right"
 				height="20"/>
+		
 		<mx:Label id="lblBldgLengthUnits" paddingLeft="0" text="ft." width="20"/>
+		
 		<mx:Label id="lblBldgLengthLeftLabel"  text="50'" width="25" textAlign="right"
 				  visible="false" />
-		<mx:HSlider 
+		
+<!--		<mx:HSlider
 				id="sldBldgLength"
 				dataTipOffset="2"
 				dataTipFormatFunction="formatBldgLengthDataTip"
@@ -498,7 +492,8 @@
 				thumbOverSkin="{SliderDragger}"
 				thumbUpSkin="{SliderDragger}"
 				thumbDisabledSkin="@Embed('/assets/DawaAssets.swf', symbol='mcSliderDraggerDisabled')"
-				visible="false"/>	
+				visible="false"/>-->
+		
 		<mx:Label id="lblBldgLengthRightLabel" text="300'" width="40"
 				  visible="false" />					
 		
@@ -514,149 +509,18 @@
 	</mx:HBox>
 	
 	<mx:Label text="Window-to-Wall ratio" styleName="longTermOptionsSectionHeader"/>
-					
-	<mx:HBox>
-		<mx:Label id="lblNorth" text="North:" width="100" styleName="longTermOptionsLabel"/>
-		<mx:Label
-		    id="txtNorth"
-			width="55"
-			styleName="longTermOptionsCurrValue" 
-			text="{longTermSimulationModel.windowRatioNorth}" 
-			textAlign="right"
-			height="20"
-			/>
-		<mx:Spacer width="25"/>
-		<mx:Label text="0" width="25" paddingTop="5" textAlign="right" />
-		<mx:HSlider 
-			id="sldNorth"
-			dataTipOffset="2"
-			change="sliderChange(event)"
-			labelStyleName="sliderLable"
-			snapInterval=".01"
-			width="130"
-			height="25"
-			value="{longTermSimulationModel.windowRatioNorth}"
-			minimum="0"
-			maximum="1"
-			thumbDownSkin="{SliderDragger}" 
-			thumbOverSkin="{SliderDragger}"
-			thumbUpSkin="{SliderDragger}"
-			thumbDisabledSkin="@Embed('/assets/DawaAssets.swf', symbol='mcSliderDraggerDisabled')"
-			visible="true"/>	
-		<mx:Label text="1" width="40"  paddingTop="5" />
-		
-		
-	</mx:HBox>
-						
-						
-						
-	<mx:HBox>
-		<mx:Label id="lblSouth" text="South:" width="100" styleName="longTermOptionsLabel"/>
-		<mx:Label
-		    id="txtSouth"
-			width="55"
-			styleName="longTermOptionsCurrValue" 
-			text="{longTermSimulationModel.windowRatioSouth}" 
-			textAlign="right"
-			height="20"/>
-		<mx:Spacer width="25"/>
-		<mx:Label text="0" width="25" paddingTop="5" textAlign="right" />
-		<mx:HSlider 
-			id="sldSouth"
-			dataTipOffset="2"
-			labelStyleName="sliderLable"
-			change="sliderChange(event)"
-			snapInterval=".01"
-			width="130"
-			height="25" 
-			value="{longTermSimulationModel.windowRatioSouth}"
-			minimum="0"
-			maximum="1"
-			thumbDownSkin="{SliderDragger}" 
-			thumbOverSkin="{SliderDragger}"
-			thumbUpSkin="{SliderDragger}"
-			thumbDisabledSkin="@Embed('/assets/DawaAssets.swf', symbol='mcSliderDraggerDisabled')"
-			visible="true"/>	
-		<mx:Label text="1" width="40"  paddingTop="5" />
-		
-		
-	</mx:HBox>
-
-
-	<mx:HBox>
-		<mx:Label id="lblEast" text="East:" width="100" styleName="longTermOptionsLabel"/>
-		<mx:Label
-		    id="txtEast"
-			width="55"
-			styleName="longTermOptionsCurrValue" 
-			text="{longTermSimulationModel.windowRatioEast}" 
-			textAlign="right"
-			height="20"/>
-		<mx:Spacer width="25"/>
-		<mx:Label text="0" width="25" paddingTop="5" textAlign="right" />
-		<mx:HSlider 
-			id="sldEast"
-			dataTipOffset="2"
-			labelStyleName="sliderLable"
-			change="sliderChange(event)"
-			snapInterval=".01"
-			width="130"
-			height="25" 
-			minimum="0"
-			value="{longTermSimulationModel.windowRatioEast}"
-			maximum="1"
-			thumbDownSkin="{SliderDragger}" 
-			thumbOverSkin="{SliderDragger}"
-			thumbUpSkin="{SliderDragger}"
-			thumbDisabledSkin="@Embed('/assets/DawaAssets.swf', symbol='mcSliderDraggerDisabled')"
-			visible="true"/>	
-		<mx:Label text="1" width="40"  paddingTop="5" />
-		
-		
-	</mx:HBox>
-						
+				
+	<controls:SliderEx id="sldExNorth" title="North" value="{longTermSimulationModel.windowRatioNorth}" change="sliderChangeNorth(event)" ></controls:SliderEx>
+	<controls:SliderEx id="sldExSouth" title="South" value="{longTermSimulationModel.windowRatioSouth}" change="sliderChangeSouth(event)" ></controls:SliderEx>
+	<controls:SliderEx id="sldExEast" title="East" value="{longTermSimulationModel.windowRatioEast}" change="sliderChangeEast(event)" ></controls:SliderEx>
+	<controls:SliderEx id="sldExWest" title="West" value="{longTermSimulationModel.windowRatioWest}" change="sliderChangeWest(event)" ></controls:SliderEx>
 	
-	
-	<mx:HBox>
-		<mx:Label id="lblWest" text="West:" width="100" styleName="longTermOptionsLabel"/>
-		<mx:Label
-		    id="txtWest"
-			styleName="longTermOptionsCurrValue" 
-			text="{longTermSimulationModel.windowRatioWest}" 
-			textAlign="right"
-			width="55"
-			height="20"
-			/>
-		<mx:Spacer width="25"/>
-		<mx:Label text="0" width="25" paddingTop="5" textAlign="right" />
-		<mx:HSlider 
-			id="sldWest"
-			dataTipOffset="2"
-			labelStyleName="sliderLable"
-			change="sliderChange(event)"
-			snapInterval=".01"
-			width="130"
-			height="25" 
-			minimum="0"
-			value="{longTermSimulationModel.windowRatioWest}"
-			maximum="1"
-			thumbDownSkin="{SliderDragger}" 
-			thumbOverSkin="{SliderDragger}"
-			thumbUpSkin="{SliderDragger}"
-			thumbDisabledSkin="@Embed('/assets/DawaAssets.swf', symbol='mcSliderDraggerDisabled')"
-			visible="true"/>		
-		<mx:Label text="1" width="40"  paddingTop="5" />
-		
-		
-	</mx:HBox>
-
-	
-						
+				
 	<mx:Label text="Orientation" styleName="longTermOptionsSectionHeader"/>
 	
 	<mx:HBox  >
 		<mx:Label id="lblNorthAxis" text="North Axis:" width="100" styleName="longTermOptionsLabel"/>
-		<mx:TextInput id="txtNorthAxis" text="0" width="70" enter="axisChange(event)"  focusOut="axisChange(event)" enabled="false"  />
+		<mx:TextInput id="txtNorthAxis" text="0" width="70" enter="axisChange(event)"  focusOut="axisChange(event)" enabled="true"  />
 	</mx:HBox>
 	
 	<mx:Label text="Other properties" styleName="longTermOptionsSectionHeader" visible="false"/>

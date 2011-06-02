@@ -133,6 +133,8 @@
 			clearSimPanel()
 		}
 		
+
+			
 		public function clearSimPanel():void
 		{
 			//clean up everything on screen to get ready for new scenario

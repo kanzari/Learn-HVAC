@@ -104,7 +104,10 @@
 		{
 			Logger.debug("onScenarioLoaded()",this)
 			buildInputPanels()
+			
+			tabBar.selectedIndex = 0;
 		}
+			
 		
 		[Mediate(event="ShortTermSimulationEvent.SIM_STARTED")]
 		public function onShortTermSimStart(event:ShortTermSimulationEvent):void
@@ -355,12 +358,14 @@
 		}
 				
 
+			
 		]]>
 	</mx:Script>
 	
 	<head:GlassHeaders headerTitle="SIMULATION CONTROLS"/>
 	
-	<mx:TabBar itemClick="tabClickHandler(event);"  
+	<mx:TabBar id="tabBar"
+		itemClick="tabClickHandler(event);"  
 		styleName="tabNavigator"
 		paddingBottom="0"
 		>

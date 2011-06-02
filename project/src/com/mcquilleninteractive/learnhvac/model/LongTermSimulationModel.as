@@ -118,6 +118,9 @@ package com.mcquilleninteractive.learnhvac.model
 		public var northAxis:Number 		
 		public var massLevelSelectedIndex:uint 	
 		public var windowRatioNorth:Number;
+		
+		
+		
 		public var windowRatioSouth:Number 
 		public var windowRatioEast:Number 
 		public var windowRatioWest:Number

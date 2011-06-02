@@ -16,17 +16,17 @@
 	<supportedProfiles>extendedDesktop desktop</supportedProfiles>
 	
 	<!-- The application identifier string, unique to this application. Required. -->
-	<id>com.superb.learnhvac2</id>
+	<id>com.superb.learnhvac-2-1-03</id>
 
 	<!-- Used as the filename for the application. Required. -->
-	<filename>Learn HVAC 2.1.02</filename>
+	<filename>Learn HVAC 2.1.03</filename>
 
 	<!-- The name that is displayed in the AIR application installer. 
 	     May have multiple values for each language. See samples or xsd schema file. Optional. -->
-	<name>Learn HVAC 2.1.02</name>
+	<name>Learn HVAC 2.1.03</name>
 
 	<!-- An application version designator (such as "v1", "2.5", or "Alpha 1"). Required. -->
-	<version>2.1.02</version>
+	<version>2.1.03</version>
 
 	<!-- Description, displayed in the AIR application installer.
 	     May have multiple values for each language. See samples or xsd schema file. Optional. -->

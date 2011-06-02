@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas 	xmlns:mx="http://www.adobe.com/2006/mxml"
+			horizontalScrollPolicy="off" 
+			verticalScrollPolicy="off"
+			>
+	<mx:Metadata>
+		[Event(name="change", type="flash.events.Event")]
+	</mx:Metadata>
+	
+	<mx:Script>
+		<![CDATA[
+			import com.mcquilleninteractive.learnhvac.util.Logger;
+			
+			import mx.events.FlexEvent;
+			import mx.events.SliderEvent;
+			import mx.validators.Validator;
+			
+			
+			[Bindable]
+			public var text:String = "";
+
+			[Bindable]
+			public var title:String = "";
+			
+			[Bindable]
+			public var min:Number = 0;
+			
+			[Bindable]
+			public var max:Number = 1;
+			
+			private  var _value:Number;
+			
+			[Bindable]
+			public var sliderValue:Number;
+			
+			
+			[Bindable]
+			public function get value():Number{
+				return _value;
+			}
+			
+			public function set value(value: Number): void{
+				
+				text = String(value);
+				slider.value = value;
+				_value = value;
+				
+				
+			}
+			
+			
+			
+			
+			[Embed(source='/assets/DawaAssets.swf', symbol='mcSliderDragger')]
+			[Bindable]
+			private var SliderDragger:Class;
+			
+			protected var _isDirty:Boolean = false
+				
+			private function sliderChange(event:SliderEvent):void
+			{
+				value = slider.value;
+				dispatchEvent(new Event("change"));
+			}
+			
+			
+			public function outFocusHandler(event:Event):void
+			{
+					Logger.debug("outFocusHandler()",this)
+				
+				//	data.localValue = Number(txtCurrFaultValue.text)
+					var usrNumber : Number =  Number(txtInput.text);
+					
+						
+					if (usrNumber<min)
+					{
+						usrNumber = max;	
+					}
+					else if (usrNumber>max) 
+					{
+						usrNumber = max;
+					}
+					
+					
+				//	_isDirty = (value != usrNumber);
+					
+					if(value != usrNumber) {
+						value = usrNumber;
+						dispatchEvent(new Event("change"));
+					}
+			}
+			
+			
+
+			
+		]]>
+	</mx:Script>
+
+			
+	<mx:HBox>
+		<mx:Label id="labelTitle" text="{title}" styleName="longTermOptionsLabel" width="70" />
+		
+		<mx:TextInput id="txtInput"
+					  width="55" height="22" 
+					  textAlign="right"
+					  text="{text}" 
+					  focusOut="outFocusHandler(event)"
+					  />
+		
+		<mx:Label id="labelMin" text="{min}" width="25" paddingTop="5" textAlign="right" />
+		
+		<mx:HSlider
+			id="slider"
+			dataTipOffset="2"
+			change="sliderChange(event)"
+			labelStyleName="sliderLable"
+			snapInterval=".01"
+			width="130"
+			height="25"
+			minimum="{min}"
+			maximum="{max}"
+			thumbDownSkin="{SliderDragger}" 
+			thumbOverSkin="{SliderDragger}"
+			thumbUpSkin="{SliderDragger}"
+			thumbDisabledSkin="@Embed('/assets/DawaAssets.swf', symbol='mcSliderDraggerDisabled')"
+			visible="true" />
+		
+		<mx:Label id="lblMax" text="{max}" width="40"  paddingTop="5" />
+		
+		
+	</mx:HBox>
+	
+	
+</mx:Canvas>

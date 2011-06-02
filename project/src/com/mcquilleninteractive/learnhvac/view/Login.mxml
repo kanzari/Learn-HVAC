@@ -25,6 +25,7 @@
 	    	import mx.events.ValidationResultEvent;
 	    	
 	    	import org.swizframework.Swiz;
+			
 			[Bindable]
 			[Autowire(bean="applicationModel")]
 			public var applicationModel:ApplicationModel
@@ -49,8 +50,14 @@
 				if (ApplicationModel.debugMode)
 				{
 					var event : LoginEvent = new LoginEvent( LoginEvent.LOGIN, true );
-					event.username = "daniel.mcquillen"
-					event.password = "password" 
+					
+					username.text = "rrd"
+					password.text = "rrdrrd"
+						
+					event.username = "rrd"
+					event.password = "rrdrrd" 
+
+						
 					Swiz.dispatchEvent( event );
 				}
 				
@@ -62,6 +69,8 @@
 			{
 				username.text = ""
 				password.text = ""
+				onUsernameChange();
+				vbxLoggingIn.visible = false
 			}		
 	
 			// mutate the loginBtn's click event into a cairngorm event			
@@ -111,7 +120,7 @@
 	    		else
 	    		{
 					vPassword.required = true
-	    			password. enabled = true
+	    			password.enabled = true
 	    			loggingInAsGuest = false
 	    		}
 	    		

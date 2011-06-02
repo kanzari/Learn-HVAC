@@ -458,6 +458,8 @@ package com.mcquilleninteractive.learnhvac.controller
 				d.date = scenXML.realtimeStartDateTime.date 
 				d.hours = scenXML.realtimeStartDateTime.hour
 				d.minutes = scenXML.realtimeStartDateTime.minute
+				d.seconds = 0;
+				
 				Logger.debug("setting shortTermSim realtime_start_datetime: " + d, this);
 				scenarioModel.setRealTimeStartDate(d)
 						
