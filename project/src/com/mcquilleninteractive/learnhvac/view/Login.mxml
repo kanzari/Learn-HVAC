@@ -8,7 +8,7 @@
 			horizontalScrollPolicy="off"
 			verticalCenter="0" 
 			horizontalCenter="0"
-			addedToStage="onATS()"
+			addedToStage="onAddedToStage()"
 			xmlns:view="com.mcquilleninteractive.learnhvac.view.*"
 		>
 
@@ -45,20 +45,13 @@
 			}
 				
 				
-			protected function onATS() : void
+			protected function onAddedToStage() : void
 			{
 				if (ApplicationModel.debugMode)
 				{
-					var event : LoginEvent = new LoginEvent( LoginEvent.LOGIN, true );
-					
 					username.text = "rrd"
 					password.text = "rrdrrd"
-						
-					event.username = "rrd"
-					event.password = "rrdrrd" 
-
-						
-					Swiz.dispatchEvent( event );
+					onUsernameChange();
 				}
 				
 				_versionNumber = AboutInfo.applicationVersion

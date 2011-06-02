@@ -117,9 +117,17 @@
 					
 				if (txtBldgLength)
 				{
-					txtBldgLength.text = numFormatter.format(longTermSimulationModel.buildingLength).toString()
+					txtBldgLength.text = numFormatter.format(longTermSimulationModel.buildingLength).toString()				
+				}
+				if (txtBldgWidth)
+				{
 					txtBldgWidth.text = numFormatter.format(longTermSimulationModel.buildingWidth).toString()					
-				}					
+				}
+				if (txtStoryHeight)
+				{
+					txtStoryHeight.text = numFormatter.format(longTermSimulationModel.storyHeight).toString()				
+				}
+				
 				
 				//initialize sliders				
 				if (currUnits =="SI")
