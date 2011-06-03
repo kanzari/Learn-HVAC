@@ -1,55 +1,3 @@
-/* CSS file */
-
-/* ELEMENTS (Flex classes) */
-
-
-
-
-/* not used
-
-Alert
-{
-	color : #0f3177;
-	title-style-name : "alertTitle";
-	header-height:19;
-	border-thickness: 1;
-	drop-shadow-enabled: true;
-	drop-shadow-color :#000000;
-	background-color: #ffffff;
-	corner-radius :6;
-	border-style :solid;
-	header-colors : #799dc2, #427dba;
-	footer-colors : #799dc2, #ffffff;
-	border-color : #5970a0;
-}
-
-DateField 
-{
-	skin: Embed("assets/img/calendar.png");
-
-	upSkin: ClassReference(null);
-	overSkin: ClassReference(null);
-	downSkin: ClassReference(null);
-	disabledSkin: ClassReference(null);
-}
-
-
-DragPanel
-{
-	borderAlpha:.8;	
-	color:#000000;
-
-}
-
-TitleWindow 
-{
-	closeButtonSkin: Embed("assets/img/close_off.png");
-    closeButtonDisabledSkin: Embed("assets/img/close_disabled.png");
-    closeButtonDownSkin: Embed("assets/img/close_over.png");
-    closeButtonOverSkin: Embed("assets/img/close_over.png");
-    closeButtonUpSkin: Embed("assets/img/close_off.png");
-}
- */ 
 
 
 .alertTitle
@@ -62,15 +10,6 @@ TitleWindow
 }
 
 	
-
-
-
-
-/* -----------------*/
-/*    Classes       */
-/* -----------------*/
-
-/* analysis section */
 
 
 .aboutPanelText {
@@ -444,8 +383,6 @@ TitleWindow
   	fillAlphas: 0.1, 0.1, 0.2, 0.2;
    	fillColors: #ffffff, #CCCCCC, #ffffff, #eeeeee;
 }
-
-
 
 
 
