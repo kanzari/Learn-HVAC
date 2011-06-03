@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" 
+<mx:VBox xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" 
 	label="RUN OPTIONS" 
 	paddingTop="10"
 	paddingLeft="10"
@@ -10,7 +10,7 @@
 	
 	
 	
-		<mx:Script>
+		<fx:Script>
 			<![CDATA[
 				import com.mcquilleninteractive.learnhvac.model.ApplicationModel;
 				import com.mcquilleninteractive.learnhvac.model.LongTermSimulationDataModel;
@@ -142,28 +142,33 @@
 			
 				
 			]]>
-		</mx:Script>
+		</fx:Script>
 	
 		
-
-	<mx:StringValidator id="vldStartDay" 
-		source="{dfStartDate}"  
-		property="text"
-		required="true"
-		requiredFieldError="Please enter a date."/>
-	
-	<mx:StringValidator id="vldStopDay" 
-		source="{dfStopDate}"  
-		property="text" 
-		required="true"
-		requiredFieldError="Please enter a date."/>
+	<fx:Declarations>
+		<mx:StringValidator id="vldStartDay" 
+							source="{dfStartDate}"  
+							property="text"
+							required="true"
+							requiredFieldError="Please enter a date."/>
 		
-	<mx:DateFormatter
-		id="monthDayFormatter"
- 	   	formatString="MMM DD"
-   		/> 	   	   
+		<mx:StringValidator id="vldStopDay" 
+							source="{dfStopDate}"  
+							property="text" 
+							required="true"
+							requiredFieldError="Please enter a date."/>
+		
+		<mx:DateFormatter
+			id="monthDayFormatter"
+			formatString="MMM DD"
+			/>
+		
+		<mx:NumberFormatter id="numFormatter" precision="2" rounding="nearest"/>
+		
+	</fx:Declarations>
+	   	   
 
-   	<mx:NumberFormatter id="numFormatter" precision="2" rounding="nearest"/>
+
 	
 	
 	<mx:HBox>
@@ -176,8 +181,8 @@
 			toolTip="Store your simulation results as 'Run1' or 'Run2'">
 			<mx:dataProvider>
 				<mx:ArrayCollection>
-					<mx:Object label="Run 1" data="{LongTermSimulationDataModel.RUN_1}"/>
-					<mx:Object label="Run 2" data="{LongTermSimulationDataModel.RUN_2}"/>
+					<fx:Object label="Run 1" data="{LongTermSimulationDataModel.RUN_1}"/>
+					<fx:Object label="Run 2" data="{LongTermSimulationDataModel.RUN_2}"/>
 				</mx:ArrayCollection>
 			</mx:dataProvider>
 		</mx:ComboBox>

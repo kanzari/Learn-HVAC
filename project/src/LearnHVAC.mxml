@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml" 
+<mx:WindowedApplication 
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx"
 	xmlns:control="com.mcquilleninteractive.learnhvac.control.*" 
 	xmlns:business="com.mcquilleninteractive.learnhvac.business.*" 
 	xmlns:analysis="com.mcquilleninteractive.learnhvac.view.analysis.*" 
@@ -24,10 +27,12 @@
     themeColor="haloSilver"
     verticalGap="0"
     backgroundColor="#788f9b"
-    backgroundAlpha="1"
+	backgroundAlpha="1"
    	>
 	
-	<mx:Script>
+
+	
+	<fx:Script>
 		<![CDATA[
 			
 /*
@@ -75,25 +80,31 @@ the License.
 			private var BugIcon:Class
 			
 		]]>
-	</mx:Script>
+	</fx:Script>
 	
-	<swizframework:SwizConfig 
-		strict="true"
-		eventPackages="com.mcquilleninteractive.learnhvac.event"
-		viewPackages="com.mcquilleninteractive.learnhvac.view"
-		mediateBubbledEvents="true"
-        injectionEvent="preinitialize"
-		beanLoaders="{[Beans]}"
-		logEventLevel="{LogEventLevel.WARN}"
-		/>
+	<fx:Declarations>
+		
+		<swizframework:SwizConfig 
+			strict="true"
+			eventPackages="com.mcquilleninteractive.learnhvac.event"
+			viewPackages="com.mcquilleninteractive.learnhvac.view"
+			mediateBubbledEvents="true"
+	        injectionEvent="preinitialize"
+			beanLoaders="{[Beans]}"
+			logEventLevel="{LogEventLevel.WARN}"
+			/>
+		
+		<mx:TraceTarget id="traceTarget"
+						level="{LogEventLevel.DEBUG}"
+						filters="{['learnhvac']}"
+						/>
+		
+	</fx:Declarations>
+	
 
-	<mx:TraceTarget id="traceTarget"
-		level="{LogEventLevel.DEBUG}"
-		 filters="{['learnhvac']}"
-		/>
 
-	<mx:Style source="assets/css/styles.css"/>
-	<mx:Script source="LearnHVAC_class.as" />
+	<fx:Style source="assets/css/styles.css"/>
+	<fx:Script source="LearnHVAC_class.as" />
 	
 	
 	<view:App width="100%" height="100%" />

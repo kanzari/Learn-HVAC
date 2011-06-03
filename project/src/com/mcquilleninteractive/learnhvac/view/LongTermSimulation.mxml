@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:VBox 
-	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" 
 	xmlns:view="com.mcquilleninteractive.learnhvac.view.*" 
 	xmlns:head="com.mcquilleninteractive.learnhvac.view.layout.*"
 	xmlns:myComps="*"
@@ -10,7 +10,7 @@
 	verticalGap="0"
 	height="100%" xmlns:longterm="com.mcquilleninteractive.learnhvac.view.longterm.*">
 	
-	<mx:Script>
+	<fx:Script>
 		<![CDATA[
 			import com.mcquilleninteractive.learnhvac.business.ShortTermSimulationMockDelegate;
 			import com.mcquilleninteractive.learnhvac.event.LongTermSimulationEvent;
@@ -234,7 +234,7 @@
 		]]>
 		
 		
-	</mx:Script>
+	</fx:Script>
 	
 	<longterm:LongTermControlBar width="100%" onStartLTSimulation="startSimulation()"/>
 				

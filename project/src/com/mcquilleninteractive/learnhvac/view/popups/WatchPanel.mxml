@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<util:DragPanel xmlns:mx="http://www.adobe.com/2006/mxml"
+<util:DragPanel xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx"
 	 xmlns:util="com.mcquilleninteractive.learnhvac.util.*"    
 	 xmlns:controls="com.mcquilleninteractive.controls.*" 
 	 backgroundColor="#CCCCCC" 
@@ -8,7 +8,7 @@
 	 height="100%"
 	 title="WATCH PANEL"
 	 >
-		<mx:Script>
+		<fx:Script>
 	
 		<![CDATA[
 		
@@ -75,7 +75,7 @@
 		]]>
 		
 		
-	</mx:Script>
+	</fx:Script>
 	
 	<mx:VBox width="100%" height="100%" backgroundColor="0xFFFFFF">
 		

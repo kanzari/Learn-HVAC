@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" 
+<mx:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" 
 		xmlns:util="com.mcquilleninteractive.learnhvac.util.*"
 		width="320" height="335"
 		horizontalScrollPolicy="off"
@@ -9,7 +9,7 @@
   	    
   		>
   			
-  		<mx:Script>
+  		<fx:Script>
   			<![CDATA[
   			import com.mcquilleninteractive.learnhvac.util.Logger;
   			import com.mcquilleninteractive.learnhvac.event.ViewMovieEvent
@@ -70,7 +70,7 @@
   			
   				
   			]]>
-  		</mx:Script>	
+  		</fx:Script>	
   			
 		<mx:VBox>
 			

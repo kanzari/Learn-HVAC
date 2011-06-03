@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Canvas 	xmlns:mx="http://www.adobe.com/2006/mxml"
+<mx:Canvas 		
+			xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx"
 			xmlns:view="com.mcquilleninteractive.learnhvac.view.*"
 			xmlns:scenario="com.mcquilleninteractive.learnhvac.view.scenario.*"
 			xmlns:analysis="com.mcquilleninteractive.learnhvac.view.analysis.*" 
@@ -8,7 +9,7 @@
 			horizontalScrollPolicy="off" 
 			verticalScrollPolicy="off">
 	
-	<mx:Script>
+	<fx:Script>
 		<![CDATA[
 			import com.mcquilleninteractive.learnhvac.event.LoggedInEvent;
 			import com.mcquilleninteractive.learnhvac.model.ApplicationModel;
@@ -24,7 +25,7 @@
 			}
 			
 		]]>
-	</mx:Script>
+	</fx:Script>
 
 	<view:Login 
 		id="loginPanel"

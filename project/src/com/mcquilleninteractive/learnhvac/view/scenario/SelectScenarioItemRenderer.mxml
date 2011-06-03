@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:HBox 	xmlns:mx="http://www.adobe.com/2006/mxml" 
+<mx:HBox 	xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" 
 			height="105" 
 			paddingLeft="10"  
 			paddingTop="10" borderSides="bottom" borderColor="#888888" borderThickness="5"
 			initialize="onInitialize()"
 			>
     
-    <mx:Script>
+    <fx:Script>
     	<![CDATA[
     		import com.mcquilleninteractive.learnhvac.model.ApplicationModel;
     		import com.mcquilleninteractive.learnhvac.vo.ScenarioListItemVO
@@ -89,7 +89,7 @@
     		
     		
     	]]>
-    </mx:Script>
+    </fx:Script>
     
     <mx:VBox 	width="125"
          		height="90" 

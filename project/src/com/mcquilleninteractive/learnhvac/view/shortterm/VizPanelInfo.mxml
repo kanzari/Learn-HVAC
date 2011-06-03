@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" 
+<mx:Canvas xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" 
 	xmlns:yahoo="http://www.yahoo.com/astra/2006/mxml"
 	width="674" height="45"
 	horizontalScrollPolicy="off"
 	verticalScrollPolicy="off"
 	xmlns:shortterm="com.mcquilleninteractive.learnhvac.view.shortterm.*">
 	
-	<mx:Script>
+	<fx:Script>
 		<![CDATA[
 		
 			
@@ -53,7 +53,7 @@
 			
 			
 		]]>
-	</mx:Script>
+	</fx:Script>
 	<mx:Image source="{imgBG}"/>
 	
 	

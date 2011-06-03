@@ -1,0 +1,4 @@
+<project>
+  <targetSWF commMode="monkeyLink"/>
+  <generatedCode url="src" suitesPackageName="Learn HVAC" testCaseBaseClass="LearnHvac"/>
+</project>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" 
+<mx:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" 
 	width="420" height="480"
 	title="Settings"
 	horizontalScrollPolicy ="off"
 	>
 	
-	<mx:Script>
+	<fx:Script>
 		<![CDATA[
 		
 			import com.mcquilleninteractive.learnhvac.event.UnitsEvent;
@@ -64,7 +64,7 @@
             }
 			
 		]]>
-	</mx:Script>
+	</fx:Script>
 		
 	   	 
 	<mx:Form id="settingsForm" defaultButton="{btnOK}" width="100%">

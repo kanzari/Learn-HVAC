@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
- <mx:Legend xmlns:mx="http://www.adobe.com/2006/mxml"
+ <mx:Legend xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx"
  width="150" paddingBottom="20" >
 
-	<mx:Script>
+	<fx:Script>
 		<![CDATA[
 			import com.mcquilleninteractive.learnhvac.util.ColorSetting;
 			import mx.collections.ArrayCollection;
 		
 			
 		]]>
-	</mx:Script>
+	</fx:Script>
 	
 	
      <mx:LegendItem label="Equipment Power" fontWeight="bold">

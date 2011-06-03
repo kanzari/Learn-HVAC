@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
+<mx:Canvas xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx"
 		xmlns:myComps="*"
 		xmlns:view="com.mcquilleninteractive.learnhvac.view.*"
 		xmlns:graphing="com.mcquilleninteractive.learnhvac.view.graphing.*"
@@ -7,7 +7,7 @@
 	 	height="100%"
 	 	initialize="onInitialize()" 
 	 	>
-	<mx:Script>
+	<fx:Script>
 		<![CDATA[
 		
 			import com.mcquilleninteractive.learnhvac.model.ApplicationModel
@@ -60,7 +60,7 @@
 			}
 			
 		]]>
-	</mx:Script>		
+	</fx:Script>		
 	<graphing:GraphPanel id="graphPanel" />
 	
 	<mx:HBox top="2" right="10">
@@ -68,6 +68,7 @@
    			paddingLeft="0" paddingRight="0" 
    			borderColor="0xCC0000" 
    			click="setGraphType('TS')"
+			
    			/>
     	<mx:Button id="btnXY" width="25" height="25" label="XY"
     		paddingLeft="0" paddingRight="0" 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
+<mx:Canvas xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx"
 		xmlns:myComps="*"
 		xmlns:view="com.mcquilleninteractive.learnhvac.view.*"
 		xmlns:viz="com.mcquilleninteractive.learnhvac.view.visualization.*"
@@ -10,7 +10,7 @@
 	    creationPolicy="all"
 		verticalScrollPolicy="off">
 	
-	<mx:Script>
+	<fx:Script>
 		<![CDATA[
 			import com.mcquilleninteractive.learnhvac.business.ShortTermSimulationDelegate;
 			import com.mcquilleninteractive.learnhvac.event.CloseScenarioEvent;
@@ -512,7 +512,7 @@
 		
 			
 		]]>
-	</mx:Script>
+	</fx:Script>
 	
 
     

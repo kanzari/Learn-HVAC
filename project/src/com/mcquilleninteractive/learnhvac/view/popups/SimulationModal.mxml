@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml"
+<mx:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx"
 	xmlns:myComps="*"
 	width="380"
 	height="170"
@@ -13,7 +13,7 @@
 	>
 	
 	
-	<mx:Script>
+	<fx:Script>
 		<![CDATA[
 		
 		import com.mcquilleninteractive.learnhvac.util.Logger;		
@@ -27,7 +27,7 @@
 		public var message:String = SimulationModal.INITIALIZING;		
 		
 		]]>
-	</mx:Script>
+	</fx:Script>
 	
 	<mx:Canvas>
 		

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<util:DragPanel xmlns:mx="http://www.adobe.com/2006/mxml" 
+<util:DragPanel xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" 
 				xmlns:util="com.mcquilleninteractive.learnhvac.util.*"
 				width="410" height="305" title="COOLING COIL VALVE INFO"
      			horizontalScrollPolicy="off"  verticalScrollPolicy="off" 
@@ -8,7 +8,7 @@
 			    
 		>
 		
-	<mx:Script>
+	<fx:Script>
 		<![CDATA[
 			import com.mcquilleninteractive.learnhvac.event.ShortTermSimulationEvent;
 			import com.mcquilleninteractive.learnhvac.event.UnitsEvent;
@@ -102,10 +102,16 @@
 					
 			
 		]]>
-	</mx:Script>	
+	</fx:Script>
+	
+	<fx:Declarations>
 		
-	<mx:NumberFormatter id="fmtRound" precision="2" rounding="nearest" />
-	<mx:NumberFormatter id="fmtRound4" precision="4" rounding="nearest" />
+		<mx:NumberFormatter id="fmtRound" precision="2" rounding="nearest" />
+		<mx:NumberFormatter id="fmtRound4" precision="4" rounding="nearest" />
+		
+		
+	</fx:Declarations>
+
 	
 	<mx:Canvas>
 	

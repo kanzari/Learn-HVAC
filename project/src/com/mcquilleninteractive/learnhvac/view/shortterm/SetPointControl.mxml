@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" 
+<mx:Canvas xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" 
 	xmlns:flash.filters="flash.filters.*"
    	horizontalScrollPolicy="off" 
     verticalScrollPolicy="off"
@@ -43,7 +43,7 @@
 		}
 	</mx:Style>
 	
-	<mx:Script>
+	<fx:Script>
 		<![CDATA[
 			import com.mcquilleninteractive.learnhvac.event.SetPointEvent;
 			import com.mcquilleninteractive.learnhvac.model.ScenarioModel
@@ -218,7 +218,7 @@
 			}
 			
 		]]>
-	</mx:Script>
+	</fx:Script>
 	
 	<mx:Fade id="myFade"/>
 	

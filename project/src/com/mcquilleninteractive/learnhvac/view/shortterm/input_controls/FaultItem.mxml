@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:HBox 	xmlns:mx="http://www.adobe.com/2006/mxml" 
+<mx:HBox 	xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" 
 			xmlns:validator="com.mcquilleninteractive.learnhvac.view.validators.*"
 			width="315" 
 			height="65"
@@ -14,7 +14,7 @@
 		    >
 	
 	
-	<mx:Script>
+	<fx:Script>
 		<![CDATA[
 			import com.mcquilleninteractive.learnhvac.event.SysVarInfoPopupEvent;
 			import com.mcquilleninteractive.learnhvac.model.SystemVariable;
@@ -216,9 +216,12 @@
 			}
 			
 		]]>
-	</mx:Script>
+	</fx:Script>
 	
-	<mx:NumberFormatter id="fmtSlider" precision="2" rounding="nearest" />
+	<fx:Declarations>
+		<mx:NumberFormatter id="fmtSlider" precision="2" rounding="nearest" />
+	</fx:Declarations>
+
 	   
     <mx:Canvas id="mainCanvas">
     	

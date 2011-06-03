@@ -8,8 +8,8 @@
     Extends the mx.controls.DataGrid to allow the use of a custom dragImage
     instead of the default 'row' dragImage.
 -->
-<mx:DataGrid xmlns:mx="http://www.adobe.com/2006/mxml">
-    <mx:Script>
+<mx:DataGrid xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx">
+    <fx:Script>
         <![CDATA[
         import mx.controls.dataGridClasses.DataGridDragProxy;
         import mx.core.IUIComponent;
@@ -28,5 +28,5 @@
             return image;
         }
         ]]>
-    </mx:Script>
+    </fx:Script>
 </mx:DataGrid>

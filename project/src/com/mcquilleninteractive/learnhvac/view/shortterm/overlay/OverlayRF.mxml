@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<overlay:OverlayBase  xmlns:mx="http://www.adobe.com/2006/mxml" 
+<overlay:OverlayBase  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" 
     xmlns:overlay="com.mcquilleninteractive.learnhvac.view.shortterm.overlay.*"
 	width="670" height="500"
 	creationComplete="onCC()" >
-	<mx:Script>
+	<fx:Script>
 		<![CDATA[
 			
 			import com.mcquilleninteractive.learnhvac.model.ScenarioModel
@@ -30,7 +30,7 @@
 			}
 						
 		]]>
-	</mx:Script>
+	</fx:Script>
 	<mx:Label id="lblSYSTAirDB_Title" text="Outside Air Dry Bulb Temp: " 
 					color="0xFFFFFF" x="20" y="30"/>
 	<overlay:ValueDisplayLabel id="lblSYSTAirDB" 

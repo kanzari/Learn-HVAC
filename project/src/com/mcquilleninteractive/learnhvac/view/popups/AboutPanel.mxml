@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" 
+<mx:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" 
 	width="460" height="320"
 	title="About"
 	horizontalScrollPolicy ="off"
 	>
 	
-	<mx:Script>
+	<fx:Script>
 		<![CDATA[
 			import mx.managers.PopUpManager;
 			import com.mcquilleninteractive.learnhvac.util.AboutInfo;
@@ -17,7 +17,7 @@
 
 			
 		]]>
-	</mx:Script>
+	</fx:Script>
 	
 	
 	<mx:VBox height="100%" width="100%"  styleName="aboutPanelText" horizontalAlign="center" >

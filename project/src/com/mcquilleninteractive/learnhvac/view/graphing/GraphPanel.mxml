@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" 
+<mx:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" 
 		layout="absolute"
 	 	title="Chart" 
 		left="0" top="0" bottom="0" right="0" 
@@ -10,7 +10,7 @@
 		>
 		
 	
-	<mx:Script>
+	<fx:Script>
 		<![CDATA[
 			import com.mcquilleninteractive.learnhvac.model.data.*;
 			import com.mcquilleninteractive.learnhvac.model.SystemVariable;
@@ -442,23 +442,27 @@
 			
 								
 			]]>
-	</mx:Script>
+	</fx:Script>
 	
-
+	<fx:Declarations>
+		
+		<mx:SolidColorStroke id="var1Stroke" 
+							 color="{var1Color}" 
+							 weight="2" 
+							 alpha="1"
+							 caps="square"
+							 />
+		
+		<mx:SolidColorStroke id="var2Stroke" 
+							 color="{var2Color}" 
+							 weight="2" 
+							 alpha="1"
+							 caps="square"
+							 />
+		
+	</fx:Declarations>
 			
-	<mx:SolidColorStroke id="var1Stroke" 
-       	 	color="{var1Color}" 
-       	 	weight="2" 
-      	  	alpha="1"
-       	 	caps="square"
-	/>
 
-	<mx:SolidColorStroke id="var2Stroke" 
-      	  	color="{var2Color}" 
-       	 	weight="2" 
-       	 	alpha="1"
-        	caps="square"
-  	/>
 
 	<mx:Canvas width="100%" height="100%">
 			

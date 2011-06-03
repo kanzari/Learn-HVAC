@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<util:DragPanel xmlns:mx="http://www.adobe.com/2006/mxml"
+<util:DragPanel xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx"
 	xmlns:util="com.mcquilleninteractive.learnhvac.util.*" 
 	title="ZONE ENERGY"    
     minWidth="350"
     minHeight="200"
 	width="350" height="250" xmlns:popups="com.mcquilleninteractive.learnhvac.view.popups.*">
 	
-	<mx:Script>
+	<fx:Script>
 		<![CDATA[
 			import com.mcquilleninteractive.learnhvac.event.LongTermImportEvent;
 			import com.mcquilleninteractive.learnhvac.event.ScenarioLoadedEvent;
@@ -71,11 +71,17 @@
 			
 			
 		]]>
-	</mx:Script>
+	</fx:Script>
 	
-	<mx:SolidColor id="reheatFill" color="{ColorSetting.heatingColor}"/>
-	<mx:SolidColor id="lightingFill" color="{ColorSetting.lightingColor}"/>
-	<mx:SolidColor id="equipFill" color="{ColorSetting.equipmentColor}"/>
+	
+	<fx:Declarations>
+		
+		<mx:SolidColor id="reheatFill" color="{ColorSetting.heatingColor}"/>
+		<mx:SolidColor id="lightingFill" color="{ColorSetting.lightingColor}"/>
+		<mx:SolidColor id="equipFill" color="{ColorSetting.equipmentColor}"/>
+		
+	</fx:Declarations>
+
 	
 	<mx:HBox width="100%" height="100%">
 		

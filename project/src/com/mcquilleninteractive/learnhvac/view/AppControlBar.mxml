@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
+<mx:Canvas xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx"
 	width="100%"
 	horizontalScrollPolicy="off"
 	verticalScrollPolicy="off"
@@ -8,7 +8,7 @@
 	xmlns:view="com.mcquilleninteractive.learnhvac.view.*" xmlns:components="com.mcquilleninteractive.learnhvac.components.*">
     
 	
-	<mx:Script>
+	<fx:Script>
 		<![CDATA[
 			import com.mcquilleninteractive.learnhvac.event.ApplicationEvent;
 			import com.mcquilleninteractive.learnhvac.event.GraphEvent;
@@ -214,7 +214,7 @@
 			
           	
 		]]>
-	</mx:Script>		
+	</fx:Script>		
 				
  
     <mx:HBox id="scenarioTabs"
@@ -240,13 +240,13 @@
 		   
 			>
 			<mx:dataProvider>       
-				<mx:Object label="Short-term Sim."  
+				<fx:Object label="Short-term Sim."  
 						icon="{BuildingIcon}"
 						data="modelica"/>
-				<mx:Object label="Long-term Sim." 
+				<fx:Object label="Long-term Sim." 
 						icon="{SunIcon}"
 						data="eplus"/>
-   				<mx:Object label="Analysis"  
+   				<fx:Object label="Analysis"  
 						icon="{ChartIcon}"
    						data="analysis"/>                    
 			</mx:dataProvider>

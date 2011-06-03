@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"  
+<mx:VBox xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx"  
 		  xmlns:analysis="com.mcquilleninteractive.learnhvac.view.analysis.*" 
 		  xmlns:graphing="com.mcquilleninteractive.learnhvac.view.graphing.*"
 		  xmlns:head="com.mcquilleninteractive.learnhvac.view.layout.*"
@@ -8,7 +8,7 @@
 			creationComplete="onCC()"
 			>
 
-	 	<mx:Script>
+	 	<fx:Script>
 	 		<![CDATA[
 	 		import com.mcquilleninteractive.learnhvac.model.data.*
 	 		import com.mcquilleninteractive.learnhvac.model.ApplicationModel	
@@ -73,7 +73,7 @@
 				
 		 			
 	 		]]>
-	 	</mx:Script>
+	 	</fx:Script>
 	
 	
 		<head:GlassHeaders headerTitle="SIMULATION DATA"/>

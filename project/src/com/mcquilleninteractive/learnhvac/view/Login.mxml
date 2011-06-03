@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" 
+<mx:Canvas xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" 
 			xmlns:myComps="*"
 			xmlns="*" 
 			width="100%" 
@@ -12,7 +12,7 @@
 			xmlns:view="com.mcquilleninteractive.learnhvac.view.*"
 		>
 
-	<mx:Script>
+	<fx:Script>
 	    <![CDATA[
 	    	import com.mcquilleninteractive.learnhvac.event.ApplicationEvent;
 	    	import com.mcquilleninteractive.learnhvac.event.LoginEvent;
@@ -129,11 +129,17 @@
 	    
 	    
 	    ]]>
-	</mx:Script>
+	</fx:Script>
 	
-    <mx:StringValidator id="vUsername" source="{ username }" property="text" required="true"/>
-    <mx:StringValidator id="vPassword" source="{ password }" property="text" required="true"/>
-    
+	
+	<fx:Declarations>
+		
+		<mx:StringValidator id="vUsername" source="{ username }" property="text" required="true"/>
+		<mx:StringValidator id="vPassword" source="{ password }" property="text" required="true"/>
+		
+		
+	</fx:Declarations>
+
  
     
 	<mx:Canvas id="splashCanvas" 
