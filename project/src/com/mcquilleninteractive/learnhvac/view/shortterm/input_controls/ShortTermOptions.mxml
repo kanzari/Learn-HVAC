@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:VBox width="100%" height="100%"
 	 	xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx"
-		xmlns:yahoo="http://www.yahoo.com/astra/2006/mxml"
+		xmlns:yahoo="com.yahoo.astra.mx.controls.*"
+		xmlns:timePicker="com.visualempathy.display.controls.datetime.*"
 		visible="false"
 	    paddingLeft="10"
 	    paddingRight="10"
 	    paddingTop="10"
 	    backgroundAlpha="1"
 	    backgroundColor="#FFFFFF"
-	    
+	    addedToStage="addedToStageHandler(event)" xmlns:components="ca.dpcp.components.*"
+		
 		>
 		
 		<fx:Script>
@@ -27,7 +29,12 @@
 			import mx.collections.ArrayCollection
 			import mx.controls.dataGridClasses.DataGridColumn			
 			import mx.controls.Alert
-							
+			
+			import com.yahoo.astra.mx.controls.TimeStepper; 
+			import com.yahoo.astra.mx.controls.TimeInput;  
+				
+
+				
 			[Bindable]
 			[Autowire]
 			public var scenarioModel:ScenarioModel
@@ -65,7 +72,7 @@
 			{
 				cboRun.enabled = false
 				timeStepper.enabled = false
-				dateField.enabled = false
+				timeStepper.enabled = false
 				cboLongTermRun.enabled = false
 				this.cboFloor.enabled = false
 				this.cboZone.enabled = false
@@ -77,7 +84,7 @@
 			{
 				cboRun.enabled = true
 				timeStepper.enabled = true
-				dateField.enabled = true
+				timeStepper.enabled = true
 				cboLongTermRun.enabled = true	
 				this.cboFloor.enabled = true
 				this.cboZone.enabled = true
@@ -140,8 +147,13 @@
 			{				
 				if (scenarioModel==null) return				
 				Logger.debug("#VizPanelInfo: setting date time from model: " + shortTermSimulationModel.realtimeStartDatetime)
+			
 				timeStepper.value = shortTermSimulationModel.realtimeStartDatetime
+					
+					
 				dateField.selectedDate = shortTermSimulationModel.realtimeStartDatetime
+					
+					
 				timeStepper.enabled = scenarioModel.allowRealTimeDateTimeChange
 				dateField.enabled = scenarioModel.allowRealTimeDateTimeChange
 				
@@ -164,7 +176,7 @@
 			{
 				Logger.debug("updateSimulationStartDateAndTime()",this)
 										
-				var selectedDate:Date = this.dateField.selectedDate				
+				var selectedDate:Date = this.timeStepper.value				
 				
 				if (selectedDate.fullYear != currentYear) 
 				{
@@ -173,9 +185,9 @@
 				}
 				
 				//copy hours and minutes into time 
-				var selectedTime:Date = this.timeStepper.value				
-				selectedDate.hours = selectedTime.hours
-				selectedDate.minutes = selectedTime.minutes
+			//	var selectedTime:Date = this.timeStepper.value				
+				//selectedDate.hours = selectedTime.hours
+				//selectedDate.minutes = selectedTime.minutes
 				
 				Logger.debug("selectedDate: " + selectedDate.toString(), this)
 				
@@ -247,7 +259,21 @@
 			}
 		
 			
-		]]>
+				protected function addedToStageHandler(event:Event):void
+				{
+
+					//var input:TimeInput = new TimeInput();  
+					//input.value = new Date(1929, 9, 24, 12, 21, 35);  
+					//this.addChild(input);  
+					
+					//var timeStepper:TimeStepper = new TimeStepper();  
+					//timeStepper.value = new Date(1929, 9, 24, 12, 21, 35);  
+					
+					//this.addChild(timeStepper);  
+					
+				}
+				
+			]]>
 		
 
 		</fx:Script>
@@ -346,25 +372,43 @@
 			</mx:HBox>
 			
 					
-		<mx:Label text="Time:"   fontWeight="bold" paddingTop="5"/>
+		<mx:Label text="Simulation Start:"   fontWeight="bold" paddingTop="5"/>
 										
+		
+	
 		<mx:HBox >
-			<mx:Label text="Sim. start time: "  width="100" />
+	
+			
+			<mx:Label text="Date:" width="100"/>
+			<mx:DateField id="dateField" 
+						  change="updateSimulationStartDateAndTime()"
+						  toolTip="Start date for the short-term simulation"	
+						  styleName="simDatePicker"
+						  />
+		</mx:HBox>
+	
+
+	
+		<mx:HBox>
+	
+			<mx:Label text="Time:"  width="100" />
+			<!--		<yahoo:TimeStepper id="timeStepper" 
+			showSeconds="false" 
+			change="updateSimulationStartDateAndTime()"
+			width="70"
+			styleName="simTimeStepper"
+			toolTip="Start time for the short-term simulation"
+			/>-->
+			
 			<yahoo:TimeStepper id="timeStepper" 
-		    	showSeconds="false" 
-		    	change="updateSimulationStartDateAndTime()"
-		        width="70"
-		        styleName="simTimeStepper"
-		        toolTip="Start time for the short-term simulation"
-		        />
-			<mx:Label text="Date:" width="50"/>
-		    <mx:DateField id="dateField" 
-		    	change="updateSimulationStartDateAndTime()"
-		        toolTip="Start date for the short-term simulation"	
-		        styleName="simDatePicker"
-		    	/>
-	    </mx:HBox>
-												
+							   styleName="simTimeStepper"
+							   change="updateSimulationStartDateAndTime()"
+							   toolTip="Start time for the short-term simulation"
+							   />
+		</mx:HBox>
+		
+	
+	
 		<mx:HBox >
 			<mx:Label text="Time step: "  width="100" />
 			<mx:TextInput id="txtTimeStep" 

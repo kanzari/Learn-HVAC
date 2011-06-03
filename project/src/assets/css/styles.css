@@ -473,13 +473,16 @@ TitleWindow
 
 .simTimeStepper
 {
-	showSeconds:false;	
+	borderSkin:ClassReference("mx.skins.halo.HaloBorder");
+	upArrowSkin:ClassReference("mx.skins.halo.NumericStepperUpSkin");
+	downArrowSkin:ClassReference("mx.skins.halo.NumericStepperDownSkin");
+	showSeconds:true;
 	useTwelveHourFormat:false;
+	displayTwoDigitHoursValue:true;
+	font-size :11px;
 }
 
-.simDatePicker
-{
-}
+
 
 
 .simStatus
@@ -489,14 +492,11 @@ TitleWindow
 	color: #1d89dc;
 }
 
-.simTimePicker
-{
-	
-}
+
 
 .simDatePicker
 {
-	
+	font-size :11px;
 }
 
 
@@ -513,12 +513,6 @@ TitleWindow
     tabStyleName: "fseTabs";
 }
 
-
-.timeStepperFormat
-{
-	showSeconds:false;	
-	useTwelveHourFormat:false;
-}
 
 
 @font-face {
