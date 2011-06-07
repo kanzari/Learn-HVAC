@@ -30,7 +30,7 @@ package com.mcquilleninteractive.learnhvac.business
 			graphs = new Array()
 		}
 
-		Mediate(event="ApplicationEvent.SELECT_NEW_SCENARIO")]
+		[Mediate(event="ApplicationEvent.SELECT_NEW_SCENARIO")]
 		public function onSelectNewScenario(event:ApplicationEvent):void
 		{
 			clearAllGraphs()

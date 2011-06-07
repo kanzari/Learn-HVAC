@@ -44,13 +44,31 @@
  			[Bindable]
  			public var icoSysVar : Class;
 			
+			[Bindable]
+			public var outputFilterModel : ArrayCollection;
+			
 			
 			public function onCreationComplete():void
 			{  						    	
 				scenarioModel = Swiz.getBean("scenarioModel") as ScenarioModel
 				
 		    	//setup dataproviders
-				cboSysNode.dataProvider = scenarioModel.sysNodesAC
+				outputFilterModel = scenarioModel.sysNodesAC;
+				
+				var len : Number = outputFilterModel.length;
+				var newNode : SystemNodeModel = new SystemNodeModel();
+				newNode.sysVarsArr = new ArrayCollection();
+				
+				for (var i:Number=0; i < len; i++) {
+					var theNode : SystemNodeModel = outputFilterModel[i];
+					newNode.sysVarsArr.addAll(theNode.sysVarsArr);
+				}
+
+				newNode.id="ALL";
+				newNode.name="All";
+				outputFilterModel.addItem(newNode);
+				
+				cboSysNode.dataProvider = outputFilterModel;
 				
 				buildOutputGrid()
 				
@@ -183,7 +201,7 @@
 			</mx:columns>	
 		</mx:DataGrid>
 		
-	</mx:VBox >
+	</mx:VBox>
 	
 
 </util:DragPanel>

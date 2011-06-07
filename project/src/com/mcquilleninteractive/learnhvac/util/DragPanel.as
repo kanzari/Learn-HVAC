@@ -11,7 +11,8 @@ package com.mcquilleninteractive.learnhvac.util
     import mx.core.UIComponent;
     import mx.events.FlexEvent;
     import mx.managers.PopUpManager;
-    
+	import com.mcquilleninteractive.learnhvac.event.WatchListEvent;
+	import com.mcquilleninteractive.learnhvac.model.WatchListModel;
 	[Event(name="panelMinimized",type="flash.events.Event")]
 	[Event(name="panelRestored",type="flash.events.Event")]
 	
@@ -28,7 +29,14 @@ package com.mcquilleninteractive.learnhvac.util
             
         }
         
-        
+		[Mediate(event="WatchListEvent.UPDATE")]
+		public function onWatchListUpdate(event:WatchListEvent):void
+		{
+			
+			trace ('event');
+			
+		}
+		
         private var myTitleBar:UIComponent;
                     
         private function creationCompleteHandler(event:Event):void

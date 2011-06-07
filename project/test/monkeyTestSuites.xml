@@ -1,7 +1,222 @@
 <TopNode>
-  <TestSuite name="NewTestSuite" description="">
-    <TestCase name="NewTestCase" description="">
-      <Test name="NewTest" description="" defaultThinkTime="0"/>
+  <TestSuite name="UnitTests" description="">
+    <TestCase name="Unit0" description="null">
+      <Test name="Login as user 'rrd'" description="null" defaultThinkTime="0">
+        <UIEvent command="Input" value="username" prop="automationName" delay="500" attempts="10">
+          <arg value="rrd"/>
+        </UIEvent>
+        <UIEvent command="Input" value="password" prop="automationName" delay="500" attempts="10">
+          <arg value="rrdrrd"/>
+        </UIEvent>
+        <UIEvent command="Click" value="btnLogin" prop="id" delay="500" attempts="10">
+          <arg value=""/>
+        </UIEvent>
+        <Verify value="Basic Scenario" prop="automationName" description="Verify Basic Scenerio" isRetryable="true" delay="500" attempts="20" verifyBitmap="false" snapshotURL="E90FD87E-E062-816B-E41C-61F1C5DA26F9.snp" verifyBitmapFuzziness="0">
+          <Attribute name="text" expectedValue="Basic Scenario" type="property" actualValue="null"/>
+        </Verify>
+      </Test>
+      <Test name="Logout" description="null" defaultThinkTime="0">
+        <UIEvent command="Click" value="Learn HVAC" prop="automationName" delay="500" attempts="10">
+          <arg value=""/>
+        </UIEvent>
+        <UIEvent command="Select" value="Learn HVAC Menu" prop="automationName" delay="500" attempts="10">
+          <arg value="Logout"/>
+        </UIEvent>
+        <UIEvent command="Click" value="OK" prop="automationName" delay="500" attempts="10"/>
+        <Verify value="You may login as 'guest' (This will give you access to local scenarios only.)" prop="automationName" description="Verify login popup is there" isRetryable="true" delay="500" attempts="20" verifyBitmap="false" snapshotURL="C6C3276D-DF76-963E-0C7B-61F3F6D4901B.snp" verifyBitmapFuzziness="0">
+          <Attribute name="text" expectedValue="You may login as 'guest' (This will give you access to local scenarios only.)" type="property" actualValue="null"/>
+        </Verify>
+      </Test>
+    </TestCase>
+    <TestCase name="Unit1" description="">
+      <Test name="LoginAndChangeTime" description="" defaultThinkTime="0">
+        <UIEvent command="Click" value="Login" prop="automationName" delay="500" attempts="10"/>
+        <UIEvent command="Click" value="Start Scenario" prop="automationName" delay="500" attempts="10"/>
+        <UIEvent command="Click" value="Start Scenario" prop="automationName" delay="500" attempts="10"/>
+        <UIEvent command="Click" value="09:00:00" prop="automationName" delay="500" attempts="10"/>
+        <UIEvent command="Click" value="com.superb.learnhvac-2-1-03" prop="automationName" delay="500" attempts="10"/>
+        <UIEvent command="Show" value="appMenu" prop="automationName" delay="500" attempts="10">
+          <arg value="Scenario"/>
+        </UIEvent>
+        <UIEvent command="Hide" value="Scenario Menu" prop="automationName" delay="500" attempts="10"/>
+        <UIEvent command="Show" value="appMenu" prop="automationName" delay="500" attempts="10">
+          <arg value="Learn HVAC"/>
+        </UIEvent>
+        <UIEvent command="Select" value="Learn HVAC Menu" prop="automationName" delay="500" attempts="10">
+          <arg value="Logout"/>
+        </UIEvent>
+        <UIEvent command="Click" value="OK" prop="automationName" delay="500" attempts="10"/>
+      </Test>
+    </TestCase>
+  </TestSuite>
+  <TestSuite name="Bugs" description="null">
+    <TestCase name="OutputPanel" description="https://www.pivotaltracker.com/story/show/10159341">
+      <Test name="Login" description="Login as user Guest" defaultThinkTime="0">
+        <UIEvent command="Input" value="username" prop="automationName" delay="500" attempts="10">
+          <arg value="guest"/>
+        </UIEvent>
+        <UIEvent command="Click" value="btnLogin" prop="id" delay="500" attempts="10">
+          <arg value=""/>
+        </UIEvent>
+        <Verify value="_SelectScenarioItemRenderer_Label1" prop="id" description="Verify Basic Scenerio" isRetryable="true" delay="500" attempts="20" verifyBitmap="false" snapshotURL="" verifyBitmapFuzziness="0">
+          <Attribute name="text" expectedValue="Basic Scenario" type="property" actualValue="null"/>
+        </Verify>
+      </Test>
+      <Test name="CheckOutputPanel" description="null" defaultThinkTime="0">
+        <UIEvent command="Click" value="Open Scenario" prop="automationName" delay="500" attempts="10"/>
+        <Pause duration="3500"/>
+        <Verify value="Open output data window" prop="automationName" description="New Verify" isRetryable="true" delay="500" attempts="20" verifyBitmap="false" snapshotURL="0C736B0F-F9D4-A7B1-4694-63363ADFA474.snp" verifyBitmapFuzziness="0">
+          <Attribute name="id" expectedValue="btnOutputPanel" type="property" actualValue="null"/>
+        </Verify>
+        <UIEvent command="Click" value="Open output data window" prop="automationName" delay="500" attempts="10"/>
+        <VerifyGrid value="dgOutputVariables" description="New Verify Grid" prop="automationName" row="0" col="1" expectedValue="MXMARH" isRetryable="true" delay="500" attempts="10"/>
+      </Test>
+      <Test name="Logout" description="null" defaultThinkTime="0">
+        <UIEvent command="Click" value="Scenario" prop="automationName" delay="500" attempts="10"/>
+        <UIEvent command="Select" value="Scenario Menu" prop="automationName" delay="500" attempts="10">
+          <arg value="Close scenario"/>
+        </UIEvent>
+        <UIEvent command="Click" value="Learn HVAC" prop="automationName" delay="500" attempts="10">
+          <arg value=""/>
+        </UIEvent>
+        <UIEvent command="Select" value="Learn HVAC Menu" prop="automationName" delay="500" attempts="10">
+          <arg value="Logout"/>
+        </UIEvent>
+        <Verify value="Logout" prop="automationName" description="is alert visible" isRetryable="true" delay="500" attempts="20" verifyBitmap="false" snapshotURL="44CDC8CF-5B79-C2B4-8D7C-637FC2A19535.snp" verifyBitmapFuzziness="0">
+          <Attribute name="className" expectedValue="Alert" type="property" actualValue="null"/>
+        </Verify>
+        <UIEvent command="Select" value="Logout" prop="automationName" delay="500" attempts="10">
+          <arg value=""/>
+        </UIEvent>
+        <UIEvent command="Select" value="OK" prop="automationName" delay="500" attempts="10"/>
+        <UIEvent command="Click" value="OK" prop="automationName" delay="500" attempts="10"/>
+        <Verify value="You may login as 'guest' (This will give you access to local scenarios only.)" prop="automationName" description="Verify login popup is there" isRetryable="true" delay="500" attempts="20" verifyBitmap="false" snapshotURL="C6C3276D-DF76-963E-0C7B-61F3F6D4901B.snp" verifyBitmapFuzziness="0">
+          <Attribute name="text" expectedValue="You may login as 'guest' (This will give you access to local scenarios only.)" type="property" actualValue="null"/>
+        </Verify>
+      </Test>
+    </TestCase>
+    <TestCase name="LogoutisBrokenForGuest" description="bug #10159525">
+      <Test name="Login as user 'guest'" description="null" defaultThinkTime="0">
+        <UIEvent command="Input" value="username" prop="automationName" delay="500" attempts="10">
+          <arg value="guest"/>
+        </UIEvent>
+        <UIEvent command="Click" value="btnLogin" prop="id" delay="500" attempts="10">
+          <arg value=""/>
+        </UIEvent>
+        <Verify value="_SelectScenarioItemRenderer_Label1" prop="id" description="Verify Basic Scenerio" isRetryable="true" delay="500" attempts="20" verifyBitmap="false" snapshotURL="" verifyBitmapFuzziness="0">
+          <Attribute name="text" expectedValue="Basic Scenario" type="property" actualValue="null"/>
+        </Verify>
+      </Test>
+      <Test name="Logout" description="null" defaultThinkTime="0">
+        <UIEvent command="Click" value="Learn HVAC" prop="automationName" delay="500" attempts="10">
+          <arg value=""/>
+        </UIEvent>
+        <UIEvent command="Select" value="Learn HVAC Menu" prop="automationName" delay="500" attempts="10">
+          <arg value="Logout"/>
+        </UIEvent>
+        <UIEvent command="Click" value="OK" prop="automationName" delay="500" attempts="10"/>
+        <Verify value="You may login as 'guest' (This will give you access to local scenarios only.)" prop="automationName" description="Verify login popup is there" isRetryable="true" delay="500" attempts="20" verifyBitmap="false" snapshotURL="C6C3276D-DF76-963E-0C7B-61F3F6D4901B.snp" verifyBitmapFuzziness="0">
+          <Attribute name="text" expectedValue="You may login as 'guest' (This will give you access to local scenarios only.)" type="property" actualValue="null"/>
+        </Verify>
+      </Test>
+    </TestCase>
+    <TestCase name="WatchPanelValues" description=":stop at 2 decimals Bug #0159489">
+      <Test name="Login as user 'guest'" description="null" defaultThinkTime="0">
+        <UIEvent command="Input" value="username" prop="automationName" delay="500" attempts="10">
+          <arg value="guest"/>
+        </UIEvent>
+        <UIEvent command="Click" value="btnLogin" prop="id" delay="500" attempts="10">
+          <arg value=""/>
+        </UIEvent>
+        <Verify value="_SelectScenarioItemRenderer_Label1" prop="id" description="Verify Basic Scenerio" isRetryable="true" delay="500" attempts="20" verifyBitmap="false" snapshotURL="" verifyBitmapFuzziness="0">
+          <Attribute name="text" expectedValue="Basic Scenario" type="property" actualValue="null"/>
+        </Verify>
+        <UIEvent command="Click" value="Open Scenario" prop="automationName" delay="500" attempts="10"/>
+        <Pause duration="3200"/>
+      </Test>
+      <Test name="Check Watch Panel" description="null" defaultThinkTime="0">
+        <Verify value="btnStartStop" prop="automationName" description="New Verify" isRetryable="true" delay="500" attempts="20" verifyBitmap="false" snapshotURL="" verifyBitmapFuzziness="0">
+          <Attribute name="enabled" expectedValue="true" type="property" actualValue="null"/>
+        </Verify>
+        <UIEvent command="Click" value="btnStartStop" prop="automationName" delay="500" attempts="10"/>
+        <UIEvent command="Click" value="Open watch panel" prop="automationName" delay="500" attempts="10"/>
+        <Pause duration="100"/>
+        <Verify value="dgWatchVariables" prop="automationName" description="Verify that the Watch Table is there" isRetryable="true" delay="500" attempts="20" verifyBitmap="false" snapshotURL="F7BDFDD3-6D62-6CEF-6D9D-6657D0DE7A51.snp" verifyBitmapFuzziness="0">
+          <Attribute name="automationName" expectedValue="dgWatchVariables" type="property" actualValue="null"/>
+        </Verify>
+        <UIEvent command="Change" value="tabBar" prop="automationName" delay="500" attempts="10">
+          <arg value="INPUTS"/>
+        </UIEvent>
+        <Verify value="txtInputItem_SYSTRmSPCool" prop="automationName" description="Verify Room Temp TextInput field is enabled" isRetryable="true" delay="500" attempts="20" verifyBitmap="false" snapshotURL="" verifyBitmapFuzziness="0">
+          <Attribute name="enabled" expectedValue="true" type="property" actualValue="null"/>
+        </Verify>
+        <Verify value="txtInputItem_SYSTRmSPCool" prop="automationName" description="Verify Room temp is 24 degrees" isRetryable="true" delay="500" attempts="20" verifyBitmap="false" snapshotURL="A23E33ED-5B8B-AF98-7ECB-666237BD1867.snp" verifyBitmapFuzziness="0">
+          <Attribute name="text" expectedValue="24" type="property" actualValue="null"/>
+        </Verify>
+        <Verify value="icoSysVar_SYSTRmSPCool" prop="automationName" description="Verify Room Temp Watch Icon" isRetryable="true" delay="500" attempts="20" verifyBitmap="false" snapshotURL="08BF7705-B1DD-8000-4E3B-664E24A9DD85.snp" verifyBitmapFuzziness="0">
+          <Attribute name="enabled" expectedValue="true" type="property" actualValue="null"/>
+        </Verify>
+        <Verify value="lblVarName_SYSTRmSPCool" prop="automationName" description="Verify Room Temp label is enabled" isRetryable="true" delay="500" attempts="20" verifyBitmap="false" snapshotURL="08BF7705-B1DD-8000-4E3B-664E24A9DD85.snp" verifyBitmapFuzziness="0">
+          <Attribute name="enabled" expectedValue="true" type="property" actualValue="null"/>
+        </Verify>
+        <Verify value="btnInfo_SYSTRmSPCool" prop="automationName" description="Verify Room Temp Info Button is enabled" isRetryable="true" delay="500" attempts="20" verifyBitmap="false" snapshotURL="08BF7705-B1DD-8000-4E3B-664E24A9DD85.snp" verifyBitmapFuzziness="0">
+          <Attribute name="enabled" expectedValue="true" type="property" actualValue="null"/>
+        </Verify>
+        <UIEvent command="Input" value="txtInputItem_SYSTRmSPCool" prop="automationName" delay="500" attempts="10">
+          <arg value="25"/>
+        </UIEvent>
+        <Verify value="txtInputItem_SYSTRmSPCool" prop="automationName" description="Verify Room temp is now 25 degrees" isRetryable="true" delay="500" attempts="20" verifyBitmap="false" snapshotURL="" verifyBitmapFuzziness="0">
+          <Attribute name="text" expectedValue="25" type="property" actualValue="null"/>
+        </Verify>
+        <Verify value="icoSysVar_SYSTRmSPCool" prop="automationName" description="New Verify" isRetryable="true" delay="500" attempts="20" verifyBitmap="false" snapshotURL="401DB117-E11E-9F91-C835-665967316576.snp" verifyBitmapFuzziness="0">
+          <Attribute name="enabled" expectedValue="true" type="property" actualValue="null"/>
+        </Verify>
+        <UIEvent command="Click" value="Update" prop="automationName" delay="500" attempts="10"/>
+        <Pause duration="100"/>
+        <UIEvent command="Select" value="icoSysVar_SYSTRmSPCool" prop="automationName" delay="500" attempts="10"/>
+        <UIEvent command="DragStart" value="icoSysVar_SYSTRmSPCool" prop="automationName" delay="500" attempts="10">
+          <arg value=""/>
+        </UIEvent>
+        <UIEvent command="DragDrop" value="dgWatchVariables" prop="automationName" delay="500" attempts="10">
+          <arg value="move"/>
+        </UIEvent>
+        <UIEvent command="DragDrop" value="dgWatchVariables" prop="automationName" delay="500" attempts="10">
+          <arg value="move"/>
+        </UIEvent>
+      </Test>
+      <Test name="Logout" description="null" defaultThinkTime="0">
+        <UIEvent command="Click" value="Scenario" prop="automationName" delay="500" attempts="10"/>
+        <UIEvent command="Select" value="Scenario Menu" prop="automationName" delay="500" attempts="10">
+          <arg value="Close scenario"/>
+        </UIEvent>
+        <UIEvent command="Click" value="Learn HVAC" prop="automationName" delay="500" attempts="10">
+          <arg value=""/>
+        </UIEvent>
+        <UIEvent command="Select" value="Learn HVAC Menu" prop="automationName" delay="500" attempts="10">
+          <arg value="Logout"/>
+        </UIEvent>
+        <Verify value="Logout" prop="automationName" description="is alert visible" isRetryable="true" delay="500" attempts="20" verifyBitmap="false" snapshotURL="44CDC8CF-5B79-C2B4-8D7C-637FC2A19535.snp" verifyBitmapFuzziness="0">
+          <Attribute name="className" expectedValue="Alert" type="property" actualValue="null"/>
+        </Verify>
+        <UIEvent command="Select" value="Logout" prop="automationName" delay="500" attempts="10">
+          <arg value=""/>
+        </UIEvent>
+        <UIEvent command="Select" value="OK" prop="automationName" delay="500" attempts="10"/>
+        <UIEvent command="Click" value="OK" prop="automationName" delay="500" attempts="10"/>
+        <Verify value="You may login as 'guest' (This will give you access to local scenarios only.)" prop="automationName" description="Verify login popup is there" isRetryable="true" delay="500" attempts="20" verifyBitmap="false" snapshotURL="C6C3276D-DF76-963E-0C7B-61F3F6D4901B.snp" verifyBitmapFuzziness="0">
+          <Attribute name="text" expectedValue="You may login as 'guest' (This will give you access to local scenarios only.)" type="property" actualValue="null"/>
+        </Verify>
+      </Test>
+    </TestCase>
+    <TestCase name="NewTestCase" description="null">
+      <Test name="NewTest" description="null" defaultThinkTime="0">
+        <UIEvent command="DragStart" value="dgOutputVariables" prop="automationName" delay="500" attempts="10">
+          <arg value="*Economizer mixed air temperature* | MXTAirMix | 25.30 | °C"/>
+        </UIEvent>
+        <UIEvent command="DragDrop" value="dgWatchVariables" prop="automationName" delay="500" attempts="10">
+          <arg value="move"/>
+        </UIEvent>
+      </Test>
     </TestCase>
   </TestSuite>
 </TopNode>

@@ -6,12 +6,14 @@ package com.mcquilleninteractive.learnhvac.controller
 	import com.mcquilleninteractive.learnhvac.event.ScenarioLoadedEvent;
 	import com.mcquilleninteractive.learnhvac.event.SetPointEvent;
 	import com.mcquilleninteractive.learnhvac.event.ShortTermSimulationEvent;
+	import com.mcquilleninteractive.learnhvac.event.WatchListEvent;
 	import com.mcquilleninteractive.learnhvac.model.ApplicationModel;
 	import com.mcquilleninteractive.learnhvac.model.ScenarioModel;
 	import com.mcquilleninteractive.learnhvac.model.ShortTermSimulationDataModel;
 	import com.mcquilleninteractive.learnhvac.model.ShortTermSimulationModel;
 	import com.mcquilleninteractive.learnhvac.model.SystemNodeModel;
 	import com.mcquilleninteractive.learnhvac.model.SystemVariable;
+	import com.mcquilleninteractive.learnhvac.model.WatchListModel;
 	import com.mcquilleninteractive.learnhvac.util.Logger;
 	
 	import flash.events.Event;
@@ -41,6 +43,11 @@ package com.mcquilleninteractive.learnhvac.controller
 		[Autowire]
 		public var applicationModel:ApplicationModel
 		
+		[Autowire]
+		public var watchListModel:WatchListModel
+		
+		
+		
 		[Autowire(bean="shortTermSimulationDelegate")]
 		public var delegate:IShortTermSimulationDelegate
 		
@@ -64,6 +71,29 @@ package com.mcquilleninteractive.learnhvac.controller
 		public function scenarioLoaded(event:ScenarioLoadedEvent):void
 		{
 			shortTermSimulationDataModel.init()
+		}
+		
+		[Mediate(event="WatchListEvent.ADD")]
+		public function onWatchListAdd(event:WatchListEvent):void
+		{
+			//shortTermSimulationDataModel.init()
+			var systemVariable : SystemVariable = event.systemVariable;
+			watchListModel.add(systemVariable);
+			
+			var evt : WatchListEvent = new WatchListEvent(WatchListEvent.UPDATE, true);
+			Swiz.dispatchEvent(evt);
+			
+			
+			trace ('event');
+			
+		}
+		
+		[Mediate(event="WatchListEvent.UPDATE")]
+		public function onWatchListUpdate(event:WatchListEvent):void
+		{
+
+			trace ('event');
+			
 		}
 		
 		/* Handles for framework events */
@@ -226,6 +256,15 @@ package com.mcquilleninteractive.learnhvac.controller
 		{
 			shortTermSimulationModel.modelicaInputsTrace += event.inputsTrace			
 		}	
+		
+		
+		[Mediate(event="WatchListEvent.ADD")]		
+		public function onAddToWatchList(event:Event):void
+		{
+			Logger.debug("#WatchListEvent.ADD",this)
+				
+			//var x : Number =0;
+		}
 		
 		
 		

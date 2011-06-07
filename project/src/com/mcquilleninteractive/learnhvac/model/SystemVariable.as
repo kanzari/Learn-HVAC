@@ -11,8 +11,7 @@ package com.mcquilleninteractive.learnhvac.model
 	[Bindable]
 	public class SystemVariable
 	{
-		
-		
+
 		//viewType settings
 		public static var OUTPUT:String = "OUTPUT"
 		public static var INPUT:String = "INPUT"

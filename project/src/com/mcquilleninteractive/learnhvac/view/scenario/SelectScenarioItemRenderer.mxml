@@ -109,7 +109,7 @@
     <mx:VBox >
         <mx:Label text="{data.name}" styleName="itemHeader" />
 		<mx:Text text="{data.shortDescription}" width="400" height="35" />
-		<mx:Button label="Start Scenario" width="120" height="25" click="loadScenario()"/>
+		<mx:Button label="Open Scenario" width="120" height="25" click="loadScenario()"/>
 	</mx:VBox>
 
 </mx:HBox>

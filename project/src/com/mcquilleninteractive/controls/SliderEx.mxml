@@ -14,7 +14,7 @@
 			import mx.events.FlexEvent;
 			import mx.events.SliderEvent;
 			import mx.validators.Validator;
-			
+
 			
 			[Bindable]
 			public var text:String = "";
@@ -68,7 +68,6 @@
 			{
 					Logger.debug("outFocusHandler()",this)
 				
-				//	data.localValue = Number(txtCurrFaultValue.text)
 					var usrNumber : Number =  Number(txtInput.text);
 					
 						
@@ -81,9 +80,7 @@
 						usrNumber = max;
 					}
 					
-					
-				//	_isDirty = (value != usrNumber);
-					
+	
 					if(value != usrNumber) {
 						value = usrNumber;
 						dispatchEvent(new Event("change"));

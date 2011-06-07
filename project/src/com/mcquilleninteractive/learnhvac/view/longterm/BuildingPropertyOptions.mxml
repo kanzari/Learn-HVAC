@@ -17,6 +17,7 @@
 	
 		<fx:Script>
 		<![CDATA[
+
 			import com.mcquilleninteractive.learnhvac.event.UnitsEvent;
 			import com.mcquilleninteractive.learnhvac.model.ApplicationModel;
 			import com.mcquilleninteractive.learnhvac.model.LongTermSimulationModel;
@@ -25,12 +26,12 @@
 			import com.mcquilleninteractive.learnhvac.util.Logger;
 			import com.mcquilleninteractive.learnhvac.view.LongTermSimulation;
 			import com.mcquilleninteractive.learnhvac.vo.LongTermSimulationVO;
-
+			
+			import flash.events.Event;
 			
 			import mx.events.ItemClickEvent;
 			import mx.events.SliderEvent;
-			import flash.events.Event;
-			import mx.validators.Validator;	
+			import mx.validators.Validator;
 			
 			[Bindable]
 			[Autowire]
@@ -229,6 +230,9 @@
 			}
 		
 			
+
+			
+			
 			private function sliderChangeNorth(event:flash.events.Event):void
 			{
 				
@@ -242,6 +246,9 @@
 				dispatchEvent(new Event("buildingPropsChange"));
 				
 			}
+			
+			
+			
 			private function sliderChangeSouth(event:flash.events.Event):void
 			{
 				
@@ -519,10 +526,27 @@
 	
 	<mx:Label text="Window-to-Wall ratio" styleName="longTermOptionsSectionHeader"/>
 				
-	<controls:SliderEx id="sldExNorth" title="North" value="{longTermSimulationModel.windowRatioNorth}" change="sliderChangeNorth(event)" ></controls:SliderEx>
-	<controls:SliderEx id="sldExSouth" title="South" value="{longTermSimulationModel.windowRatioSouth}" change="sliderChangeSouth(event)" ></controls:SliderEx>
-	<controls:SliderEx id="sldExEast" title="East" value="{longTermSimulationModel.windowRatioEast}" change="sliderChangeEast(event)" ></controls:SliderEx>
-	<controls:SliderEx id="sldExWest" title="West" value="{longTermSimulationModel.windowRatioWest}" change="sliderChangeWest(event)" ></controls:SliderEx>
+	<controls:SliderEx id="sldExNorth" 
+					   title="North" 
+					   value="{longTermSimulationModel.windowRatioNorth}" 
+					   change="sliderChangeNorth(event)" >
+	</controls:SliderEx>
+	
+	<controls:SliderEx id="sldExSouth" title="South" 
+					   value="{longTermSimulationModel.windowRatioSouth}" 
+					   change="sliderChangeSouth(event)" >
+	</controls:SliderEx>
+	
+	<controls:SliderEx id="sldExEast" title="East" 
+					   value="{longTermSimulationModel.windowRatioEast}"
+					   change="sliderChangeEast(event)" >
+	</controls:SliderEx>
+	
+	<controls:SliderEx id="sldExWest" title="West" 
+					   value="{longTermSimulationModel.windowRatioWest}" 
+					   change="sliderChangeWest(event)" >
+	</controls:SliderEx>
+	
 	
 				
 	<mx:Label text="Orientation" styleName="longTermOptionsSectionHeader"/>

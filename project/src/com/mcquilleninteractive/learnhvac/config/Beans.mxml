@@ -15,6 +15,8 @@
 		<model:ScenarioDataModel id="scenarioDataModel" />
 		<model:ShortTermSimulationModel id="shortTermSimulationModel" />
 		<model:ShortTermSimulationDataModel id="shortTermSimulationDataModel" />
+		<model:WatchListModel id="watchList" />
+		
 		<model:LongTermSimulationModel id="longTermSimulationModel" />
 		<model:LongTermSimulationDataModel id="longTermSimulationDataModel" />
 		<model:DefaultScenariosModel id="defaultScenariosModel" />

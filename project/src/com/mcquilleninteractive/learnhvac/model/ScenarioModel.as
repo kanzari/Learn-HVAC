@@ -79,6 +79,7 @@ package com.mcquilleninteractive.learnhvac.model
 		
 		// for holding scenario data
 		public var sysNodesAC:ArrayCollection 			= new ArrayCollection()			// array to hold sysNodes (which hold system variables)
+		public var sysNodesFilterAC:ArrayCollection 			= new ArrayCollection()			// array to hold sysNodes used for filtering output (includes 'ALL')
 		public var sysNodesForNavAC:ArrayCollection 	= new ArrayCollection()			// another array to hold sysNodes used for user navigation (e.g. SPARK not included)
 		
 		public var sysVarsImportedFromLongTermAC:ArrayCollection = new ArrayCollection()// holds group of SysVars that are imported from LongTerm into ShortTerm sim

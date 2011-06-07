@@ -9,6 +9,9 @@ package com.mcquilleninteractive.learnhvac.controller
 	
 	import org.swizframework.controller.AbstractController;
 	
+	import com.mcquilleninteractive.learnhvac.event.WatchListEvent;
+	import com.mcquilleninteractive.learnhvac.model.WatchListModel;
+	
 	public class ScenarioController extends AbstractController
 	{
 		
@@ -26,6 +29,11 @@ package com.mcquilleninteractive.learnhvac.controller
 		
 		
 		
+		[Mediate(event="WatchListEvent.UPDATE")]
+		public function onWatchListUpdate(event:WatchListEvent):void
+		{
+			trace ('event');
+		}
 		
 		[Mediate(event="ZoneChangeEvent.ZONE_CHANGED")]
 		public function zoneChanged(event:ZoneChangeEvent):void

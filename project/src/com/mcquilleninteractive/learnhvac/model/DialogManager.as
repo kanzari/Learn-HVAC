@@ -2,6 +2,7 @@ package com.mcquilleninteractive.learnhvac.model
 {
 	import com.mcquilleninteractive.learnhvac.util.Logger;
 	import com.mcquilleninteractive.learnhvac.view.popups.*;
+	import com.mcquilleninteractive.learnhvac.view.WatchPanel;
 	import com.mcquilleninteractive.learnhvac.view.shortterm.OutputPanel;
 	
 	import flash.display.DisplayObject;

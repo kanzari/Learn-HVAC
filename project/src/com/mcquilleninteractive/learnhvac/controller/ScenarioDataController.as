@@ -15,6 +15,9 @@ package com.mcquilleninteractive.learnhvac.controller
 	import org.swizframework.controller.AbstractController;
 	import org.swizframework.factory.IInitializingBean;
 
+	import com.mcquilleninteractive.learnhvac.event.WatchListEvent;
+	
+	
 	public class ScenarioDataController  extends AbstractController 
 	{		
 		
@@ -85,6 +88,8 @@ package com.mcquilleninteractive.learnhvac.controller
 		{
 			scenarioDataModel.clearZoneEnergyUse()
 		}
+		
+
 		
 		
 		

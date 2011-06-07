@@ -212,9 +212,10 @@
 				click="rewindSimulation()" />
 	
 	
-	<mx:Button 	label="Start Simulation" 
+	<mx:Button 	label="Start Simulation"
 				styleName="btnBottomBar"
-				id="btnStartStop" 
+				id="btnStartStop"
+				automationName="btnStartStop"
 				toolTip="Start short-term simulation"
     			y="13"
     			icon="{StartIcon}"

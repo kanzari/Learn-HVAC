@@ -20,6 +20,10 @@
 			import com.mcquilleninteractive.learnhvac.model.ScenarioModel;
 			import com.mcquilleninteractive.learnhvac.util.Logger;
 			
+			import flash.events.ContextMenuEvent;
+			import flash.ui.ContextMenu;
+			import flash.ui.ContextMenuItem;
+			
 			import mx.controls.Image;
 			import mx.core.DragSource;
 			import mx.events.ValidationResultEvent;
@@ -27,7 +31,9 @@
 			import mx.validators.NumberValidator;
 			
 			import org.swizframework.Swiz;
-       		
+			import com.mcquilleninteractive.learnhvac.event.WatchListEvent;
+			import com.mcquilleninteractive.learnhvac.model.SystemVariable;
+			
        		[Embed(source='assets/DawaAssets.swf', symbol='mcInfoIconUp')]
 			[Bindable]
 			private var InfoIconUp:Class
@@ -54,6 +60,9 @@
 			//flag for user change to input value
 			protected var _isDirty:Boolean = false; 
 			
+			protected var _contextMenu:ContextMenu;
+			
+			private const ADD_TO_WATCH_PANEL : String = "Add to Watch Panel";
 						
 			[Bindable]
 			protected var _sysVarEnabled:Boolean = true;
@@ -63,8 +72,40 @@
 				Swiz.addEventListener(UnitsEvent.UNITS_CHANGED, onUnitsChanged, false, 0, true)
 				Swiz.addEventListener(LongTermImportEvent.RUN_CHANGED, onLTRunToImportChanged, false, 0, true)
 				Swiz.addEventListener(ResetInputsEvent.SHORT_TERM_INPUTS_RESET, onReset, false, 0, true)
+				
 					
+				var cm : ContextMenu = new ContextMenu();
+				
+				var cmi:ContextMenuItem = new ContextMenuItem(ADD_TO_WATCH_PANEL);
+				cmi.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT, menuItemSelected);
+				cm.customItems.push(cmi);
+				
+				_contextMenu = cm;
+				
+				imgIcoSysVar.contextMenu = _contextMenu;
+				
+				
 			}
+			
+			protected function menuItemSelected(evt:ContextMenuEvent):void
+			{
+				trace (evt);
+
+				var watchListEvent:WatchListEvent = new WatchListEvent(WatchListEvent.ADD, true);
+				
+				if (!this.data is SystemVariable) {
+					
+					throw Error("unexpected datatype");
+					
+				} else {
+					
+					watchListEvent.systemVariable = SystemVariable (this.data);
+					Swiz.dispatchEvent(watchListEvent);
+				}
+
+			}
+			
+			
 			
 			protected function onReset(event:ResetInputsEvent):void
 			{
@@ -203,8 +244,16 @@
              	DragManager.doDrag(dragInitiator, dragSource, event, dragProxy, 0, 0, 1);
 			
 			}
-		
+			
+
  			
+			
+			protected function image1_mouseUpHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				
+			}
+			
 		]]>
 	</fx:Script>
 	
@@ -225,16 +274,21 @@
 	
 
        
-	<mx:Text width="135" height="50" id="lblVarName" 
+	<mx:Text 
+		id="lblVarName"
+		width="135"
+		height="50" 
+		automationName="{'lblVarName_' + data.name }"
 		text="{data.displayName}" 
 		toolTip="{data.displayName}" 
-		fontSize="10"/>
+		fontSize="10" />
 	
 	
 	
-	<mx:TextInput 	id="txtInputItem"
+	<mx:TextInput   id="txtInputItem"
 					width="65" 
 					height="20"
+					automationName="{'txtInputItem_' + data.name }"
 					text="{data.localValue}"  
 					enabled="{_sysVarEnabled}"
 					focusOut="outFocusHandler(event)"/>
@@ -246,14 +300,19 @@
 	<mx:VBox>
 	
 		<mx:Button 	id="btnInfo" 
+				automationName="{'btnInfo_' + data.name }"
 				upSkin="{InfoIconUp}" 
 				overSkin="{InfoIconUp}"
 				downSkin="{InfoIconUp}" 
 				mouseOver="showInfoPanel()"
 				mouseOut="hideInfoPanel()"
-				/>	
-		<mx:Image source="{icoSysVar}" 
+				/>
+		
+		<mx:Image 
+			  id="imgIcoSysVar" 
+			  source="{icoSysVar}"
 			  mouseDown = "onDrag(event)"
+			  automationName="{'icoSysVar_' + data.name }"
 			  toolTip="Drag icon to watch panel"
 			  />
 		
