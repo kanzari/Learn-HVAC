@@ -36,19 +36,19 @@
 
 				
 			[Bindable]
-			[Autowire]
+			[Inject] 
 			public var scenarioModel:ScenarioModel
 						
 			[Bindable]
-			[Autowire]
+			[Inject] 
 			public var longTermSimulationDataModel:LongTermSimulationDataModel
 						
 			[Bindable]
-			[Autowire]
+			[Inject] 
 			public var shortTermSimulationModel:ShortTermSimulationModel
 						
 			[Bindable]
-			[Autowire]
+			[Inject] 
 			public var shortTermSimulationDataModel:ShortTermSimulationDataModel
 						
 			[Bindable]

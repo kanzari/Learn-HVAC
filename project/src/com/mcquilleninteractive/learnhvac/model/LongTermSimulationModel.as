@@ -8,8 +8,8 @@ package com.mcquilleninteractive.learnhvac.model
 	import flash.events.EventDispatcher;
 	
 	import mx.collections.ArrayCollection;
-	
-	import org.swizframework.Swiz;
+	import flash.events.IEventDispatcher;
+	import org.swizframework.core.IDispatcherAware; 
 	
 	/** Class LongTermSimulationModel
 	 * 
@@ -22,8 +22,12 @@ package com.mcquilleninteractive.learnhvac.model
 	 */
 	
 	[Bindable]
-	public class LongTermSimulationModel extends EventDispatcher
+	public class LongTermSimulationModel implements IDispatcherAware
 	{
+		
+		[Dispatcher]
+		public var dispatcher:IEventDispatcher;
+		
 		public static const STATE_RUNNING:String = "longTermSimRunning"
 		public static const STATE_OFF:String = "longTermSimOff"
 			
@@ -52,6 +56,12 @@ package com.mcquilleninteractive.learnhvac.model
 		
 		/* *********** ENVIRONMENT *********** */
 		
+/*		public function set dispatcher(value:IEventDispatcher):void {
+			dispatcher = value;
+		}*/
+		
+		
+			
 		public var selectedWeatherFileName:String = "" //set by user to one of the values below...
 		
 		public var regionsAC:ArrayCollection = new ArrayCollection([	{label:"Pacific", data:"Pacific"},
@@ -193,7 +203,7 @@ package com.mcquilleninteractive.learnhvac.model
 			runID = LongTermSimulationDataModel.RUN_1 //default to run 1
 			timeStepEP = 1
 				
-			zoneOfInterest = 1
+			_zoneOfInterest = 1
 			floorOfInterest = 2
 		
 			regionSelectedIndex = 0
@@ -307,7 +317,7 @@ package com.mcquilleninteractive.learnhvac.model
 			var evt:ZoneChangeEvent = new ZoneChangeEvent(ZoneChangeEvent.ZONE_CHANGED, true)
 			evt.toZone = val
 			evt.fromZone = fromZone
-			Swiz.dispatchEvent(evt)
+			dispatcher.dispatchEvent(evt)
 		}
 			
 		public function get massLevel():String

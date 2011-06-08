@@ -9,7 +9,7 @@ package com.mcquilleninteractive.learnhvac.business
 	public class ShortTermSimulationMockDelegate extends EventDispatcher implements IShortTermSimulationDelegate
 	{
 		
-		[Autowire]
+		[Inject] 
 		public var scenarioModel:ScenarioModel
 		
 		protected var _timer:Timer 

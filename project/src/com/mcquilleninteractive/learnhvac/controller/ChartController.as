@@ -13,13 +13,13 @@ package com.mcquilleninteractive.learnhvac.controller
 	import mx.charts.chartClasses.CartesianChart;	
 	public class ChartController extends AbstractController
 	{
-		[Autowire]
+		[Inject] 
 		public var scenarioModel:ScenarioModel
 		
-		[Autowire]
+		[Inject] 
 		public var longTermSimulationDataModel:LongTermSimulationDataModel
 		
-		[Autowire]
+		[Inject] 
 		public var shortTermSimulationDataModel:ShortTermSimulationDataModel
 		
 		public function ChartController()

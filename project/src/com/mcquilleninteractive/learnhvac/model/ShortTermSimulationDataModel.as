@@ -7,11 +7,20 @@ package com.mcquilleninteractive.learnhvac.model
 	
 	import flash.events.EventDispatcher;
 	
-	import org.swizframework.Swiz;
+	import flash.events.IEventDispatcher;
 	
 	[Bindable]
 	public class ShortTermSimulationDataModel extends EventDispatcher
 	{
+		[Dispatcher]
+		public var dispatcher:IEventDispatcher;
+		
+		[Inject]
+		public var scenarioModel:ScenarioModel;
+		
+		[Inject]
+		public var shortTermSimulationModel:ShortTermSimulationModel;
+		
 		
 		public var initialLoaded:Boolean = false
 		public var comparisonLoaded:Boolean = false
@@ -38,8 +47,8 @@ package com.mcquilleninteractive.learnhvac.model
 		public function init():void
 		{
 			//initialize each run's ModelicaData class with the currently loaded SystemVariables
-			var scenarioModel:ScenarioModel = Swiz.getBean("scenarioModel") as ScenarioModel
-			var shortTermSimulationModel:ShortTermSimulationModel = Swiz.getBean("shortTermSimulationModel") as ShortTermSimulationModel
+		//	var scenarioModel:ScenarioModel = Swiz.getBean("scenarioModel") as ScenarioModel
+		//	var shortTermSimulationModel:ShortTermSimulationModel = Swiz.getBean("shortTermSimulationModel") as ShortTermSimulationModel
 			
 			for each (var md:ModelicaData in runsArr)
 			{
@@ -52,12 +61,12 @@ package com.mcquilleninteractive.learnhvac.model
 			var event:ScenarioDataLoadedEvent = new ScenarioDataLoadedEvent(ScenarioDataLoadedEvent.SHORT_TERM_SYSVARS_LOADED,true)
 			event.graphDataModel = IGraphDataModel(runsArr[ShortTermSimulationDataModel.RUN_1])
 			event.graphDataModelID =  currRunID
-			Swiz.dispatchEvent(event)
+			dispatcher.dispatchEvent(event)
 				
 			var event2:ScenarioDataLoadedEvent = new ScenarioDataLoadedEvent(ScenarioDataLoadedEvent.SHORT_TERM_SYSVARS_LOADED,true)
 			event2.graphDataModel = IGraphDataModel(runsArr[ShortTermSimulationDataModel.RUN_2])
 			event2.graphDataModelID =  ShortTermSimulationDataModel.RUN_2
-			Swiz.dispatchEvent(event2)
+			dispatcher.dispatchEvent(event2)
 			
 		}
 				

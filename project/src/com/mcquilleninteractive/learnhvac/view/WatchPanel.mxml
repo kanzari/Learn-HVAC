@@ -31,21 +31,17 @@
             import flash.events.KeyboardEvent;
 			import com.mcquilleninteractive.learnhvac.event.WatchListEvent;
 			import com.mcquilleninteractive.learnhvac.model.WatchListModel;
-			import org.swizframework.Swiz;
+			import flash.events.IEventDispatcher;
 			import flash.events.Event;
 			import com.mcquilleninteractive.learnhvac.event.UnitsEvent;
 			
-			//[Bindable]
-			//[Autowire]
-			//public var scenarioModel:ScenarioModel
-			
-			
+
 			[Bindable]
-			[Autowire]
+			[Inject( twoWay="true" )]
 			public var watchListModel : WatchListModel;
 			
 			[Bindable]
-			[Autowire]
+			[Inject] 
 			public var applicationModel:ApplicationModel;
 			
 			
@@ -72,21 +68,12 @@
 				
 				
 		//	}
-			
-			[Mediate(event="UnitsEvent.UNITS_CHANGED")]
-			public function onUnitsChange(event:UnitsEvent):void
-			{
-				trace ('UNITS_CHANGED');
-			}
-			
+
 			
 			[Mediate(event="WatchListEvent.UPDATE")]
 			public function onWatchListAdd(event:WatchListEvent):void
 			{
-
-			//	dgWatchVariables.dataProvider= watchListModel;
-				trace ('WatchPanel');
-				
+				watchListModel.add(event.systemVariable);
 			}
 			
 
@@ -128,7 +115,7 @@
 					 width="100%"
 					 height="100%"
   				  	 paddingTop="0"
-					 dataProvider="{watchListModel}"
+					 dataProvider="{watchListModel.data}"
   				  	 dragEnabled="false"
   				  	 dropEnabled="true"
   				  	 showDataTips="true"

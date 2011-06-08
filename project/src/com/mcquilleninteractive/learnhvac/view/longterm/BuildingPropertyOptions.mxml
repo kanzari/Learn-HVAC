@@ -34,11 +34,11 @@
 			import mx.validators.Validator;
 			
 			[Bindable]
-			[Autowire]
+			[Inject] 
 			public var scenarioModel:ScenarioModel
 		
 			[Bindable]	
-			[Autowire]		
+			[Inject] 		
 			public var longTermSimulationModel:LongTermSimulationModel
 			
 			private var _validatorsArr:Array

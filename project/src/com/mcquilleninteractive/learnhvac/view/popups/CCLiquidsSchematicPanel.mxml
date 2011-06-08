@@ -12,7 +12,7 @@
 		<![CDATA[
 			import com.mcquilleninteractive.learnhvac.event.ShortTermSimulationEvent;
 			import com.mcquilleninteractive.learnhvac.event.UnitsEvent;
-			import org.swizframework.Swiz;
+			import flash.events.IEventDispatcher;
 			
 			
 			import com.mcquilleninteractive.learnhvac.model.ApplicationModel	
@@ -33,11 +33,11 @@
             public var currFlowUnits:String = "";
                         
 			[Bindable]
-			[Autowire]
+			[Inject] 
 			protected var applicationModel:ApplicationModel
 			
 			[Bindable]
-			[Autowire]
+			[Inject] 
 			protected var scenarioModel:ScenarioModel
             
          
@@ -45,7 +45,9 @@
 			{
 				if (scenarioModel ==null) 
            		{
-           			scenarioModel = Swiz.getBean("scenarioModel") as ScenarioModel
+					throw new Error("scenarioModel == null");
+					
+           			//scenarioModel = Swiz.getBean("scenarioModel") as ScenarioModel
                 }
 				setValues(null)
 			}

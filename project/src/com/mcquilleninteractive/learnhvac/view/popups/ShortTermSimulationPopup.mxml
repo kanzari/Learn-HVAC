@@ -22,7 +22,10 @@
 		import com.mcquilleninteractive.learnhvac.event.LongTermSimulationEvent
 		import com.mcquilleninteractive.learnhvac.event.ShortTermSimulationEvent
 		import mx.managers.PopUpManager
-		import org.swizframework.Swiz
+		import flash.events.IEventDispatcher
+		
+		[Inject]
+		public var model:ShortTermSimulationModel;
 				
 		protected function onCancel():void
 		{
@@ -34,7 +37,9 @@
 		protected function onATS():void
 		{
 			//if the sim is already running we can close this window
-			var model:ShortTermSimulationModel = Swiz.getBean("shortTermSimulationModel") as ShortTermSimulationModel
+			//var model:ShortTermSimulationModel = Swiz.getBean("shortTermSimulationModel") as ShortTermSimulationModel
+			
+			
 			if (model.currentState == ShortTermSimulationModel.STATE_RUNNING)
 			{				
 				PopUpManager.removePopUp(this)	

@@ -46,19 +46,19 @@
 		
 		
 		[Bindable]
-		[Autowire]
+		[Inject] 
 		public var applicationModel:ApplicationModel
 		
 		[Bindable]
-		[Autowire]
+		[Inject] 
 		public var scenarioModel:ScenarioModel
 				
 		[Bindable]
-		[Autowire]
+		[Inject] 
 		public var shortTermSimulationModel:ShortTermSimulationModel
 		
 		[Bindable]
-		[Autowire]
+		[Inject] 
 		public var longTermSimulationModel:LongTermSimulationModel
 		
 		[Embed(source='assets/PIDControl.swf', symbol='setPointControl3D')]

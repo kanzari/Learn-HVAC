@@ -38,10 +38,10 @@
 			public static var STOP_SIM:String = "stopSim";
 			
 			[Bindable]
-			[Autowire]
+			[Inject] 
 			public var scenarioModel:ScenarioModel
 			
-			[Autowire]
+			[Inject] 
 			public var dialogManager:DialogManager
 			
 			[Embed('assets/img/control_start.png')]

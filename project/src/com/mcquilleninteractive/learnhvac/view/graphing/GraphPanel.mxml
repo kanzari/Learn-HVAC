@@ -52,7 +52,7 @@
 			
 			
 			[Bindable]
-			[Autowire]
+			[Inject] 
 			public var scenarioModel:ScenarioModel
 					
 			/* DATA MODEL */

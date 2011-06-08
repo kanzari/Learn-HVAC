@@ -25,12 +25,23 @@
 	    	
             
 			[Bindable]
-			[Autowire]
+			[Inject]
 			public var scenarioModel:ScenarioModel	
+			
+			private var _longTermSimulationDataModel:LongTermSimulationDataModel	
             
-			[Bindable]
-			[Autowire]
-			public var longTermSimulationDataModel:LongTermSimulationDataModel	
+			
+/* 			[Bindable]
+			[Inject twoWay="false"]
+			public var longTermSimulationDataModel:LongTermSimulationDataModel	 */
+			
+
+			[Inject( source="longTermSimulationDataModel" )]
+			public function set longTermSimulationDataModel( model:LongTermSimulationDataModel ) : void
+			{
+				this._longTermSimulationDataModel = model;
+			}
+			
 			
 			private var _runID:String
 		
@@ -92,10 +103,15 @@
 	    	
 	    	public function setChartData():void
 	    	{
-	    		if (!longTermSimulationDataModel.runLoaded(_runID)) return
+				
+				//check to see if the model has been injected yet
+				//if (_longTermSimulationDataModel == null) ;
+				
+	    		if (!_longTermSimulationDataModel.runLoaded(_runID)) return
+					
 	    		if (scenarioModel!=null)
 	    		{
-	    			dataAC = longTermSimulationDataModel.getEnergyPlusData(_runID).hourlyMeterDataAC
+	    			dataAC = _longTermSimulationDataModel.getEnergyPlusData(_runID).hourlyMeterDataAC
 	    	   		var obj:Object = dataAC.getItemAt(0)
 	    	   		dataAC.refresh()
 	    		}

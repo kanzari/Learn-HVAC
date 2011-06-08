@@ -22,11 +22,11 @@
 			
 			
 			[Bindable]
-			[Autowire]
+			[Inject] 
 			public var scenarioModel:ScenarioModel	
 				
 			[Bindable]	
-			[Autowire]		
+			[Inject] 		
 			public var longTermSimulationModel:LongTermSimulationModel	
 			
 			private var _elevationView:ElevationView

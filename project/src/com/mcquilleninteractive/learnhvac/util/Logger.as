@@ -10,21 +10,48 @@ package com.mcquilleninteractive.learnhvac.util
 	import mx.logging.ILogger;
 	import mx.logging.Log;
 	import mx.logging.LogEventLevel;
+	import org.swizframework.core.Bean;
+	import org.swizframework.core.ISwiz;
+	import org.swizframework.core.ISwizAware;
+	import org.swizframework.core.Prototype;
+	import org.swizframework.reflection.TypeCache;
+
 	
-	//import org.swizframework.Swiz;
-	import org.swizframework.Swiz;
 	
-	public class Logger	
+	//import flash.events.IEventDispatcher;
+	//import org.swizframework.core.Swiz;
+	
+	public class Logger	implements ISwizAware
 	{
-				
+		[Inject]
+		public static var appModel:ApplicationModel;
+		
 		public static var enabled : Boolean = true;
-		public static var myLogger : ILogger
+		public static var myLogger : ILogger;
 		private static var socket : XMLSocket;
 		public static var logFile:File		
 		public static var logFileStream:FileStream
 
 		public static var logToFile:Boolean = false
 
+		/**
+		 * Backing variable for swiz setter.
+		 */
+		protected var _swiz:ISwiz;
+		
+		
+		/**
+		 * Setter to satisfy ISwizAware interface contract.
+		 * 
+		 * @see org.swizframework.core.ISwizAware
+		 */
+		public function set swiz( swiz:ISwiz ):void
+		{
+			_swiz = swiz;
+			
+		}
+		
+		
 		public static function debug(o:Object, target:Object=null):void
 		{
 			_send(LogEventLevel.DEBUG, o, target);
@@ -136,7 +163,10 @@ package com.mcquilleninteractive.learnhvac.util
 					{
 						logFileDir.createDirectory()
 					}
-					var appModel:ApplicationModel = Swiz.getBean("applicationModel") as ApplicationModel
+					//var appModel:ApplicationModel = Swiz.getBean("applicationModel") as ApplicationModel
+					
+					//var appModel:ApplicationModel = _swiz.beanFactory.getBeanByName("applicationModel") as ApplicationModel;
+					
 					logFile = appModel.logFile
 					logFileStream = new FileStream()
 					logToFile = appModel.logToFile				

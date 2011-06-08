@@ -32,7 +32,7 @@
 			public var _errorMsgArr:Array = [];
 			
 			[Bindable]
-			[Autowire]
+			[Inject] 
 			public var longTermSimulationModel:LongTermSimulationModel
 			
 			protected function onCC():void

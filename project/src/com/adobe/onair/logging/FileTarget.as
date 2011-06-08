@@ -29,7 +29,7 @@ package com.adobe.onair.logging
 	
 	import mx.core.mx_internal;
 	import mx.logging.targets.LineFormattedTarget;
-	import org.swizframework.Swiz;
+	import flash.events.IEventDispatcher;
 	
 	use namespace mx_internal;
 

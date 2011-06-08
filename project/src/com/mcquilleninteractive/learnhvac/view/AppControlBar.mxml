@@ -35,10 +35,10 @@
 			import mx.events.MenuEvent;
 			import mx.managers.PopUpManager;
 			
-			import org.swizframework.Swiz;
+			import flash.events.IEventDispatcher;
 			
 			[Bindable]
-			[Autowire]
+			[Inject] 
 			public var userModel:UserModel
           	          				
 			[Bindable]
@@ -76,7 +76,7 @@
 			private var SPCIcon:Class	
 			
 			[Bindable]
-			[Autowire]
+			[Inject] 
 			public var applicationModel:ApplicationModel 
 			
 			

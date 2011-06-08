@@ -19,12 +19,17 @@
 	
 	import flash.events.EventDispatcher;
 	import flash.filesystem.File;
+	import flash.events.IEventDispatcher;
 	
-	import org.swizframework.Swiz;
+
 	
 	[Bindable]	
 	public class ShortTermSimulationModel extends EventDispatcher
 	{
+		
+		[Dispatcher]
+		public var dispatcher:IEventDispatcher;
+		
 		public static const MAX_TIME_STEP:Number = 1000
 		public static const STATE_OFF:String = "shortTermSimOff"
 		public static const STATE_RUNNING:String = "shortTermSimrunning"
@@ -115,7 +120,7 @@
 						
 			var evt:ShortTermTimerEvent = new ShortTermTimerEvent(ShortTermTimerEvent.TIMER_STEP)
 			evt.currDateTime = currDateTime
-			Swiz.dispatchEvent(evt)
+			dispatcher.dispatchEvent(evt)
 											
 		}
 

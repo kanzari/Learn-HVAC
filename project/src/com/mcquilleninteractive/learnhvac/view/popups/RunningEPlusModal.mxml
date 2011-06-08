@@ -20,7 +20,7 @@
 		import com.mcquilleninteractive.learnhvac.util.Logger
 		import com.mcquilleninteractive.learnhvac.event.LongTermSimulationEvent
 		import com.mcquilleninteractive.learnhvac.event.ScenarioDataLoadedEvent	
-		import org.swizframework.Swiz;
+		import flash.events.IEventDispatcher;
 		import mx.managers.PopUpManager
 		
 		[Bindable]

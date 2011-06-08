@@ -34,7 +34,7 @@
 			
 
 			[Bindable]
-			[Autowire]
+			[Inject] 
 			public var scenarioDataModel:ScenarioDataModel
 			
 			[Bindable]

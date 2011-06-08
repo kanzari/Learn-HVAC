@@ -27,14 +27,14 @@
 			
 			import mx.binding.utils.BindingUtils;
 			
-			import org.swizframework.Swiz;
+			import flash.events.IEventDispatcher;
 			
-			[Autowire]
+			[Inject] 
 			[Bindable]
 			public var scenarioModel:ScenarioModel											
 									
 			[Bindable]
-			[Autowire]
+			[Inject] 
 			public var shortTermSimulationModel:ShortTermSimulationModel		
 			
 			public var _active:Boolean = false

@@ -12,7 +12,7 @@
 		<fx:Script>
 	
 		<![CDATA[
-			import org.swizframework.Swiz;
+			import flash.events.IEventDispatcher;
 		
 			import mx.events.DragEvent;
 			import mx.collections.ListCollectionView
@@ -34,6 +34,7 @@
             
             
 			[Bindable]
+			[Inject]
 			public var scenarioModel:ScenarioModel
 
             
@@ -50,7 +51,7 @@
 			
 			public function onCreationComplete():void
 			{  						    	
-				scenarioModel = Swiz.getBean("scenarioModel") as ScenarioModel
+				//scenarioModel = Swiz.getBean("scenarioModel") as ScenarioModel
 				
 		    	//setup dataproviders
 				outputFilterModel = scenarioModel.sysNodesAC;

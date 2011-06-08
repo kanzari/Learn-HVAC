@@ -50,10 +50,10 @@ package com.mcquilleninteractive.learnhvac.business
  		// simulation terminates due to error during time integration. 	
  		public static const SIM_FATAL_INTEGRATION:Number = -20;	
 			
-		[Autowire]
+		[Inject] 
 		public var applicationModel:ApplicationModel
 		
-		[Autowire]
+		[Inject] 
 		public var scenarioModel:ScenarioModel
 				
 		protected var _serverSocket:ServerSocket;

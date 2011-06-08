@@ -18,23 +18,23 @@ package com.mcquilleninteractive.learnhvac.controller
 	
 	import mx.managers.PopUpManager;
 	
-	import org.swizframework.Swiz;
+	import flash.events.IEventDispatcher;
 	import org.swizframework.controller.AbstractController;
-	import org.swizframework.factory.IInitializingBean;
+
 	
-	public class LongTermSimulationController extends AbstractController implements IInitializingBean
+	public class LongTermSimulationController extends AbstractController
 	{
-		[Autowire]
+		[Inject] 
 		public var scenarioModel:ScenarioModel
 				
 		
-		[Autowire]
+		[Inject] 
 		public var longTermSimulationModel:LongTermSimulationModel
 		
-		[Autowire]
+		[Inject] 
 		public var longTermSimulationDataModel:LongTermSimulationDataModel
 		
-		[Autowire]
+		[Inject] 
 		public var delegate:LongTermSimulationDelegate
 		
 		protected var _view:LongTermSimulation
@@ -127,7 +127,7 @@ package com.mcquilleninteractive.learnhvac.controller
 			
 			//dispatch event to all listeners
 			var evt:LongTermSimulationEvent = new LongTermSimulationEvent(LongTermSimulationEvent.FILE_LOADED, true)
-			Swiz.dispatchEvent(evt)	
+			dispatcher.dispatchEvent(evt)	
 		}   
 		   
 		public function simulationFailed(event:LongTermSimulationEvent):void
@@ -142,7 +142,7 @@ package com.mcquilleninteractive.learnhvac.controller
 			
 			//then dispatch event to all listeners
 			var evt:LongTermSimulationEvent = new LongTermSimulationEvent(LongTermSimulationEvent.SIM_FAILED, true)
-			Swiz.dispatchEvent(evt)	
+			dispatcher.dispatchEvent(evt)	
 			Alert.show("Long-term simulation failed. " + event.errorMessage, "Simulation Failed")
 		}
 		
@@ -156,7 +156,7 @@ package com.mcquilleninteractive.learnhvac.controller
 			
 			//dispatch event to all listeners
 			var evt:LongTermSimulationEvent = new LongTermSimulationEvent(LongTermSimulationEvent.SIM_COMPLETE, true)
-			Swiz.dispatchEvent(evt)				
+			dispatcher.dispatchEvent(evt)				
 			Alert.show("Long-term simulation finished. Use the Analysis section to view results.","Simulation Finished")
 		}		
 		

@@ -39,44 +39,44 @@ package com.mcquilleninteractive.learnhvac.controller
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
 	
-	import org.swizframework.Swiz;
+	import flash.events.IEventDispatcher;
 	import org.swizframework.controller.AbstractController;
 	
 	
 	
 	public class ScenarioLibraryController  extends AbstractController
 	{
-		[Autowire]
+		[Inject] 
 		public var applicationModel:ApplicationModel
 		
-		[Autowire]
+		[Inject] 
 		public var scenarioModel:ScenarioModel
 		
-		[Autowire]
+		[Inject] 
 		public var userModel:UserModel
 		
-		[Autowire]
+		[Inject] 
 		public var scenarioLibraryModel:ScenarioLibraryModel
 		
-		[Autowire]
+		[Inject] 
 		public var shortTermSimulationModel:ShortTermSimulationModel
 		
-		[Autowire]
+		[Inject] 
 		public var longTermSimulationModel:LongTermSimulationModel
 		
-		[Autowire]
+		[Inject] 
 		public var shortTermSimulationDataModel:ShortTermSimulationDataModel
 		
-		[Autowire]
+		[Inject] 
 		public var longTermSimulationDataModel:LongTermSimulationDataModel
 		
-		[Autowire]
+		[Inject] 
 		public var localScenarioDelegate:LocalScenarioDelegate
 		
-		[Autowire]
+		[Inject] 
 		public var remoteScenarioDelegate:RemoteScenarioDelegate
 		
-		[Autowire]
+		[Inject] 
 		public var defaultScenariosModel:DefaultScenariosModel
 		
 		//this array describes how the nodes should be ordered in the array collection -- for navigation
@@ -120,7 +120,7 @@ package com.mcquilleninteractive.learnhvac.controller
 			}
 			else
 			{				
-				Swiz.dispatchEvent(new GetScenarioListEvent(GetScenarioListEvent.SCENARIO_LIST_LOADED))
+				dispatcher.dispatchEvent(new GetScenarioListEvent(GetScenarioListEvent.SCENARIO_LIST_LOADED))
 			}
 		}
 		
@@ -132,7 +132,7 @@ package com.mcquilleninteractive.learnhvac.controller
 		{
 			this.showSimulationModal()
 			_simModal.message = SimulationModal.LOADING
-			Swiz.dispatchEvent(new LoadScenarioEvent(LoadScenarioEvent.LOAD_STARTING, true))
+			dispatcher.dispatchEvent(new LoadScenarioEvent(LoadScenarioEvent.LOAD_STARTING, true))
 			
 			var fileName:String = event.fileName
 			try
@@ -159,7 +159,7 @@ package com.mcquilleninteractive.learnhvac.controller
 				Logger.error(msg, this)
 				Alert.show( msg, "Local Scenario Error");		
 				var evt : ScenarioLoadedEvent = new ScenarioLoadedEvent(ScenarioLoadedEvent.SCENARIO_LOAD_FAILED, true)
-				Swiz.dispatchEvent(evt)
+				dispatcher.dispatchEvent(evt)
 			}
 		}
 		
@@ -220,7 +220,7 @@ package com.mcquilleninteractive.learnhvac.controller
 				
 				scenarioLibraryModel.currScenarioList.refresh()
 				scenarioLibraryModel.scenarioListLocation = ScenarioLibraryModel.SCENARIOS_LIST_REMOTE
-				Swiz.dispatchEvent(new GetScenarioListEvent(GetScenarioListEvent.SCENARIO_LIST_LOADED))
+				dispatcher.dispatchEvent(new GetScenarioListEvent(GetScenarioListEvent.SCENARIO_LIST_LOADED))
 			}
 			else 
 			{
@@ -248,7 +248,7 @@ package com.mcquilleninteractive.learnhvac.controller
 			
 			showSimulationModal()
 				
-			Swiz.dispatchEvent(new LoadScenarioEvent(LoadScenarioEvent.LOAD_STARTING, true))
+			dispatcher.dispatchEvent(new LoadScenarioEvent(LoadScenarioEvent.LOAD_STARTING, true))
 			var call:AsyncToken = remoteScenarioDelegate.getRemoteScenario(event.scenID, userModel.username);
 			executeServiceCall(call, onLoadRemoteScenarioResult, onLoadRemoteScenarioFault);		
 		}
@@ -319,7 +319,7 @@ package com.mcquilleninteractive.learnhvac.controller
 				removeSimulationModal()
 				mx.controls.Alert.show( "This scenario could not be loaded. Please use another scenario for the time being." );
 				var evt : ScenarioLoadedEvent = new ScenarioLoadedEvent(ScenarioLoadedEvent.SCENARIO_LOAD_FAILED, true)
-				Swiz.dispatchEvent(evt)
+				dispatcher.dispatchEvent(evt)
 			}
 		}
 				
@@ -329,7 +329,7 @@ package com.mcquilleninteractive.learnhvac.controller
 			Logger.error("onLoadRemoteScenarioFault() fault: " + fault.message)
 			Alert.show( "This scenario could not be loaded. Please try again or use another scenario.", "Scenario Load Error" );
 			var evt : ScenarioLoadedEvent = new ScenarioLoadedEvent(ScenarioLoadedEvent.SCENARIO_LOAD_FAILED, true)
-			Swiz.dispatchEvent(evt)
+			dispatcher.dispatchEvent(evt)
 		}
 	
 
@@ -347,7 +347,7 @@ package com.mcquilleninteractive.learnhvac.controller
 			scenarioLibraryModel.scenarioListLocation = ScenarioLibraryModel.SCENARIOS_LIST_DEFAULT
 			scenarioLibraryModel.currScenarioList.refresh()
 			Logger.debug("scenarioLibraryModel.currScenarioList.length: " + scenarioLibraryModel.currScenarioList.length,this)
-			Swiz.dispatchEvent(new GetScenarioListEvent(GetScenarioListEvent.SCENARIO_LIST_LOADED))
+			dispatcher.dispatchEvent(new GetScenarioListEvent(GetScenarioListEvent.SCENARIO_LIST_LOADED))
 		}
 
 
@@ -591,7 +591,7 @@ package com.mcquilleninteractive.learnhvac.controller
 			applicationModel.bldgSetupEnabled = true
 			applicationModel.scenarioLoaded = true
 			var evt : ScenarioLoadedEvent = new ScenarioLoadedEvent(ScenarioLoadedEvent.SCENARIO_LOADED, true)
-			Swiz.dispatchEvent(evt)				
+			dispatcher.dispatchEvent(evt)				
 		}
 				
 		protected function getSysNodeSortIndex(sysNodeID:String):Number
@@ -614,13 +614,13 @@ package com.mcquilleninteractive.learnhvac.controller
 			if (shortTermSimulationModel.currentState == ShortTermSimulationModel.STATE_RUNNING)
 			{
 				var stEvent:ShortTermSimulationEvent = new ShortTermSimulationEvent(ShortTermSimulationEvent.SIM_STOP, true)
-				Swiz.dispatchEvent(stEvent)
+				dispatcher.dispatchEvent(stEvent)
 			}
 			
 			if (longTermSimulationModel.currentState == LongTermSimulationModel.STATE_RUNNING)
 			{
 				var ltEvent:LongTermSimulationEvent = new LongTermSimulationEvent(LongTermSimulationEvent.SIM_CANCEL, true)
-				Swiz.dispatchEvent(ltEvent)
+				dispatcher.dispatchEvent(ltEvent)
 			}
 			
 			scenarioModel.init()

@@ -11,7 +11,7 @@
             
             
 			[Bindable]
-			[Autowire]
+			[Inject] 
 			public var scenarioModel:ScenarioModel			
 				
 			public function onCreationComplete():void

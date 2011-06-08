@@ -30,7 +30,7 @@
 			import mx.managers.DragManager;
 			import mx.validators.NumberValidator;
 			
-			import org.swizframework.Swiz;
+			import flash.events.IEventDispatcher;
 			import com.mcquilleninteractive.learnhvac.event.WatchListEvent;
 			import com.mcquilleninteractive.learnhvac.model.SystemVariable;
 			
@@ -66,12 +66,15 @@
 						
 			[Bindable]
 			protected var _sysVarEnabled:Boolean = true;
-			 				
+
+			[Dispatcher]
+			public var dispatcher:IEventDispatcher;
+			
 			protected function onCC():void
 			{
-				Swiz.addEventListener(UnitsEvent.UNITS_CHANGED, onUnitsChanged, false, 0, true)
-				Swiz.addEventListener(LongTermImportEvent.RUN_CHANGED, onLTRunToImportChanged, false, 0, true)
-				Swiz.addEventListener(ResetInputsEvent.SHORT_TERM_INPUTS_RESET, onReset, false, 0, true)
+				dispatcher.addEventListener(UnitsEvent.UNITS_CHANGED, onUnitsChanged, false, 0, true)
+				dispatcher.addEventListener(LongTermImportEvent.RUN_CHANGED, onLTRunToImportChanged, false, 0, true)
+				dispatcher.addEventListener(ResetInputsEvent.SHORT_TERM_INPUTS_RESET, onReset, false, 0, true)
 				
 					
 				var cm : ContextMenu = new ContextMenu();
@@ -100,7 +103,7 @@
 				} else {
 					
 					watchListEvent.systemVariable = SystemVariable (this.data);
-					Swiz.dispatchEvent(watchListEvent);
+					dispatcher.dispatchEvent(watchListEvent);
 				}
 
 			}

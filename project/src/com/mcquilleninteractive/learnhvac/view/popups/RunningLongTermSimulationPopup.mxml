@@ -17,7 +17,7 @@
 	<fx:Script>
 		<![CDATA[
 		import com.mcquilleninteractive.learnhvac.event.EnergyPlusEvent;
-		import org.swizframework.Swiz;		
+		import flash.events.IEventDispatcher;		
 		import com.mcquilleninteractive.learnhvac.util.Logger
 		import com.mcquilleninteractive.learnhvac.event.LongTermSimulationEvent
 		import com.mcquilleninteractive.learnhvac.event.ScenarioDataLoadedEvent

@@ -20,22 +20,22 @@ package com.mcquilleninteractive.learnhvac.business
 	import flash.filesystem.*;
 	import flash.system.Capabilities;
 	
-	import org.swizframework.Swiz;
+	import flash.events.IEventDispatcher;
 	
 	public class LongTermSimulationDelegate extends EventDispatcher
 	{
 		public static const SIMULATION_COMPLETE:String = "energyPlusSimulationComplete";
 		
-		[Autowire]
+		[Inject] 
 		public var applicationModel:ApplicationModel
 		
-		[Autowire]
+		[Inject] 
 		public var scenarioModel:ScenarioModel
 				
-		[Autowire]
+		[Inject] 
 		public var longTermSimulationModel:LongTermSimulationModel
 						
-		[Autowire]
+		[Inject] 
 		public var longTermSimulationDataModel:LongTermSimulationDataModel
 			
 		protected var _energyPlusPath:String = ApplicationModel.baseStorageDirPath + "EnergyPlus/"
@@ -77,8 +77,11 @@ package com.mcquilleninteractive.learnhvac.business
 		protected var _energyPlusProcess:NativeProcess
 		protected var _readVarsESOProcess:NativeProcess
 		
-		protected var _runningOnMac:Boolean = false
-			
+		protected var _runningOnMac:Boolean = false;
+		
+		[Dispatcher]
+		public var dispatcher:IEventDispatcher;
+		
 		public function LongTermSimulationDelegate()
 		{						
 			_energyPlusDir = File.userDirectory.resolvePath(_energyPlusPath)
@@ -380,7 +383,7 @@ package com.mcquilleninteractive.learnhvac.business
 			//send an event to update dialog
 			var evt:EnergyPlusEvent = new EnergyPlusEvent(EnergyPlusEvent.ENERGY_PLUS_OUTPUT,true)
 			evt.output = text
-			Swiz.dispatchEvent(evt)				
+			dispatcher.dispatchEvent(evt)				
 		}
 		
 		public function onEnergyPlusStandardError(event:ProgressEvent):void
@@ -488,7 +491,7 @@ package com.mcquilleninteractive.learnhvac.business
 				//send an event to update dialog
 				var evt:EnergyPlusEvent = new EnergyPlusEvent(EnergyPlusEvent.ENERGY_PLUS_OUTPUT,true)
 				evt.output = "Running output.rvi" 
-				Swiz.dispatchEvent(evt)		
+				dispatcher.dispatchEvent(evt)		
 				_readVarsESOProcess.addEventListener(NativeProcessExitEvent.EXIT, onReadVarsEplusoutFinished)
 				_readVarsESOProcess.start(startupInfo)
 			}
@@ -496,7 +499,7 @@ package com.mcquilleninteractive.learnhvac.business
 			{
 				var evt2:EnergyPlusEvent = new EnergyPlusEvent(EnergyPlusEvent.ENERGY_PLUS_OUTPUT,true)
 				evt2.output = "Running outputMeter.rvi" 
-				Swiz.dispatchEvent(evt2)		
+				dispatcher.dispatchEvent(evt2)		
 				_readVarsESOProcess.addEventListener(NativeProcessExitEvent.EXIT, onReadVarsEplusoutMeterFinished)
 				_readVarsESOProcess.start(startupInfo)
 			}
@@ -522,7 +525,7 @@ package com.mcquilleninteractive.learnhvac.business
 			//send an event to update dialog
 			var evt:EnergyPlusEvent = new EnergyPlusEvent(EnergyPlusEvent.ENERGY_PLUS_OUTPUT,true)
 			evt.output = text 
-			Swiz.dispatchEvent(evt)		
+			dispatcher.dispatchEvent(evt)		
 				
 			Logger.debug("ReadVarESO output: " + text, this)
 		}

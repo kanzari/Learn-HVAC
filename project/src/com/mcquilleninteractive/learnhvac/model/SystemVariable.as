@@ -25,7 +25,7 @@ package com.mcquilleninteractive.learnhvac.model
 		public static var VIEW_TYPE_PUBLIC:String = "PUBLIC"
 		public static var VIEW_TYPE_PRIVATE:String = "PRIVATE";
 				
-		[Autowire]
+		[Inject] 
 		public var scenarioModel:ScenarioModel
 		
 		//order for input into or output from Modelica

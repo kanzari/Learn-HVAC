@@ -11,9 +11,9 @@ package com.mcquilleninteractive.learnhvac.controller
 	
 	import mx.collections.ArrayCollection;
 	
-	import org.swizframework.Swiz;
+	import flash.events.IEventDispatcher;
 	import org.swizframework.controller.AbstractController;
-	import org.swizframework.factory.IInitializingBean;
+
 
 	import com.mcquilleninteractive.learnhvac.event.WatchListEvent;
 	
@@ -21,22 +21,22 @@ package com.mcquilleninteractive.learnhvac.controller
 	public class ScenarioDataController  extends AbstractController 
 	{		
 		
-		[Autowire]
+		[Inject] 
 		public var scenarioModel:ScenarioModel	
 		
-		[Autowire]
+		[Inject] 
 		public var scenarioDataModel:ScenarioDataModel	
 				
-		[Autowire]
+		[Inject] 
 		public var longTermSimulationModel:LongTermSimulationModel	
 				
-		[Autowire]
+		[Inject] 
 		public var longTermSimulationDataModel:LongTermSimulationDataModel	
 		
-		[Autowire]
+		[Inject] 
 		public var shortTermSimulationDataModel:ShortTermSimulationDataModel	
 		
-		[Autowire]
+		[Inject] 
 		public var shortTermSimulationModel:ShortTermSimulationModel	
 				
 		

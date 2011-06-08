@@ -32,7 +32,7 @@
 			private var _valuesArr:Array 
 						             
 			[Bindable]
-			[Autowire]
+			[Inject] 
 			public var scenarioModel:ScenarioModel
                     			
 			public function onPreInit():void

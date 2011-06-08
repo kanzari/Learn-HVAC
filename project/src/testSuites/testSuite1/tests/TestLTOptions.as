@@ -13,7 +13,7 @@ package testSuites.testSuite1.tests
 	import org.flexunit.Assert;
 	import org.flexunit.async.Async;
 	import org.fluint.uiImpersonation.UIImpersonator;
-	import org.swizframework.Swiz;
+	import flash.events.IEventDispatcher;
 	
 	public class TestLTOptions
 	{		

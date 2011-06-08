@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<swiz:BeanProvider
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:swiz="http://swiz.swizframework.org"
+	xmlns:model="com.mcquilleninteractive.learnhvac.model.*"
+	xmlns:controller="com.mcquilleninteractive.learnhvac.controller.*"
+	xmlns:business="com.mcquilleninteractive.learnhvac.business.*" 
+	>
+	
+	<model:ApplicationModel id="applicationModel" />
+	<model:ScenarioLibraryModel id="scenarioLibraryModel" />
+	<model:GraphManager id="graphManager" />
+	<model:ScenarioModel id="scenarioModel" />
+	<model:ScenarioDataModel id="scenarioDataModel" />
+	<model:ShortTermSimulationModel id="shortTermSimulationModel" />
+	<model:ShortTermSimulationDataModel id="shortTermSimulationDataModel" />
+	<model:WatchListModel id="watchList" />
+	
+	<model:LongTermSimulationModel id="longTermSimulationModel" />
+	<model:LongTermSimulationDataModel id="longTermSimulationDataModel" />
+	<model:DefaultScenariosModel id="defaultScenariosModel" />
+	<model:UserModel id="userModel" />
+	<model:DialogManager id="dialogManager" />
+	
+	<controller:LoginController id="loginController" />
+	<controller:ApplicationController id="applicationController" />
+	<controller:ScenarioLibraryController id="scenarioLibraryController" />
+	<controller:ChartController id="chartController" />
+	<controller:ScenarioController id="scenarioController" />
+	<controller:ScenarioDataController id="scenarioDataController" />
+	<controller:ShortTermSimulationController id="shortTermSimulationController" />
+	<controller:LongTermSimulationController id="longTermSimulationController" />
+	
+	<business:ShortTermSimulationDelegate id="shortTermSimulationDelegate"/>
+	<business:LongTermSimulationDelegate id="longTermSimulationDelegate"/>
+	<business:LocalScenarioDelegate id="localScenarioDelegate"/>
+	<business:RemoteScenarioDelegate id="remoteScenarioDelegate"/>
+	
+	<mx:HTTPService id="scenarioService" 
+					resultFormat="e4x"
+					contentType="application/x-www-form-urlencoded"
+					
+					/>
+</swiz:BeanProvider>

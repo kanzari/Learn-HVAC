@@ -32,15 +32,15 @@ package com.mcquilleninteractive.learnhvac.controller
 	
 	import mx.managers.ToolTipManager;
 	
-	import org.swizframework.Swiz;
+	import flash.events.IEventDispatcher;
 	import org.swizframework.controller.AbstractController;
 	
 	public class ApplicationController  extends AbstractController
 	{
-		[Autowire]
+		[Inject] 
 		public var applicationModel:ApplicationModel
 		
-		[Autowire]
+		[Inject] 
 		public var scenarioModel:ScenarioModel
 		
 		public function ApplicationController()
@@ -61,7 +61,7 @@ package com.mcquilleninteractive.learnhvac.controller
 			ApplicationModel.currUnits = "SI"
 						
 			var evt:SettingsEvent = new SettingsEvent(SettingsEvent.SETTINGS_LOADED, true)
-			Swiz.dispatchEvent(evt)
+			dispatcher.dispatchEvent(evt)
 								
 			//if this is first run, copy helper files to working directories
 			var version:String = applicationModel.installedVersion	
@@ -120,7 +120,7 @@ package com.mcquilleninteractive.learnhvac.controller
 			if (ApplicationModel.debugMode)
 			{
 				var evt : GetScenarioListEvent = new GetScenarioListEvent(GetScenarioListEvent.GET_DEFAULT_SCENARIO_LIST, true);
-				Swiz.dispatchEvent( evt );
+				dispatcher.dispatchEvent( evt );
 			}	
 		}
 		
@@ -131,7 +131,7 @@ package com.mcquilleninteractive.learnhvac.controller
 			Logger.debug("onLogout()",this)
 			
 			var evt:CloseScenarioEvent = new CloseScenarioEvent(CloseScenarioEvent.CLOSE_SCENARIO, true)
-			Swiz.dispatchEvent(evt)
+			dispatcher.dispatchEvent(evt)
 						
 			applicationModel.loggedIn = false		
 			
@@ -171,7 +171,7 @@ package com.mcquilleninteractive.learnhvac.controller
 			
 			var evt:UnitsEvent = new UnitsEvent(UnitsEvent.UNITS_CHANGED, true)
 			evt.units = ApplicationModel.currUnits			
-			Swiz.dispatchEvent(evt)	
+			dispatcher.dispatchEvent(evt)	
 		
 		}
 

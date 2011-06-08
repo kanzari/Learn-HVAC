@@ -8,10 +8,10 @@ package com.mcquilleninteractive.learnhvac.model.data
 	import com.mcquilleninteractive.learnhvac.util.DateUtil;
 	import com.mcquilleninteractive.learnhvac.util.Logger;
 	import com.mcquilleninteractive.learnhvac.vo.LongTermValuesForShortTermSimVO;
-	
+	import flash.events.IEventDispatcher;
 	import mx.collections.ArrayCollection;
 	
-	import org.swizframework.Swiz;
+
 	
 	[Bindable]
 	public class EnergyPlusData extends BaseSimData implements IGraphDataModel
@@ -57,17 +57,23 @@ package com.mcquilleninteractive.learnhvac.model.data
 		//holds arrays that hold values for each variable
 		protected var _dataStructureXML:XML 		
 		
+		[Inject]
 		protected var _scenarioModel:ScenarioModel
 		
 		protected var _currYear:String 
 		
 		
 	
-		
+
+			
+			
 		public var tempData:String = "Date/Time,PER-1T LIGHTS\n0" +
 								" 07/01  01:00:00,0.0\n" + 
 								" 07/01  01:01:00,2.0\n" + 
 								" 07/01  01:02:00,1.0\n" 
+		
+
+		
 		
 		public function EnergyPlusData() 
 		{
@@ -625,7 +631,12 @@ package com.mcquilleninteractive.learnhvac.model.data
 		
 		public function getVarName(varID:String):String
 		{
-			if (_scenarioModel==null) _scenarioModel = Swiz.getBean("scenarioModel") as ScenarioModel
+			if (_scenarioModel==null) 
+			{
+				throw new Error("injection failed");
+			}
+			
+				//_scenarioModel = Swiz.getBean("scenarioModel") as ScenarioModel
 			//If this is a SystemVariable, show display name, otherwise it's probably a E+ variable so cjust return id
 			var sysVar:SystemVariable = _scenarioModel.getSysVar(varID)
 			if (sysVar!=null)

@@ -34,7 +34,7 @@
 			private var cwViewing:ChangeWatcher
 			
 			[Bindable]
-			[Autowire]
+			[Inject] 
 			public var applicationModel:ApplicationModel
 						
 			private var settingsPopup:SettingsPanel

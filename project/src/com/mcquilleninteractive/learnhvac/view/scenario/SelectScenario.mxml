@@ -40,11 +40,11 @@
 		public var DiskIcon:Class
 				
 		[Bindable]
-		[Autowire]
+		[Inject] 
 		public var scenarioLibraryModel:ScenarioLibraryModel
 		
 		[Bindable]
-		[Autowire]
+		[Inject] 
 		public var userModel:UserModel
 				
 			

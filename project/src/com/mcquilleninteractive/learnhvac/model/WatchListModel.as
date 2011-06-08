@@ -6,6 +6,7 @@ package com.mcquilleninteractive.learnhvac.model
 	[Bindable]
 	public class WatchListModel
 	{
+		[Bindable]
 		public var data : ArrayCollection;
 		
 		public function WatchListModel()

@@ -39,7 +39,7 @@
 				
 
 		[Bindable]
-		[Autowire]
+		[Inject] 
 		public var scenarioModel:ScenarioModel
 
 		private var INPUTS_PANEL : Number = 0

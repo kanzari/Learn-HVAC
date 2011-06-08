@@ -19,21 +19,28 @@
 				import com.mcquilleninteractive.learnhvac.model.LongTermSimulationDataModel;
 				import com.mcquilleninteractive.learnhvac.model.LongTermSimulationModel;
 				import com.mcquilleninteractive.learnhvac.model.SystemVariable;
+				import flash.events.IEventDispatcher;
 				
 			
 				import mx.logging.Log
 				import mx.logging.LogEventLevel
 				import com.adobe.onair.logging.TextAreaTarget
-				import org.swizframework.Swiz
-			
-				protected var _applicationModel:ApplicationModel
+				import flash.events.IEventDispatcher
 				
-				protected var _scenarioModel:ScenarioModel
-							
-				protected var _longTermSimulationDataModel:LongTermSimulationDataModel
+				[Inject]
+				public var _applicationModel:ApplicationModel;
+				
+				[Inject]
+				protected var _scenarioModel:ScenarioModel;
+				
+				[Inject]
+				protected var _longTermSimulationDataModel:LongTermSimulationDataModel;
 				
 						
-				public var textAreaTarget:TextAreaTarget
+				public var textAreaTarget:TextAreaTarget;
+				
+				[Dispatcher]
+				public var dispatcher:IEventDispatcher;
 				
 				public function onCreationComplete():void
 				{
@@ -48,7 +55,7 @@
 					initialMsg+= "-------------------------\n\n"
 					initialMsg+= "Version: " + AboutInfo.applicationVersion +"\n"
 					
-					_applicationModel = Swiz.getBean("applicationModel") as ApplicationModel				
+					//_applicationModel = Swiz.getBean("applicationModel") as ApplicationModel				
 					if (_applicationModel.logToFile)
 					{
 						initialMsg += "Log file: " + _applicationModel.logFile.nativePath + "\n"
@@ -58,8 +65,8 @@
 					
 					txtDebug.text += initialMsg
 						
-					_scenarioModel = Swiz.getBean("scenarioModel") as ScenarioModel	
-					_longTermSimulationDataModel = Swiz.getBean("longTermSimulationDataModel") as LongTermSimulationDataModel
+					//_scenarioModel = Swiz.getBean("scenarioModel") as ScenarioModel	
+					//_longTermSimulationDataModel = Swiz.getBean("longTermSimulationDataModel") as LongTermSimulationDataModel
 							
 				}
 			
@@ -123,12 +130,12 @@
 								if (args[2]=="run1")
 								{
 									evt.runID = LongTermSimulationDataModel.RUN_1
-									Swiz.dispatchEvent(evt)
+									dispatcher.dispatchEvent(evt)
 								}
 								else if (args[2] == "run2")
 								{
 									evt.runID = LongTermSimulationDataModel.RUN_2
-									Swiz.dispatchEvent(evt)
+									dispatcher.dispatchEvent(evt)
 								}
 								else
 								{

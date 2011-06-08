@@ -23,27 +23,26 @@ package com.mcquilleninteractive.learnhvac.controller
 	
 	import mx.controls.Alert;
 	
-	import org.swizframework.Swiz;
+	import flash.events.IEventDispatcher;
 	import org.swizframework.controller.AbstractController;
-	import org.swizframework.factory.IInitializingBean;
 
 	
-	public class ShortTermSimulationController extends AbstractController implements IInitializingBean
+	public class ShortTermSimulationController extends AbstractController  
 	{
 		
-		[Autowire]
+		[Inject] 
 		public var shortTermSimulationModel:ShortTermSimulationModel
 		
-		[Autowire]
+		[Inject] 
 		public var shortTermSimulationDataModel:ShortTermSimulationDataModel
 		
-		[Autowire]
+		[Inject] 
 		public var scenarioModel:ScenarioModel
 		
-		[Autowire]
+		[Inject] 
 		public var applicationModel:ApplicationModel
 		
-		[Autowire]
+		[Inject] 
 		public var watchListModel:WatchListModel
 		
 		
@@ -81,21 +80,14 @@ package com.mcquilleninteractive.learnhvac.controller
 			watchListModel.add(systemVariable);
 			
 			var evt : WatchListEvent = new WatchListEvent(WatchListEvent.UPDATE, true);
-			Swiz.dispatchEvent(evt);
+			dispatcher.dispatchEvent(evt);
 			
 			
 			trace ('event');
 			
 		}
 		
-		[Mediate(event="WatchListEvent.UPDATE")]
-		public function onWatchListUpdate(event:WatchListEvent):void
-		{
 
-			trace ('event');
-			
-		}
-		
 		/* Handles for framework events */
 		[Mediate(event="SetPointEvent.CHANGE_SET_POINT")]
 		public function onSetPointChange(event:SetPointEvent):void
@@ -173,7 +165,7 @@ package com.mcquilleninteractive.learnhvac.controller
 			scenarioModel.sysNodesAC.refresh()
 			
 			var evt:ResetInputsEvent = new ResetInputsEvent(ResetInputsEvent.SHORT_TERM_INPUTS_RESET)
-			Swiz.dispatchEvent(evt)
+			dispatcher.dispatchEvent(evt)
 		}
 			
 	
@@ -194,7 +186,7 @@ package com.mcquilleninteractive.learnhvac.controller
 			
 			var evt:ShortTermSimulationEvent = new ShortTermSimulationEvent(ShortTermSimulationEvent.SIM_STARTED, true)
 			Logger.debug("simulationStarted()",this)
-			Swiz.dispatchEvent(evt)
+			dispatcher.dispatchEvent(evt)
 			
 			if (applicationModel.mTrace)
 			{
@@ -211,7 +203,7 @@ package com.mcquilleninteractive.learnhvac.controller
 			shortTermSimulationDataModel.recordCurrentTimeStep(new Date(shortTermSimulationModel.currDateTime), scenarioModel.sysVarsArr)
 			
 			var evt:ShortTermSimulationEvent = new ShortTermSimulationEvent(ShortTermSimulationEvent.SIM_OUTPUT_RECEIVED)
-			Swiz.dispatchEvent(evt)
+			dispatcher.dispatchEvent(evt)
 		}
 		
 		public function simulationError(event:ShortTermSimulationEvent):void
@@ -224,7 +216,7 @@ package com.mcquilleninteractive.learnhvac.controller
 			Alert.show("Modelica experienced an error. " + event.errorMessage , "Modelica Error")
 			evt.code = 0
 			evt.errorMessage = "Modelica crash"
-			Swiz.dispatchEvent(evt)
+			dispatcher.dispatchEvent(evt)
 			
 			//do debug stuff if mtrace is on
 			if (applicationModel.mTrace)
@@ -241,7 +233,7 @@ package com.mcquilleninteractive.learnhvac.controller
 			
 			var evt:ShortTermSimulationEvent = new ShortTermSimulationEvent(ShortTermSimulationEvent.SIM_STOPPED, true)
 			shortTermSimulationDataModel.currRunComplete()
-			Swiz.dispatchEvent(evt)
+			dispatcher.dispatchEvent(evt)
 			
 			//do debug stuff if mtrace is on
 			if (applicationModel.mTrace)
@@ -258,15 +250,7 @@ package com.mcquilleninteractive.learnhvac.controller
 		}	
 		
 		
-		[Mediate(event="WatchListEvent.ADD")]		
-		public function onAddToWatchList(event:Event):void
-		{
-			Logger.debug("#WatchListEvent.ADD",this)
-				
-			//var x : Number =0;
-		}
-		
-		
+
 		
 		/** This function is strictly for debugging efforts...it makes copies
 		 *  of specific Modelica files for later debugging */

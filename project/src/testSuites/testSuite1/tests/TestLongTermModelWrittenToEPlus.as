@@ -8,7 +8,7 @@ package testSuites.testSuite1.tests
 	import com.mcquilleninteractive.learnhvac.util.Logger;
 	
 	import org.flexunit.Assert;
-	import org.swizframework.Swiz;
+	import flash.events.IEventDispatcher;
 	/* Make sure that the properties that are set in the model are correctly passed to E+ */
 	
 	public class TestLongTermModelWrittenToEPlus

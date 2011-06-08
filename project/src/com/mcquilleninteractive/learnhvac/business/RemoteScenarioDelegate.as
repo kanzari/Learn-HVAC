@@ -18,18 +18,18 @@ package com.mcquilleninteractive.learnhvac.business
 	import mx.rpc.http.HTTPService;
 	import mx.utils.Base64Encoder;
 	
-	import org.swizframework.Swiz;
+	import flash.events.IEventDispatcher;
 	
 	public class RemoteScenarioDelegate
 	{
 		
-		[Autowire]
+		[Inject] 
 		public var applicationModel:ApplicationModel
 	
-		[Autowire]
+		[Inject] 
 		public var scenarioModel:ScenarioModel
 		
-		[Autowire]
+		[Inject] 
 		public var userModel:UserModel
 		
 		[Autowire(bean="scenarioService")]

@@ -4,17 +4,19 @@ import com.mcquilleninteractive.learnhvac.util.Logger;
 
 import flash.filesystem.*;
 import mx.logging.Log;
-import org.swizframework.Swiz;
+import flash.events.IEventDispatcher;
 import mx.controls.Alert;
 
 /*************** lifecycle event handlers *****************/
 
+[Dispatcher]
+public var dispatcher:IEventDispatcher;
 
 private function onPreInit():void
 {		
 	Log.addTarget(traceTarget);
 	Logger.debug("onPreInit()",this);
-	Swiz.dispatchEvent(new ApplicationEvent(ApplicationEvent.INIT_APP, true));
+	dispatcher.dispatchEvent(new ApplicationEvent(ApplicationEvent.INIT_APP, true));
 		
 //	Alert.show( "This is a test" );
 }
@@ -22,7 +24,7 @@ private function onPreInit():void
 
 private function onAppComplete():void
 {
-	Swiz.dispatchEvent(new ApplicationEvent(ApplicationEvent.START_APP, true))	
+	dispatcher.dispatchEvent(new ApplicationEvent(ApplicationEvent.START_APP, true))	
 }
 
 

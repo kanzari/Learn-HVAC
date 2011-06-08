@@ -18,8 +18,7 @@ package com.mcquilleninteractive.particleengine
 	
 	import mx.binding.utils.ChangeWatcher;
 	import mx.core.UIComponent;
-	
-	import org.swizframework.Swiz;
+	import flash.events.IEventDispatcher;
 	
 	
 	public class ParticleEngine extends UIComponent
@@ -133,7 +132,15 @@ package com.mcquilleninteractive.particleengine
 		private var currSysVarValuesArr:Array 
 		private var particleManager:ParticleManager
 		
+		[Inject]
 		private var _scenarioModel:ScenarioModel
+		
+		[Inject]
+		private var applicationModel:ApplicationModel
+		
+		[Dispatcher]
+		public var dispatcher:IEventDispatcher;
+		
 		
 		public function ParticleEngine():void
 		{
@@ -147,7 +154,7 @@ package com.mcquilleninteractive.particleengine
 			timer = new Timer(50)
 			timer.addEventListener("timer", onTimer)
 		
-			_scenarioModel = Swiz.getBean("scenarioModel") as ScenarioModel
+			//_scenarioModel = Swiz.getBean("scenarioModel") as ScenarioModel
 		}
 		
 				
@@ -172,7 +179,9 @@ package com.mcquilleninteractive.particleengine
 		{
 			//TODO: implement different air animations speeds...until then, just turn on or off 
 			// depending on user settings
-			var applicationModel:ApplicationModel = Swiz.getBean("applicationModel") as ApplicationModel
+			//var applicationModel:ApplicationModel = Swiz.getBean("applicationModel") as ApplicationModel
+				
+				
 			if (DISABLED_PE || applicationModel.animationSpeed==ApplicationModel.ANIMATION_SPEED_NONE)
 			{
 				return
@@ -312,7 +321,7 @@ package com.mcquilleninteractive.particleengine
 		
 			//setup binding
 			
-			Swiz.addEventListener(ShortTermSimulationEvent.SIM_OUTPUT_RECEIVED, onUpdateOuputValues)
+			this.addEventListener(ShortTermSimulationEvent.SIM_OUTPUT_RECEIVED, onUpdateOuputValues)
 			
 			running = false
 			sysVarsArr = []

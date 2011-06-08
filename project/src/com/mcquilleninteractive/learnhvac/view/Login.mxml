@@ -24,7 +24,7 @@
 	    	import mx.controls.Alert;
 	    	import mx.events.ValidationResultEvent;
 	    	
-	    	import org.swizframework.Swiz;
+	    	import flash.events.IEventDispatcher;
 			
 			[Bindable]
 			[Autowire(bean="applicationModel")]

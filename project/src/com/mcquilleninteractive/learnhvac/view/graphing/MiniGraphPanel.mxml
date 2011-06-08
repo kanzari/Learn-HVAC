@@ -39,7 +39,7 @@
 				
 				
 				[Bindable]
-				[Autowire]
+				[Inject] 
 				public var scenarioModel:ScenarioModel
 				
  				[Embed (source = 'assets/img/clear_graph.png')]

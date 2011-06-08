@@ -14,17 +14,22 @@ package com.mcquilleninteractive.learnhvac.model
 	
 	import mx.collections.ArrayCollection;
 	
-	import org.swizframework.Swiz;
+	import flash.events.IEventDispatcher;
+
 	
 	
 	
 	[Bindable]
 	public class LongTermSimulationDataModel
-	{				
+	{			
+		
+		[Dispatcher(scope="global")]
+		public var globalDispatcher:IEventDispatcher;
+		
 		public static var RUN_1:String = "eplus_run1"
 		public static var RUN_2:String = "eplus_run2";
 			
-		[Autowire]
+		[Inject] 
 		public var longTermSimulationModel:LongTermSimulationModel
 		
 		public var currRunID:String	= LongTermSimulationDataModel.RUN_1;		//current run as selected by user
@@ -95,7 +100,11 @@ package com.mcquilleninteractive.learnhvac.model
 			var event:ScenarioDataLoadedEvent = new ScenarioDataLoadedEvent(ScenarioDataLoadedEvent.ENERGY_PLUS_DATA_PARSED, true )
 			event.graphDataModel = IGraphDataModel(eplusData)
 			event.graphDataModelID = runID
-			Swiz.dispatchEvent(event)
+				
+				
+			globalDispatcher.dispatchEvent(event)
+			
+			//dispatcher.dispatchEvent(event)
 						
 			if (runID==LongTermSimulationDataModel.RUN_1) run1Loaded=true
 			if (runID==LongTermSimulationDataModel.RUN_2) run2Loaded=true

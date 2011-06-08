@@ -28,12 +28,12 @@
 			import com.mcquilleninteractive.learnhvac.model.ScenarioModel
    			import com.mcquilleninteractive.learnhvac.event.ScenarioLoadedEvent
 			
-			[Autowire]
+			[Inject] 
 			[Bindable]
 			public var scenarioModel:ScenarioModel		
 			
 			[Bindable]
-			[Autowire]
+			[Inject] 
 			public var shortTermSimulationModel:ShortTermSimulationModel		
 									
 			public var _active:Boolean = false

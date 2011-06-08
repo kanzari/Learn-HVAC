@@ -12,7 +12,7 @@
 				import com.mcquilleninteractive.learnhvac.model.ApplicationModel;
 								            
 				[Bindable]
-				[Autowire]
+				[Inject] 
 				public var scenarioModel:ScenarioModel	
 		        	
 	        	

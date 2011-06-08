@@ -33,16 +33,16 @@ package com.mcquilleninteractive.learnhvac.model
 	public class ScenarioModel extends EventDispatcher
 	{		
 		
-		[Autowire]
+		[Inject] 
 		public var shortTermSimulationModel:ShortTermSimulationModel
 		
-		[Autowire]
+		[Inject] 
 		public var shortTermSimulationDataModel:ShortTermSimulationDataModel
 		
-		[Autowire]
+		[Inject] 
 		public var longTermSimulationModel:LongTermSimulationModel
 				
-		[Autowire]
+		[Inject] 
 		public var longTermSimulationDataModel:LongTermSimulationDataModel
 		
 		

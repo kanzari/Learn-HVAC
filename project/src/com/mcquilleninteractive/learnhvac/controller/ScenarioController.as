@@ -15,7 +15,7 @@ package com.mcquilleninteractive.learnhvac.controller
 	public class ScenarioController extends AbstractController
 	{
 		
-		[Autowire]
+		[Inject] 
 		public var scenarioModel:ScenarioModel
 		
 		//these two variables keeps track of a change in hours and date.
@@ -29,11 +29,6 @@ package com.mcquilleninteractive.learnhvac.controller
 		
 		
 		
-		[Mediate(event="WatchListEvent.UPDATE")]
-		public function onWatchListUpdate(event:WatchListEvent):void
-		{
-			trace ('event');
-		}
 		
 		[Mediate(event="ZoneChangeEvent.ZONE_CHANGED")]
 		public function zoneChanged(event:ZoneChangeEvent):void

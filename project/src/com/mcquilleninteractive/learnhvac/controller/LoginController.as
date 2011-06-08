@@ -22,7 +22,7 @@ package com.mcquilleninteractive.learnhvac.controller
 	import mx.utils.Base64Decoder;
 	import mx.utils.Base64Encoder;
 	
-	import org.swizframework.Swiz;
+	import flash.events.IEventDispatcher;
 	import org.swizframework.controller.AbstractController;
 
 	public class LoginController extends AbstractController
@@ -39,7 +39,7 @@ package com.mcquilleninteractive.learnhvac.controller
 			_loginURLLoader.addEventListener(IOErrorEvent.IO_ERROR, onLoginError);
 		}
 		
-		[Autowire]
+		[Inject] 
 		public var userModel:UserModel
 		
 		protected var _loginURLLoader:URLLoader
@@ -65,7 +65,7 @@ package com.mcquilleninteractive.learnhvac.controller
 				userModel.username = "guest"
 				userModel.role = UserModel.ROLE_GUEST
 				userModel.loggedInAsGuest = true
-				Swiz.dispatchEvent(new LoggedInEvent(LoggedInEvent.LOGGED_IN))
+				dispatcher.dispatchEvent(new LoggedInEvent(LoggedInEvent.LOGGED_IN))
 					
 			}
 			else
@@ -118,7 +118,7 @@ package com.mcquilleninteractive.learnhvac.controller
 					userModel.role = userXML.role
 					userModel.institution = userXML.institution.name
 					userModel.loggedInAsGuest = false
-					Swiz.dispatchEvent(new LoggedInEvent(LoggedInEvent.LOGGED_IN))
+					dispatcher.dispatchEvent(new LoggedInEvent(LoggedInEvent.LOGGED_IN))
 					
 				}
 				catch(error:Error)
@@ -130,13 +130,13 @@ package com.mcquilleninteractive.learnhvac.controller
 				}
 				
 				var evt:LoginEvent = new LoginEvent(LoginEvent.LOGIN_COMPLETE, true)
-				Swiz.dispatchEvent(evt)
+				dispatcher.dispatchEvent(evt)
 				
 			}
 			else
 			{
 				evt = new LoginEvent(LoginEvent.LOGIN_FAILED, true)
-				Swiz.dispatchEvent(evt)
+				dispatcher.dispatchEvent(evt)
 				Alert.show("Login failed")
 			}
 		}
@@ -150,7 +150,7 @@ package com.mcquilleninteractive.learnhvac.controller
 			userModel.password = ""
 			
 			var evt:LoginEvent = new LoginEvent(LoginEvent.LOGIN_FAILED, true)
-			Swiz.dispatchEvent(evt)
+			dispatcher.dispatchEvent(evt)
 			
 		}
 		

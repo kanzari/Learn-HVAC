@@ -12,7 +12,7 @@ package com.mcquilleninteractive.learnhvac.model
 	
 	import mx.collections.ArrayCollection;
 	
-	import org.swizframework.Swiz;
+	import flash.events.IEventDispatcher;
 	
 	
 	/* This class holds ouptput data arrays and values that don't quite fit into either short-term or long-term data models.

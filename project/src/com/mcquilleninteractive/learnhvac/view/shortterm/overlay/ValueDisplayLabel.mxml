@@ -16,12 +16,13 @@
 			
 			import mx.formatters.NumberFormatter;
 			
-			import org.swizframework.Swiz;
+			import flash.events.IEventDispatcher;
 			
-			
+			[Dispatcher]
+			public var dispatcher:IEventDispatcher;
 			
 			[Bindable]
-			[Autowire]
+			[Inject] 
 			public var scenarioModel:ScenarioModel
 						
 			private var _numFormatter:NumberFormatter 
@@ -30,6 +31,8 @@
 			private var _sysVar:SystemVariable
 			private var _usePercent:Boolean = false
 			private var _precision:Number = 2
+				
+
 			
 			public function onInit():void
 			{				
@@ -41,8 +44,8 @@
 			
 			public function onCC():void
 			{
-				Swiz.addEventListener(ScenarioLoadedEvent.SCENARIO_LOADED, scenarioLoaded)
-				Swiz.addEventListener(ShortTermSimulationEvent.SIM_OUTPUT_RECEIVED, onShortTermOutputUpdated)
+				this.addEventListener(ScenarioLoadedEvent.SCENARIO_LOADED, scenarioLoaded)
+				this.addEventListener(ShortTermSimulationEvent.SIM_OUTPUT_RECEIVED, onShortTermOutputUpdated)
 			}
 			
 			public function scenarioLoaded(event:ScenarioLoadedEvent):void
