@@ -35,17 +35,21 @@ package com.adobe.onair.logging
 
 	public class FileTarget extends LineFormattedTarget
 	{
-		
+		[Inject]
 		private var model:ApplicationModel
+		
 		private var logFile:File		
 		public function FileTarget()
 		{
-			logFile = File.userDirectory.resolvePath(ApplicationModel.baseStoragePath + "logs/application-log.txt")
+			
+			const baseStoragePath = "";
+			
+			logFile = File.userDirectory.resolvePath(baseStoragePath + "logs/application-log.txt")
 			if (logFile.exists)
 			{
 				logFile.deleteFile()			
 			}
-			model = Swiz.getBean("applicationModel") as ApplicationModel
+			//model = Swiz.getBean("applicationModel") as ApplicationModel
 		}
 		
 		public function get logURI():String

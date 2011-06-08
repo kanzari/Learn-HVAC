@@ -47,7 +47,7 @@ package com.mcquilleninteractive.learnhvac.controller
 		
 		
 		
-		[Autowire(bean="shortTermSimulationDelegate")]
+		[Inject(bean="shortTermSimulationDelegate")]
 		public var delegate:IShortTermSimulationDelegate
 		
 		
@@ -81,10 +81,23 @@ package com.mcquilleninteractive.learnhvac.controller
 			
 			var evt : WatchListEvent = new WatchListEvent(WatchListEvent.UPDATE, true);
 			dispatcher.dispatchEvent(evt);
+
+		}
+		
+		[Mediate(event="WatchListEvent.REMOVE")]
+		public function onWatchListRemove(event:WatchListEvent):void
+		{
+			//shortTermSimulationDataModel.init()
+			//var systemVariable : SystemVariable = event.systemVariable;
+			//var removeItems:Array = event.selectedIndices;
 			
+			watchListModel.removeItems(event.selectedIndices);
 			
-			trace ('event');
+
 			
+			var evt : WatchListEvent = new WatchListEvent(WatchListEvent.UPDATE, true);
+			dispatcher.dispatchEvent(evt);
+
 		}
 		
 

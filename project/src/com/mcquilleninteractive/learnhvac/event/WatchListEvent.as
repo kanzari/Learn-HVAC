@@ -10,7 +10,9 @@ package com.mcquilleninteractive.learnhvac.event{
 		public static const REMOVE: String = "Remove";
 		public static const UPDATE: String = "Update";
 		
-		public var systemVariable:SystemVariable
+		public var systemVariable:SystemVariable;
+		public var selectedIndices:Array;
+		
 
 		
 		public function WatchListEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false)

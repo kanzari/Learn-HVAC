@@ -29,13 +29,7 @@ package com.mcquilleninteractive.learnhvac.util
             
         }
         
-		[Mediate(event="WatchListEvent.UPDATE")]
-		public function onWatchListUpdate(event:WatchListEvent):void
-		{
-			
-			trace ('event');
-			
-		}
+
 		
         private var myTitleBar:UIComponent;
                     

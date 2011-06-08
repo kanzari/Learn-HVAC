@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<util:DragPanel xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx"
+	 xmlns:util="com.mcquilleninteractive.learnhvac.util.*"    
+	 xmlns:controls="com.mcquilleninteractive.controls.*" 
+	 backgroundColor="#CCCCCC" 
+	 label="WatchPanel" 
+	 width="100%" 
+	 height="100%"
+	 title="WATCH PANEL"
+	 >
+	
+		<fx:Declarations>
+			<mx:NumberFormatter id="setNumberFormat" precision="2"/>
+		</fx:Declarations>
+	
+	
+		<fx:Script>
+	
+		<![CDATA[
+			import com.mcquilleninteractive.learnhvac.event.UnitsEvent;
+			import com.mcquilleninteractive.learnhvac.event.VisualizationEvent;
+			import com.mcquilleninteractive.learnhvac.event.WatchListEvent;
+			import com.mcquilleninteractive.learnhvac.model.ApplicationModel;
+			import com.mcquilleninteractive.learnhvac.model.ScenarioModel;
+			import com.mcquilleninteractive.learnhvac.model.SystemNodeModel;
+			import com.mcquilleninteractive.learnhvac.model.SystemVariable;
+			import com.mcquilleninteractive.learnhvac.model.WatchListModel;
+			import com.mcquilleninteractive.learnhvac.util.Logger;
+			
+			import flash.events.Event;
+			import flash.events.IEventDispatcher;
+			import flash.events.KeyboardEvent;
+			
+			import mx.binding.utils.BindingUtils;
+			import mx.collections.ArrayCollection;
+			import mx.collections.ListCollectionView;
+			import mx.controls.Image;
+			import mx.core.DragSource;
+			import mx.events.DragEvent;
+			import mx.events.ItemClickEvent;
+			import mx.managers.DragManager;
+			import flash.events.IEventDispatcher;
+
+			[Bindable]
+			[Inject( twoWay="true" )]
+			public var watchListModel : WatchListModel;
+			
+			[Bindable]
+			[Inject]
+			public var applicationModel:ApplicationModel;
+			
+			
+			public var outputVarsView:ListCollectionView //view of data in a system node ... filters for OUTPUT variables
+									
+			[Embed (source = '/assets/img/sysvar_icon.png')]
+			
+ 			[Bindable]
+ 			public var icoSysVar : Class;
+			
+			[Dispatcher]
+			public var dispatcher:IEventDispatcher;
+			//[Bindable]
+		//	public var watchNames : Array = []//keep this array of sysVarNames just to prevent multiple instances of same name
+		//	public var _watchArr : ArrayCollection = new ArrayCollection()
+					
+				
+			//public function get watchArr() : 	ArrayCollection {
+			//	return _watchArr;
+		//	}
+			
+		//	public function set watchArr(value : ArrayCollection) : void {
+				
+				
+			//	_watchArr = value;
+				
+				
+		//	}
+
+			
+/* 			[Mediate(event="WatchListEvent.UPDATE")]
+			public function onWatchListAdd(event:WatchListEvent):void
+			{
+				//watchListModel.add(event.systemVariable);
+				
+				var x : WatchListModel = watchListModel;
+				
+				
+			} */
+			
+
+			
+			public function doDragDrop(event:DragEvent):void
+			{
+				Logger.debug("#Watch panel: onDragDrop. event: " + event)
+			}
+			
+			public function onKeyUp(event:KeyboardEvent):void
+			{
+				if (event.keyCode == Keyboard.DELETE && dgWatchVariables.selectedIndices.length > 0)
+				{
+					var watchListEvent:WatchListEvent = new WatchListEvent(WatchListEvent.REMOVE, true);
+					watchListEvent.selectedIndices = dgWatchVariables.selectedIndices;
+					dispatcher.dispatchEvent(watchListEvent);
+				}
+				
+			}
+			
+			// The code called by the quantity's label function It's purpose to format the quantity value with comma's
+			public function formatQuantity(item:SystemVariable, column:DataGridColumn):String {
+				var returnValue:String = setNumberFormat.format(item.currValue);
+				return returnValue;
+			}
+			
+			
+			
+			/*
+			public function formatData(event:DataGridEvent):void {
+ 				if (event.reason == DataGridEventReason.CANCELLED){
+					return;
+				}
+				var newData:String=TextInput(event.currentTarget.itemEditorInstance).text;
+				if(newData == "") {
+					event.preventDefault();
+					TextInput(myGrid.itemEditorInstance).errorString="Enter a valid string.";
+					return;
+				}
+				if(event.dataField == "Price") {
+					myFormatter.precision=2;
+					TextInput(myGrid.itemEditorInstance).text=myFormatter.format(newData);
+				}
+			} */
+			
+			
+					
+		]]>
+		
+		
+	</fx:Script>
+	
+	<mx:VBox width="100%" height="100%" backgroundColor="0xFFFFFF">
+		
+		
+		<mx:DataGrid id="dgWatchVariables"
+					 width="100%"
+					 height="100%"
+  				  	 paddingTop="0"
+					 dataProvider="{watchListModel.data}"
+  				  	 dragEnabled="false"
+  				  	 dropEnabled="true"
+  				  	 showDataTips="true"
+  				  	 dataTipField="displayName"
+  				  	 dragDrop="doDragDrop(event)"
+  				  	 keyUp="onKeyUp(event)" 
+  				  	 allowMultipleSelection="true"
+  				  	  >
+			
+			<mx:columns>
+				<mx:DataGridColumn headerText="Name" dataField="name"  />
+				
+				<mx:DataGridColumn 
+					headerText="Value" 
+					dataField="currValue" 
+					width="100" 
+					labelFunction="formatQuantity">
+
+				</mx:DataGridColumn>
+					
+				<mx:DataGridColumn headerText="Units" dataField="units" width="50" />
+			</mx:columns>	
+		</mx:DataGrid>
+		
+	</mx:VBox >
+	
+
+</util:DragPanel>

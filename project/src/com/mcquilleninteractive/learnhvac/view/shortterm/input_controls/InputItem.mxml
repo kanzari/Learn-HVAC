@@ -87,12 +87,40 @@
 				
 				imgIcoSysVar.contextMenu = _contextMenu;
 				
+				//this.addContextMenuToTextField();
+			//	var menuLabel : String = 'Change Color';
+			//	var menuItem:ContextMenuItem = new ContextMenuItem(ADD_TO_WATCH_PANEL);
 				
+				//var customContextMenu:ContextMenu = new ContextMenu(); 
+				
+			//	customContextMenu.customItems.push(menuItem);
+				
+			//	txtInputItem.textDisplay.contextMenu = customContextMenu;
+				
+				//richText.contextMenu = customContextMenu;
+				
+				
+				
+				//txtInputItem.te .contextMenu = _contextMenu;
+			//	lblVarName.contextMenu = _contextMenu;
+				
+				
+			}
+			
+			private function addContextMenuToTextField() : void
+			{
+				stage.nativeWindow.activate();
+				var myContextMenu:ContextMenu = new ContextMenu();
+				var item1:ContextMenuItem = new ContextMenuItem("Test 1");
+				var item2:ContextMenuItem = new ContextMenuItem("Test 2");
+				myContextMenu.customItems.push(item1, item2);
+				var txt:TextField = txtInputItem.mx_internal::getTextField() as TextField;                
+				txt.contextMenu = myContextMenu;
 			}
 			
 			protected function menuItemSelected(evt:ContextMenuEvent):void
 			{
-				trace (evt);
+
 
 				var watchListEvent:WatchListEvent = new WatchListEvent(WatchListEvent.ADD, true);
 				
@@ -317,6 +345,7 @@
 			  mouseDown = "onDrag(event)"
 			  automationName="{'icoSysVar_' + data.name }"
 			  toolTip="Drag icon to watch panel"
+
 			  />
 		
 	</mx:VBox>

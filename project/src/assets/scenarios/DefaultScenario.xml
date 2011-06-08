@@ -52,7 +52,7 @@
         <name type="String">VAVBadZoneMeas</name>
         <displayName type="String">Room temp sensor error</displayName>
 
-        <description type="String"></description>
+        <description type="String">Room temp sensor error</description>
         <index type="Integer">32</index>
         <lowValue type="Float">-200.0</lowValue>
         <highValue type="Float">200.0</highValue>

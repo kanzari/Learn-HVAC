@@ -12,25 +12,24 @@
 		<fx:Script>
 	
 		<![CDATA[
-			import flash.events.IEventDispatcher;
-		
-			import mx.events.DragEvent;
-			import mx.collections.ListCollectionView
-			import mx.collections.ArrayCollection
-			import com.mcquilleninteractive.learnhvac.event.UnitsEvent
-			import com.mcquilleninteractive.learnhvac.event.VisualizationEvent
-			import mx.collections.ListCollectionView
-			import mx.events.ItemClickEvent
-			import com.mcquilleninteractive.learnhvac.model.ApplicationModel
-			import com.mcquilleninteractive.learnhvac.model.ScenarioModel
-			import com.mcquilleninteractive.learnhvac.model.SystemNodeModel
-			import com.mcquilleninteractive.learnhvac.model.SystemVariable
-			import com.mcquilleninteractive.learnhvac.util.Logger
+			import com.mcquilleninteractive.learnhvac.event.UnitsEvent;
+			import com.mcquilleninteractive.learnhvac.event.VisualizationEvent;
+			import com.mcquilleninteractive.learnhvac.model.ApplicationModel;
+			import com.mcquilleninteractive.learnhvac.model.ScenarioModel;
+			import com.mcquilleninteractive.learnhvac.model.SystemNodeModel;
+			import com.mcquilleninteractive.learnhvac.model.SystemVariable;
+			import com.mcquilleninteractive.learnhvac.util.Logger;
 			
-			import mx.binding.utils.BindingUtils
+			import flash.events.IEventDispatcher;
+			
+			import mx.binding.utils.BindingUtils;
+			import mx.collections.ArrayCollection;
+			import mx.collections.ListCollectionView;
+			import mx.controls.Image;
+			import mx.core.DragSource;
+			import mx.events.DragEvent;
+			import mx.events.ItemClickEvent;
 			import mx.managers.DragManager;
-            import mx.core.DragSource;
-            import mx.controls.Image
             
             
 			[Bindable]
@@ -54,7 +53,7 @@
 				//scenarioModel = Swiz.getBean("scenarioModel") as ScenarioModel
 				
 		    	//setup dataproviders
-				outputFilterModel = scenarioModel.sysNodesAC;
+				outputFilterModel = new ArrayCollection (scenarioModel.sysNodesAC.source);
 				
 				var len : Number = outputFilterModel.length;
 				var newNode : SystemNodeModel = new SystemNodeModel();
@@ -67,7 +66,7 @@
 
 				newNode.id="ALL";
 				newNode.name="All";
-				outputFilterModel.addItem(newNode);
+				outputFilterModel.addItemAt(newNode,0);
 				
 				cboSysNode.dataProvider = outputFilterModel;
 				
@@ -89,7 +88,7 @@
 			public function updateOutputValueView(newIndex:Number):void
 			{
 				//update dg to selectedIndex
-				var sysVarsArr:ArrayCollection = scenarioModel.sysNodesAC.getItemAt(newIndex).sysVarsArr
+				var sysVarsArr:ArrayCollection = outputFilterModel.getItemAt(newIndex).sysVarsArr
 				Logger.debug("#OP: updateOutputValueView() sysVarsArr.length: " + sysVarsArr.length)
 				outputVarsView = new ListCollectionView(sysVarsArr)
 				outputVarsView.filterFunction = filterOutputGrid
