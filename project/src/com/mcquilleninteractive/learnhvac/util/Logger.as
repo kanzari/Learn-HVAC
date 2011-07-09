@@ -1,7 +1,6 @@
 package com.mcquilleninteractive.learnhvac.util
 {
 
-	import com.mcquilleninteractive.learnhvac.model.ApplicationModel;
 	
 	import flash.events.IOErrorEvent;
 	import flash.filesystem.*;
@@ -10,21 +9,20 @@ package com.mcquilleninteractive.learnhvac.util
 	import mx.logging.ILogger;
 	import mx.logging.Log;
 	import mx.logging.LogEventLevel;
+	
 	import org.swizframework.core.Bean;
 	import org.swizframework.core.ISwiz;
 	import org.swizframework.core.ISwizAware;
 	import org.swizframework.core.Prototype;
 	import org.swizframework.reflection.TypeCache;
-
 	
 	
 	//import flash.events.IEventDispatcher;
 	//import org.swizframework.core.Swiz;
 	
-	public class Logger	implements ISwizAware
+	public class Logger
 	{
-		[Inject]
-		public static var appModel:ApplicationModel;
+
 		
 		public static var enabled : Boolean = true;
 		public static var myLogger : ILogger;
@@ -34,23 +32,24 @@ package com.mcquilleninteractive.learnhvac.util
 
 		public static var logToFile:Boolean = false
 
-		/**
-		 * Backing variable for swiz setter.
-		 */
-		protected var _swiz:ISwiz;
+
 		
-		
-		/**
-		 * Setter to satisfy ISwizAware interface contract.
-		 * 
-		 * @see org.swizframework.core.ISwizAware
-		 */
-		public function set swiz( swiz:ISwiz ):void
+		public static function init(baseStorageDirPath : String , logFileArg : File, logToFileBool : Boolean):void
 		{
-			_swiz = swiz;
+			var logFileDir:File = File.userDirectory.resolvePath(baseStorageDirPath);
+				
+			if (logFileDir.exists==false)
+			{
+				logFileDir.createDirectory();
+			}
 			
+			
+			logFile = logFileArg;
+			logFileStream = new FileStream();
+			logToFile = logToFileBool;		
+			
+
 		}
-		
 		
 		public static function debug(o:Object, target:Object=null):void
 		{
@@ -156,21 +155,7 @@ package com.mcquilleninteractive.learnhvac.util
             //log to file 
             try
             {
-				if (logFile==null)
-				{
-					var logFileDir:File = File.userDirectory.resolvePath(ApplicationModel.baseStorageDirPath)
-					if (logFileDir.exists==false)
-					{
-						logFileDir.createDirectory()
-					}
-					//var appModel:ApplicationModel = Swiz.getBean("applicationModel") as ApplicationModel
-					
-					//var appModel:ApplicationModel = _swiz.beanFactory.getBeanByName("applicationModel") as ApplicationModel;
-					
-					logFile = appModel.logFile
-					logFileStream = new FileStream()
-					logToFile = appModel.logToFile				
-	   			}
+
 	   			if (logToFile)
 	   			{
 	   				logFileStream.open(logFile, FileMode.APPEND)

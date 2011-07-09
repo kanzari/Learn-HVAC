@@ -47,9 +47,7 @@ package com.mcquilleninteractive.learnhvac.model
 		public function init():void
 		{
 			//initialize each run's ModelicaData class with the currently loaded SystemVariables
-		//	var scenarioModel:ScenarioModel = Swiz.getBean("scenarioModel") as ScenarioModel
-		//	var shortTermSimulationModel:ShortTermSimulationModel = Swiz.getBean("shortTermSimulationModel") as ShortTermSimulationModel
-			
+
 			for each (var md:ModelicaData in runsArr)
 			{
 				md.startDateTime = shortTermSimulationModel.realtimeStartDatetime

@@ -20,9 +20,10 @@ package com.mcquilleninteractive.learnhvac.controller
 	
 	import flash.events.IEventDispatcher;
 	import org.swizframework.controller.AbstractController;
-
+	import org.swizframework.core.IInitializing;
 	
-	public class LongTermSimulationController extends AbstractController
+	
+	public class LongTermSimulationController extends AbstractController implements IInitializing
 	{
 		[Inject] 
 		public var scenarioModel:ScenarioModel
@@ -43,6 +44,11 @@ package com.mcquilleninteractive.learnhvac.controller
 		public function LongTermSimulationController()
 		{
 			
+		}
+		
+		public function afterPropertiesSet( ) : void
+		{
+			this.initialize();
 		}
 		
 		public function initialize():void

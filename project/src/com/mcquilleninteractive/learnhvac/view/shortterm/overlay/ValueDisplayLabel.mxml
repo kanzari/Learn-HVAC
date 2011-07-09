@@ -44,10 +44,14 @@
 			
 			public function onCC():void
 			{
-				this.addEventListener(ScenarioLoadedEvent.SCENARIO_LOADED, scenarioLoaded)
-				this.addEventListener(ShortTermSimulationEvent.SIM_OUTPUT_RECEIVED, onShortTermOutputUpdated)
+				
+				//delegate.addEventListener(ShortTermSimulationEvent.SIM_OUTPUT_RECEIVED, onOutputReceived)
+					
+				//this.addEventListener(ScenarioLoadedEvent.SCENARIO_LOADED, scenarioLoaded)
+				//this.addEventListener(ShortTermSimulationEvent.SIM_OUTPUT_RECEIVED, onShortTermOutputUpdated)
 			}
 			
+			[Mediate(event="ScenarioLoadedEvent.SCENARIO_LOADED")]
 			public function scenarioLoaded(event:ScenarioLoadedEvent):void
 			{						
 				_sysVar = scenarioModel.getSysVar(_sysVarName)
@@ -71,6 +75,7 @@
 				_sysVar = scenarioModel.getSysVar(_sysVarName)
 			}
 			
+			[Mediate(event="ShortTermSimulationEvent.SIM_OUTPUT_RECEIVED")]
 			public function onShortTermOutputUpdated(event:ShortTermSimulationEvent):void
 			{				
 				

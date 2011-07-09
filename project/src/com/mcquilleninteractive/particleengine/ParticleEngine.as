@@ -19,9 +19,10 @@ package com.mcquilleninteractive.particleengine
 	import mx.binding.utils.ChangeWatcher;
 	import mx.core.UIComponent;
 	import flash.events.IEventDispatcher;
+	import org.swizframework.core.ISwizAware;
+	import org.swizframework.core.ISwiz;
 	
-	
-	public class ParticleEngine extends UIComponent
+	public class ParticleEngine extends UIComponent implements ISwizAware
 	{
 		public var currScene:String = ScenarioModel.SN_ROOF //simulation view always starts with roof
 		public var timer:Timer
@@ -136,11 +137,25 @@ package com.mcquilleninteractive.particleengine
 		private var _scenarioModel:ScenarioModel
 		
 		[Inject]
-		private var applicationModel:ApplicationModel
+		private var _applicationModel:ApplicationModel
 		
-		[Dispatcher]
-		public var dispatcher:IEventDispatcher;
+
+		/**
+		 * Backing variable for swiz setter.
+		 */
+		protected var _swiz:ISwiz;
 		
+		/**
+		 * Creates a reference to the instance of Swiz this bean is in. This
+		 */
+		public function set swiz(swiz:ISwiz):void
+		{
+			this._swiz = swiz;
+			
+			_applicationModel  = _swiz.beanFactory.getBeanByName("applicationModel").source;
+			_scenarioModel  = _swiz.beanFactory.getBeanByName("scenarioModel").source;
+		}
+
 		
 		public function ParticleEngine():void
 		{
@@ -154,12 +169,13 @@ package com.mcquilleninteractive.particleengine
 			timer = new Timer(50)
 			timer.addEventListener("timer", onTimer)
 		
-			//_scenarioModel = Swiz.getBean("scenarioModel") as ScenarioModel
+
 		}
 		
 				
 		public function setScene(systemNode:String):void
 		{
+				
 			var restart:Boolean = false
 			if (running)
 			{
@@ -179,10 +195,8 @@ package com.mcquilleninteractive.particleengine
 		{
 			//TODO: implement different air animations speeds...until then, just turn on or off 
 			// depending on user settings
-			//var applicationModel:ApplicationModel = Swiz.getBean("applicationModel") as ApplicationModel
-				
-				
-			if (DISABLED_PE || applicationModel.animationSpeed==ApplicationModel.ANIMATION_SPEED_NONE)
+			
+			if (DISABLED_PE || _applicationModel.animationSpeed==ApplicationModel.ANIMATION_SPEED_NONE)
 			{
 				return
 			} 

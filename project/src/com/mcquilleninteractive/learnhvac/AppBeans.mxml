@@ -3,8 +3,10 @@
 	xmlns:mx="http://www.adobe.com/2006/mxml"
 	xmlns:swiz="http://swiz.swizframework.org"
 	xmlns:model="com.mcquilleninteractive.learnhvac.model.*"
+	xmlns:data="com.mcquilleninteractive.learnhvac.model.data.*"
 	xmlns:controller="com.mcquilleninteractive.learnhvac.controller.*"
-	xmlns:business="com.mcquilleninteractive.learnhvac.business.*" 
+	xmlns:business="com.mcquilleninteractive.learnhvac.business.*"
+	xmlns:pe="com.mcquilleninteractive.particleengine.*"
 	>
 	
 	<model:ApplicationModel id="applicationModel" />
@@ -22,6 +24,8 @@
 	<model:UserModel id="userModel" />
 	<model:DialogManager id="dialogManager" />
 	
+
+	
 	<controller:LoginController id="loginController" />
 	<controller:ApplicationController id="applicationController" />
 	<controller:ScenarioLibraryController id="scenarioLibraryController" />
@@ -36,9 +40,14 @@
 	<business:LocalScenarioDelegate id="localScenarioDelegate"/>
 	<business:RemoteScenarioDelegate id="remoteScenarioDelegate"/>
 	
+	<pe:ParticleEngine id="pe"/>
+	
+	
 	<mx:HTTPService id="scenarioService" 
 					resultFormat="e4x"
 					contentType="application/x-www-form-urlencoded"
 					
 					/>
+	
+	
 </swiz:BeanProvider>

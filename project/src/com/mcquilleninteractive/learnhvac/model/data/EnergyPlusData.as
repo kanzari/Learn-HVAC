@@ -57,7 +57,7 @@ package com.mcquilleninteractive.learnhvac.model.data
 		//holds arrays that hold values for each variable
 		protected var _dataStructureXML:XML 		
 		
-		[Inject]
+
 		protected var _scenarioModel:ScenarioModel
 		
 		protected var _currYear:String 
@@ -75,8 +75,9 @@ package com.mcquilleninteractive.learnhvac.model.data
 
 		
 		
-		public function EnergyPlusData() 
+		public function EnergyPlusData(scenarioModel : ScenarioModel) 
 		{
+			_scenarioModel = scenarioModel;
 			dataArr = []
 			rmQSENSArr = []
 			_dataStructureXML = createBaseXML()
@@ -636,7 +637,6 @@ package com.mcquilleninteractive.learnhvac.model.data
 				throw new Error("injection failed");
 			}
 			
-				//_scenarioModel = Swiz.getBean("scenarioModel") as ScenarioModel
 			//If this is a SystemVariable, show display name, otherwise it's probably a E+ variable so cjust return id
 			var sysVar:SystemVariable = _scenarioModel.getSysVar(varID)
 			if (sysVar!=null)

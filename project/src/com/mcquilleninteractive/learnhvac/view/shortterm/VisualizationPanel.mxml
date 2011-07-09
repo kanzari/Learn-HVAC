@@ -12,9 +12,9 @@
 	
 	<fx:Script>
 		<![CDATA[
-			import com.mcquilleninteractive.learnhvac.business.ShortTermSimulationDelegate;
-			import com.mcquilleninteractive.learnhvac.event.CloseScenarioEvent;
-			import com.mcquilleninteractive.learnhvac.model.ShortTermSimulationModel;
+		import com.mcquilleninteractive.learnhvac.business.ShortTermSimulationDelegate;
+		import com.mcquilleninteractive.learnhvac.event.CloseScenarioEvent;
+		import com.mcquilleninteractive.learnhvac.model.ShortTermSimulationModel;
 		import com.mcquilleninteractive.learnhvac.model.LongTermSimulationModel;
 		import com.mcquilleninteractive.learnhvac.event.ZoneChangeEvent;		
 		import com.mcquilleninteractive.learnhvac.event.ShortTermSimulationEvent;
@@ -40,7 +40,7 @@
 				
 		private var currNode:String 
 		private var overlaysArr:Array
-		private var pe:ParticleEngine
+
 		private var peMasks:Array
 		private var cwArr:Array = [];
 		
@@ -65,7 +65,11 @@
 		[Bindable]
      	private var SetPoint3DControlImage:Class
 		
-		
+		//private var pe:ParticleEngine
+		[Inject] 
+		public var pe:ParticleEngine
+			
+			
 		private function onCreationComplete():void
 		{
 			
@@ -91,7 +95,7 @@
 			
 			//add particle engine
 			peMasks = []
-			pe = new ParticleEngine()
+			//pe = new ParticleEngine()
 			peCanvas.addChild(pe)
 			pe.setScene(ScenarioModel.SN_ROOF)
 			peCanvas.opaqueBackground = null

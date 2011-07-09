@@ -38,7 +38,7 @@ package com.mcquilleninteractive.learnhvac.util
 				
 				var appXML:XML = NativeApplication.nativeApplication.applicationDescriptor;
 				var air:Namespace = appXML.namespaceDeclarations()[0]
-				var version:String = appXML.air::version
+				var version:String = appXML.air::versionNumber
 				
 				if (version.indexOf("v")==0) version = version.substr(1)
 				applicationVersionString = version;

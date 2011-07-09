@@ -8,7 +8,6 @@
      		    color="#000000"
      		    titleStyleName="darkGlass"
 			    close="onPanelClose(event)"
-			    creationComplete="onCC()"
 		>
 		
 	<fx:Script>
@@ -37,22 +36,22 @@
             
             [Bindable] 
             [Inject] 
-            protected var scenarioModel:ScenarioModel
+			public var scenarioModel:ScenarioModel
                               
             [Bindable] 
             [Inject] 
-            protected var applicationModel:ApplicationModel
+			public var applicationModel:ApplicationModel
            
-           public function onCC():void
-           {
-           		if (scenarioModel ==null) 
-           		{
-           			//scenarioModel = Swiz.getBean("scenarioModel") as ScenarioModel
+			[PostConstruct]
+			public function onPostConstruct():void
+			{
+				if (scenarioModel ==null) 
+				{
 					throw new Error('scenarioModel ==null');
-                }
-                setValues(null)
-           }
-            
+				}
+				setValues(null)
+			}
+			
 			
 			[Mediate(event="UnitsEvent.UNITS_CHANGED")]
 			public function onUnitsChange(event:UnitsEvent):void

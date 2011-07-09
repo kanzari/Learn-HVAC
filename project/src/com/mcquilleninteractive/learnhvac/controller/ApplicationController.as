@@ -50,7 +50,10 @@ package com.mcquilleninteractive.learnhvac.controller
 		[Mediate(event="ApplicationEvent.INIT_APP")]
 		public function initApp(event:ApplicationEvent):void
 		{
-			Logger.logToFile = applicationModel.logToFile	
+			
+			Logger.init(ApplicationModel.baseStorageDirPath, applicationModel.logFile, applicationModel.logToFile);
+			
+			
 			Logger.debug("initApp()",this)
 			
 			//init settings

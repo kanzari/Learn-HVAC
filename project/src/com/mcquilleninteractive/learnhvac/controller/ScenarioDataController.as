@@ -3,7 +3,6 @@ package com.mcquilleninteractive.learnhvac.controller
 	import com.mcquilleninteractive.learnhvac.event.ShortTermSimulationEvent;
 	import com.mcquilleninteractive.learnhvac.event.UnitsEvent;
 	import com.mcquilleninteractive.learnhvac.model.*;
-	import com.mcquilleninteractive.learnhvac.model.data.EnergyPlusData;
 	import com.mcquilleninteractive.learnhvac.model.data.ZoneEnergyUseDataPoint;
 	import com.mcquilleninteractive.learnhvac.util.Logger;
 	

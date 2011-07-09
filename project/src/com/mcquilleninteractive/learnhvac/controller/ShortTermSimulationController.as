@@ -17,17 +17,18 @@ package com.mcquilleninteractive.learnhvac.controller
 	import com.mcquilleninteractive.learnhvac.util.Logger;
 	
 	import flash.events.Event;
+	import flash.events.IEventDispatcher;
 	import flash.filesystem.File;
 	import flash.filesystem.FileMode;
 	import flash.filesystem.FileStream;
+	import org.swizframework.core.IInitializing;
 	
 	import mx.controls.Alert;
 	
-	import flash.events.IEventDispatcher;
 	import org.swizframework.controller.AbstractController;
 
 	
-	public class ShortTermSimulationController extends AbstractController  
+	public class ShortTermSimulationController extends AbstractController implements IInitializing
 	{
 		
 		[Inject] 
@@ -51,10 +52,17 @@ package com.mcquilleninteractive.learnhvac.controller
 		public var delegate:IShortTermSimulationDelegate
 		
 		
-		public function ShortTermSimulationController()
+		public function ShortTermSimulationController( )
 		{
-						
+					
 		}
+		
+		public function afterPropertiesSet( ) : void
+		{
+				this.initialize();
+		}
+		
+		
 		
 		public function initialize():void
 		{

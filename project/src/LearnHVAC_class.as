@@ -15,7 +15,7 @@ public var dispatcher:IEventDispatcher;
 private function onPreInit():void
 {		
 	Log.addTarget(traceTarget);
-	Logger.debug("onPreInit()",this);
+	//Logger.debug("onPreInit()",this);
 	dispatcher.dispatchEvent(new ApplicationEvent(ApplicationEvent.INIT_APP, true));
 		
 //	Alert.show( "This is a test" );

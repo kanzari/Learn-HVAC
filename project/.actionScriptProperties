@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <actionScriptProperties analytics="false" mainApplicationPath="LearnHVAC.mxml" projectUUID="60cebed3-1413-45b4-8ac4-e9a28ef77e2a" version="10">
-  <compiler additionalCompilerArguments="-locale en_US -theme=${flexlib}/themes/Halo/halo.swc -include-libraries &quot;../libs/automation_monkey4.x.swc&quot;" autoRSLOrdering="false" copyDependentFiles="true" flex3CompatMode="false" flexSDK="Flex 4.5" fteInMXComponents="false" generateAccessible="true" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="false" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin-debug" removeUnusedRSL="true" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="true" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
+  <compiler additionalCompilerArguments="-locale en_US -theme=${flexlib}/themes/Halo/halo.swc" autoRSLOrdering="false" copyDependentFiles="true" flex3CompatMode="false" flexSDK="Flex 4.5" fteInMXComponents="false" generateAccessible="true" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="false" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin-debug" removeUnusedRSL="true" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="true" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
     <compilerSourcePath/>
     <libraryPath defaultLinkType="0">
       <libraryPathEntry kind="4" path="">
@@ -10,10 +10,6 @@
       </libraryPathEntry>
       <libraryPathEntry kind="1" linkType="1" path="libs"/>
       <libraryPathEntry kind="1" linkType="1" path="C:/AdobeSDKs/AdobeAIRSDK_2.6"/>
-      <libraryPathEntry kind="1" linkType="1" path="${FLEXUNIT_LIB_LOCATION}/version4libs/Common"/>
-      <libraryPathEntry kind="1" linkType="1" path="${FLEXUNIT_LIB_LOCATION}/version4libs/FlexProject"/>
-      <libraryPathEntry kind="1" linkType="1" path="${FLEXUNIT_LIB_LOCATION}/version4libs/FlexProject_Extended"/>
-      <libraryPathEntry kind="1" linkType="1" path="${FLEXUNIT_LOCALE_LOCATION}/version4locale/"/>
       <libraryPathEntry kind="3" linkType="1" path="libs2/swiz-framework-v1.1.0.swc" sourcepath="swiz_source" useDefaultLinkType="false"/>
     </libraryPath>
     <sourceAttachmentPath>

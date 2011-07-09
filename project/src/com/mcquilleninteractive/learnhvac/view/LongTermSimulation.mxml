@@ -40,9 +40,9 @@
 			
 			
             
-			[Bindable]
-			[Inject] 
-			public var scenarioModel:ScenarioModel
+			//[Bindable]
+		//	[Inject] 
+			//public var scenarioModel:ScenarioModel
 			
 			[Bindable]
 			[Inject] 

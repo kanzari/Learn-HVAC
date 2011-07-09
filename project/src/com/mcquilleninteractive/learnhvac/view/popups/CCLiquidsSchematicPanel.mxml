@@ -3,7 +3,6 @@
 				xmlns:util="com.mcquilleninteractive.learnhvac.util.*"
 				width="410" height="305" title="COOLING COIL VALVE INFO"
      			horizontalScrollPolicy="off"  verticalScrollPolicy="off" 
-				creationComplete="onCreationComplete()"
 				close="onPanelClose(event)"
 			    
 		>
@@ -34,23 +33,24 @@
                         
 			[Bindable]
 			[Inject] 
-			protected var applicationModel:ApplicationModel
+			public var applicationModel:ApplicationModel
 			
 			[Bindable]
 			[Inject] 
-			protected var scenarioModel:ScenarioModel
+			public var scenarioModel:ScenarioModel
+			
             
-         
-			public function onCreationComplete():void
+			[PostConstruct]
+			public function onPostConstruct():void
 			{
 				if (scenarioModel ==null) 
-           		{
+				{
 					throw new Error("scenarioModel == null");
-					
-           			//scenarioModel = Swiz.getBean("scenarioModel") as ScenarioModel
-                }
+				}
 				setValues(null)
 			}
+			
+
 			
 			
 			[Mediate(event="UnitsEvent.UNITS_CHANGED")]
