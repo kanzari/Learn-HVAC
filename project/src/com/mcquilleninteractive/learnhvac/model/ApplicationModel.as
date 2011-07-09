@@ -26,7 +26,7 @@ package com.mcquilleninteractive.learnhvac.model
 					
 		// ATTRIBUTES FOR CONTROLLING TEST/MOCK MODE
 		//This flag makes debugging easier --> will cause certain functions to auto-submit (login)
-		public static var debugMode:Boolean = true		
+		public static var debugMode:Boolean = false		
 		
 		//run testing suite
 		public static var runTests:Boolean = false

@@ -94,7 +94,7 @@ package org.swizframework.processors
 			var injectTag:InjectMetadataTag = metadataTag as InjectMetadataTag;
 			
 			if( injectTag.name == AUTOWIRE )
-				logger.warn( "[Inject] has been deprecated in favor of [Inject]. Please update {0} accordingly.", bean );
+				logger.warn( "[Autowire] has been deprecated in favor of [Inject]. Please update {0} accordingly.", bean );
 			
 			// no source attribute means we're injecting by type
 			if( injectTag.source == null )

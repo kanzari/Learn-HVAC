@@ -10,11 +10,9 @@
       </libraryPathEntry>
       <libraryPathEntry kind="1" linkType="1" path="libs"/>
       <libraryPathEntry kind="1" linkType="1" path="C:/AdobeSDKs/AdobeAIRSDK_2.6"/>
-      <libraryPathEntry kind="3" linkType="1" path="libs2/swiz-framework-v1.1.0.swc" sourcepath="swiz_source" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="libs2/swiz-framework-v1.2.0.swc" useDefaultLinkType="false"/>
     </libraryPath>
-    <sourceAttachmentPath>
-      <sourceAttachmentPathEntry kind="3" linkType="1" path="libs2/swiz-framework-v1.1.0.swc" sourcepath="swiz_source" useDefaultLinkType="false"/>
-    </sourceAttachmentPath>
+    <sourceAttachmentPath/>
   </compiler>
   <applications>
     <application path="LearnHVAC.mxml">
