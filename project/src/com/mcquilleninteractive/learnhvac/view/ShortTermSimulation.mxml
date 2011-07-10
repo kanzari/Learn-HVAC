@@ -82,7 +82,11 @@
 							
 		protected function onHide():void
 		{
-			dialogManager.hideAll()
+			
+			if (dialogManager) {
+				dialogManager.hideAll()
+			}
+
 		}
 		
 		protected function onShow():void

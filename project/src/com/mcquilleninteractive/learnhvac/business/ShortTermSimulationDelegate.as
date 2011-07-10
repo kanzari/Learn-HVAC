@@ -273,12 +273,15 @@ package com.mcquilleninteractive.learnhvac.business
 			{
 				_modelicaProcess.exit(true)
 			}
-																
+			
+			_modelicaProcess.start(_startupInfo)
+			_firstStartupOutputReceived = false
+			
+			
 			try
 			{
 				Logger.debug("\n***********************\nSTARTING MODELICA AT : " + _modelicaDir.nativePath + "\n***********************",this)
-				_modelicaProcess.start(_startupInfo)
-				_firstStartupOutputReceived = false
+
 			}
 			catch (err:Error)
 			{				

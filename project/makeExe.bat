@@ -1,1 +1,0 @@
-C:\AdobeSDKs\flex_sdk_4.5.0.20967\bin\adt -package -target native "C:\projects\superb\FlashBuilderWorkspace\LearnHVAC_AIR4\project\LearnHVAC_2.2.04_setup.exe" "C:\projects\superb\FlashBuilderWorkspace\LearnHVAC_AIR4\project\LearnHVAC.air"
