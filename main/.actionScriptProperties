@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<actionScriptProperties analytics="false" mainApplicationPath="LearnHVAC.mxml" projectUUID="60cebed3-1413-45b4-8ac4-e9a28ef77e2a" version="10">
+  <compiler additionalCompilerArguments="-locale en_US -theme=${flexlib}/themes/Halo/halo.swc -include-libraries &quot;../libs/automation_monkey4.x.swc&quot;&#13;&#10;&quot;${flexlib}/libs/automation/automation_spark.swc&quot; &quot;${flexlib}/libs/automation/automation.swc&quot; &quot;${flexlib}/libs/automation/automation_agent.swc&quot; &quot;${flexlib}/libs/automation/automation_dmv.swc&quot; &quot;${flexlib}/libs/automation/automation_air.swc&quot; &quot;${flexlib}/libs/automation/automation_airspark.swc&quot;" autoRSLOrdering="false" copyDependentFiles="true" flex3CompatMode="false" flexSDK="Flex 4.5.1_Air_2.7" fteInMXComponents="false" generateAccessible="true" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="false" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin-debug" removeUnusedRSL="true" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="true" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
+    <compilerSourcePath/>
+    <libraryPath defaultLinkType="0">
+      <libraryPathEntry kind="4" path="">
+        <excludedEntries>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/flex.swc" useDefaultLinkType="false"/>
+        </excludedEntries>
+      </libraryPathEntry>
+      <libraryPathEntry kind="1" linkType="1" path="libs"/>
+      <libraryPathEntry kind="3" linkType="1" path="libs2/swiz-framework-v1.2.0.swc" sourcepath="lib_source/swiz-framework" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="/astra-flex/bin/astra-flex.swc" useDefaultLinkType="false"/>
+    </libraryPath>
+    <sourceAttachmentPath>
+      <sourceAttachmentPathEntry kind="3" linkType="1" path="libs2/swiz-framework-v1.2.0.swc" sourcepath="lib_source/swiz-framework" useDefaultLinkType="false"/>
+    </sourceAttachmentPath>
+  </compiler>
+  <applications>
+    <application path="LearnHVAC.mxml">
+      <airExcludes/>
+    </application>
+  </applications>
+  <modules/>
+  <buildCSSFiles/>
+  <flashCatalyst validateFlashCatalystCompatibility="false"/>
+  <buildTargets>
+    <buildTarget buildTargetName="default">
+      <airSettings airCertificatePath="C:/projects/superb/Learn Green Buildings/misc/superb_cert.p12" airTimestamp="true" version="1">
+        <airExcludes/>
+      </airSettings>
+      <actionScriptSettings version="1"/>
+    </buildTarget>
+  </buildTargets>
+</actionScriptProperties>
