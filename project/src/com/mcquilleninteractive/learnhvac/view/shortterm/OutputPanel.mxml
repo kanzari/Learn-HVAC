@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<util:DragPanel xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx"
+<util:DragPanel 
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx"
 	 xmlns:util="com.mcquilleninteractive.learnhvac.util.*"    
 	 xmlns:controls="com.mcquilleninteractive.controls.*" 
 	 backgroundColor="#CCCCCC" 
@@ -8,6 +11,7 @@
 	 height="100%"
 	 creationComplete="onCreationComplete()"
 	 title="OUTPUT PANEL"
+	 verticalScrollPolicy="off"
 	 >
 		<fx:Script>
 	
@@ -147,7 +151,7 @@
 				}
 			}
 			
-			protected function formatForTwoDecimals(item:Object, column:DataGridColumn):String 
+			protected function formatForTwoDecimals(item:Object, column:GridColumn):String 
 			{
 				return fmtTwoDecimals.format(item.currValue);;
 			}
@@ -165,10 +169,12 @@
 							rounding="nearest"
 							precision="2"
 							/>
+		
+		
 	</fx:Declarations>
 
-	
-	<mx:VBox width="100%" height="100%" backgroundColor="0xFFFFFF">
+		
+	<mx:VBox width="100%" height="100%" backgroundColor="0xFFFFFF" verticalScrollPolicy="off">
 		
 		<mx:HBox paddingLeft="5" paddingTop="5">
 		
@@ -179,17 +185,17 @@
 						change="comboNodeSelect(event)"/>	
 		</mx:HBox>
 		
-		<mx:DataGrid id="dgOutputVariables"
+<!--		<mx:DataGrid id="dgOutputVariables"
 					 width="100%"
 					 height="100%"
   				  	 paddingTop="0"
-  				  	 mouseDown="onDrag(event)"
-  				  	 dragEnabled="true"
-  				  	 dropEnabled="false"
+					 mouseDown="onDrag(event)"
+					 dragEnabled="true"
+					 dropEnabled="false"
 	 				 dragComplete="onDragComplete(event)"
   				  	  >
-			<mx:columns>
-				<mx:DataGridColumn headerText="Name" dataField="displayName" />
+			<mx:columns >
+				<mx:DataGridColumn 					 headerText="Name" dataField="displayName" />
 				<mx:DataGridColumn headerText="Variable" dataField="name" width="120" />
 				<mx:DataGridColumn 
 					headerText="Value" 
@@ -199,7 +205,26 @@
 					/>
 				<mx:DataGridColumn headerText="Units" dataField="units" width="50" />
 			</mx:columns>	
-		</mx:DataGrid>
+		</mx:DataGrid>-->
+		
+		<mx:VBox verticalScrollPolicy="on">
+			
+		<s:DataGrid id="dgOutputVariables"
+					verticalScrollPolicy="off"
+					mouseDown="onDrag(event)">
+			<s:columns>
+				<s:ArrayList>
+					<s:GridColumn headerText="Name" dataField="displayName" />
+					<s:GridColumn headerText="Variable" dataField="name" width="120" />
+					<s:GridColumn headerText="Value" dataField="currValue" width="100" labelFunction="formatForTwoDecimals" />
+					<s:GridColumn headerText="Units" dataField="units" width="50" />
+				</s:ArrayList>
+			</s:columns>
+		</s:DataGrid>
+			
+		</mx:VBox>
+		
+		
 		
 	</mx:VBox>
 	

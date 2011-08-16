@@ -143,7 +143,7 @@ package com.mcquilleninteractive.learnhvac.controller
 				
 		protected function onLoginError(error:IOErrorEvent) : void
 		{
-			Alert.show( "Login Failed" );
+			Alert.show( "Login Failed: \n" +  error.text);
 			Logger.debug("onLoginError() error: " + error, this)
 							
 			userModel.username = ""
