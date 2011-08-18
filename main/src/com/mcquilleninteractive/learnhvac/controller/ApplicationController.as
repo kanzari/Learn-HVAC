@@ -214,15 +214,17 @@ package com.mcquilleninteractive.learnhvac.controller
 			
 			//COPY ENERGYPLUS			
 			//if this is mac, copy the mac E+ files, otherwise copy the default (PC) ones
-			if (Capabilities.os.toLowerCase().indexOf("mac") != -1)
+/*			if (Capabilities.os.toLowerCase().indexOf("mac") != -1)
 			{				
 				var copyEnergyPlusFromDir:File = File.applicationDirectory.resolvePath("EnergyPlusMac")
 			}
 			else
 			{
 				copyEnergyPlusFromDir = File.applicationDirectory.resolvePath("EnergyPlus")
-			}
+			}*/
 			
+			var copyEnergyPlusFromDir:File = File.applicationDirectory.resolvePath("EnergyPlus")
+				
 			var copyEnergyPlusToDir:File = File.userDirectory.resolvePath(ApplicationModel.baseStorageDirPath + "EnergyPlus")
 			try
 			{
@@ -235,7 +237,7 @@ package com.mcquilleninteractive.learnhvac.controller
 			}
 			
 			//If this is mac, copy the lib folder too
-			if (Capabilities.os.toLowerCase().indexOf("mac") != -1)
+/*			if (Capabilities.os.toLowerCase().indexOf("mac") != -1)
 			{				
 				var copyLibFromDir:File = File.applicationDirectory.resolvePath("lib")
 				var copyLibToDir:File = File.userDirectory.resolvePath(ApplicationModel.baseStorageDirPath + "lib")
@@ -248,7 +250,7 @@ package com.mcquilleninteractive.learnhvac.controller
 					Logger.error("Couldn't copy the lib directory to directory: " + copyLibToDir.nativePath + " error: " + error, this)
 					throw new Error("Couldn't copy " + copyLibFromDir.nativePath +  " directory to the " + copyLibToDir.nativePath + " folder.", "Startup Error")
 				}
-			}
+			}*/
 			
 			
 			

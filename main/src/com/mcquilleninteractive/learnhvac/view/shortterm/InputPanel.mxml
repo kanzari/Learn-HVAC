@@ -816,11 +816,13 @@
 			/>
 			
 		<mx:Spacer width="100%"/>
-		<mx:LinkButton id="btnReset"
+		
+		
+<!--		<mx:LinkButton id="btnReset"
 			label="Reset Values"
 			click="resetToInitial()"
 			toolTip="Reset to initial values"
-		/>
+		/>-->
 			
 		
 		<mx:Spacer width="5"/>
