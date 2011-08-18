@@ -176,10 +176,10 @@
 				}
 			}
 			
-/* 			protected function formatForTwoDecimals(item:Object, column:DataGridColumn):String 
+			protected function formatForTwoDecimals(item:Object, column:DataGridColumn):String 
 			{
 				return fmtTwoDecimals.format(item.currValue);;
-			} */
+			} 
 			
 			
 					
@@ -251,6 +251,7 @@
 						headerText="Value" 
 						dataField="currValue" 
 						width="100" 
+						labelFunction="formatForTwoDecimals"
 						/>
 					<mx:DataGridColumn headerText="Units" dataField="units" width="50" />
 				</mx:columns>

@@ -63,7 +63,7 @@
         <UIEvent command="Click" value="Open Scenario" prop="automationName" delay="1000" attempts="10" retryOnlyOnResponse="false"/>
         <Pause duration="3000"/>
       </Test>
-      <Test name="OutputPanel" description="null" defaultThinkTime="250" ignore="false">
+      <Test name="Drag scroll bar on output panel" description="https://www.pivotaltracker.com/story/show/16863109" defaultThinkTime="250" ignore="false">
         <UIEvent command="Click" value="Open output data window" prop="automationName" delay="1000" attempts="10" retryOnlyOnResponse="false"/>
         <UIEvent command="Click" value="Open watch panel" prop="automationName" delay="1000" attempts="10" retryOnlyOnResponse="false"/>
         <UIEvent command="Scroll" value="dataGridContainer" prop="automationName" delay="1000" attempts="10" retryOnlyOnResponse="false">

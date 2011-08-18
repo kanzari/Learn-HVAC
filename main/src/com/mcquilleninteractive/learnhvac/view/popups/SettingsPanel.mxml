@@ -3,6 +3,7 @@
 	width="420" height="480"
 	title="Settings"
 	horizontalScrollPolicy ="off"
+	initialize="onInit(event)"
 	>
 	
 	<fx:Script>
@@ -22,8 +23,9 @@
 			[Autowire(bean="applicationModel")]
 			public function set applicationModel(model:ApplicationModel):void
 			{
-				_applicationModel = model
-				init()
+				_applicationModel = model;
+				//init();
+
 			}
 			
 			
@@ -62,6 +64,12 @@
 				//TODO : add here any validations that have to happen 
                return true
             }
+			
+			protected function onInit(event:Event):void
+			{
+				// TODO Auto-generated method stub
+				init();
+			}
 			
 		]]>
 	</fx:Script>

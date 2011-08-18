@@ -195,9 +195,9 @@
 			
 			
 			<util:MenuItem label="Help" id="help">
-				<util:MenuItem label="Help contents" id="view_help_files" data="view_help_files"/>
+<!--				<util:MenuItem label="Help contents" id="view_help_files" data="view_help_files"/>-->
 				<util:MenuItem label="LearnVHAC website" id="learn_hvac_website" data="learn_hvac_website"/>
-				<util:MenuItem label="Glossary" id="help_glossary" data="help_glossary"/>
+<!--				<util:MenuItem label="Glossary" id="help_glossary" data="help_glossary"/>-->
 				
 			</util:MenuItem>   
 		</util:MenuItem>
