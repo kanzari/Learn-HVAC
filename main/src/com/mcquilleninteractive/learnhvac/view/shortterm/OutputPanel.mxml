@@ -12,7 +12,28 @@
 	 creationComplete="onCreationComplete()"
 	 title="OUTPUT PANEL"
 	 verticalScrollPolicy="off"
+	 resize="dragpanel1_resizeHandler(event)"
+	 
 	 >
+	
+	<fx:Declarations>
+		<s:ArrayList id="TweetersList">
+			<fx:Object name="Dan Florio" 	twitter="polyGeek" />
+			<fx:Object name="David Ortinau" 	twitter="davidortinau" />
+			<fx:Object name="Simeon Bateman" 	twitter="simBateman" />
+			<fx:Object name="Dan Florio" 	twitter="polyGeek" />
+			<fx:Object name="David Ortinau" 	twitter="davidortinau" />
+			<fx:Object name="Simeon Bateman" 	twitter="simBateman" />
+			<fx:Object name="Dan Florio" 	twitter="polyGeek" />
+			<fx:Object name="David Ortinau" 	twitter="davidortinau" />
+			<fx:Object name="Simeon Bateman" 	twitter="simBateman" />
+			<fx:Object name="Dan Florio" 	twitter="polyGeek" />
+			<fx:Object name="David Ortinau" 	twitter="davidortinau" />
+			<fx:Object name="Simeon Bateman" 	twitter="simBateman" />	
+			
+		</s:ArrayList>
+	</fx:Declarations>
+	
 		<fx:Script>
 	
 		<![CDATA[
@@ -32,7 +53,9 @@
 			import mx.controls.Image;
 			import mx.core.DragSource;
 			import mx.events.DragEvent;
+			import mx.events.FlexEvent;
 			import mx.events.ItemClickEvent;
+			import mx.events.ResizeEvent;
 			import mx.managers.DragManager;
             
             
@@ -75,6 +98,7 @@
 				cboSysNode.dataProvider = outputFilterModel;
 				
 				buildOutputGrid()
+				setDataGridHeight()
 				
 				
 			}
@@ -113,7 +137,8 @@
 			public function comboNodeSelect(event:Event):void
 			{
 				var selectedIndex:Number = event.target.selectedIndex;
-				updateOutputValueView(selectedIndex)		
+				updateOutputValueView(selectedIndex);
+				setDataGridHeight();
 			}
 			
 			public function onDragComplete(event:DragEvent):void
@@ -127,7 +152,7 @@
 				try
 				{
 			 		// Get the drag initiator component from the event object.
-               		var dragInitiator:DataGrid = event.currentTarget as DataGrid;
+               		var dragInitiator:mx.controls.DataGrid = event.currentTarget as mx.controls.DataGrid;
     
                 	// Create a DragSource object.
                 	var dragSource:DragSource = new DragSource();
@@ -151,13 +176,34 @@
 				}
 			}
 			
-			protected function formatForTwoDecimals(item:Object, column:GridColumn):String 
+/* 			protected function formatForTwoDecimals(item:Object, column:DataGridColumn):String 
 			{
 				return fmtTwoDecimals.format(item.currValue);;
-			}
+			} */
 			
 			
 					
+			protected function dragpanel1_resizeHandler(event:ResizeEvent):void
+			{
+
+				
+				dataGridContainer.height = this.height -80;
+				setDataGridHeight();
+
+			}
+			
+			private function setDataGridHeight() : void {
+				if(outputVarsView) {
+					dgOutputVariables.height = outputVarsView.length * dgOutputVariables.rowHeight;
+				}
+			}
+			
+			protected function dgOutputVariables_dataChangeHandler(event:FlexEvent):void
+			{
+				// TODO Auto-generated method stub
+				dgOutputVariables.height = 500;
+			}
+			
 		]]>
 		
 		
@@ -174,8 +220,8 @@
 	</fx:Declarations>
 
 		
-	<mx:VBox width="100%" height="100%" backgroundColor="0xFFFFFF" verticalScrollPolicy="off">
-		
+	<mx:VBox width="100%" height="100%"  backgroundColor="0xFFFFFF"  >
+
 		<mx:HBox paddingLeft="5" paddingTop="5">
 		
 			<mx:ComboBox id="cboSysNode"
@@ -185,29 +231,51 @@
 						change="comboNodeSelect(event)"/>	
 		</mx:HBox>
 		
-<!--		<mx:DataGrid id="dgOutputVariables"
-					 width="100%"
-					 height="100%"
-  				  	 paddingTop="0"
-					 mouseDown="onDrag(event)"
-					 dragEnabled="true"
-					 dropEnabled="false"
-	 				 dragComplete="onDragComplete(event)"
-  				  	  >
-			<mx:columns >
-				<mx:DataGridColumn 					 headerText="Name" dataField="displayName" />
-				<mx:DataGridColumn headerText="Variable" dataField="name" width="120" />
-				<mx:DataGridColumn 
-					headerText="Value" 
-					dataField="currValue" 
-					width="100" 
-					labelFunction="formatForTwoDecimals"
-					/>
-				<mx:DataGridColumn headerText="Units" dataField="units" width="50" />
-			</mx:columns>	
-		</mx:DataGrid>-->
+		<mx:VBox id="dataGridContainer" verticalScrollPolicy="on" width="100%" height="200" backgroundColor="0xFFFFFF" >
+			
+			<mx:DataGrid id="dgOutputVariables"
+						 width="100%"
+	  				  	 paddingTop="0"
+						 mouseDown="onDrag(event)"
+						 dragEnabled="true"
+						 dropEnabled="false"
+						 verticalScrollPolicy="off"
+						 dataChange="dgOutputVariables_dataChangeHandler(event)"
+						
+	  				  	 >
+				
+				<mx:columns>
+					<mx:DataGridColumn headerText="Name" dataField="displayName" />
+					<mx:DataGridColumn headerText="Variable" dataField="name" width="120" />
+					<mx:DataGridColumn 
+						headerText="Value" 
+						dataField="currValue" 
+						width="100" 
+						/>
+					<mx:DataGridColumn headerText="Units" dataField="units" width="50" />
+				</mx:columns>
+				
+			</mx:DataGrid>
+			
+			
+<!--			<s:DataGrid
+				id="dgOutputVariables"
+				width="100%" 
+				height="100%" 
+				dataProvider="{TweetersList}"
+				dr
+				>
+				
+
+				
+			</s:DataGrid>-->
+				
+		</mx:VBox>
 		
-		<mx:VBox verticalScrollPolicy="on">
+		
+
+		
+		<!--<mx:VBox verticalScrollPolicy="on">
 			
 		<s:DataGrid id="dgOutputVariables"
 					verticalScrollPolicy="off"
@@ -216,15 +284,15 @@
 				<s:ArrayList>
 					<s:GridColumn headerText="Name" dataField="displayName" />
 					<s:GridColumn headerText="Variable" dataField="name" width="120" />
-					<s:GridColumn headerText="Value" dataField="currValue" width="100" labelFunction="formatForTwoDecimals" />
+					<s:GridColumn headerText="Value" dataField="currValue" width="100" labelFunction="" />
 					<s:GridColumn headerText="Units" dataField="units" width="50" />
 				</s:ArrayList>
 			</s:columns>
 		</s:DataGrid>
 			
-		</mx:VBox>
+		</mx:VBox>-->
 		
-		
+
 		
 	</mx:VBox>
 	

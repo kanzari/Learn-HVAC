@@ -15,6 +15,7 @@
 	xmlns:swiz="http://swiz.swizframework.org"
 	xmlns:myComps="*"
     preinitialize="onPreInit()"
+	addedToStage="onAddedToStage(event)"
 	applicationComplete="onAppComplete()"
 	pageTitle="Learn HVAC" 
 	width="100%" 
@@ -47,6 +48,8 @@
 				var event:LogoutEvent = new LogoutEvent(LogoutEvent.LOGOUT, true)
 				dispatchEvent(event)
 			}
+			
+
 			
 		]]>
 	</fx:Script>

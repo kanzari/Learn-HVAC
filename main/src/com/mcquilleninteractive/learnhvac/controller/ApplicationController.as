@@ -17,6 +17,7 @@ package com.mcquilleninteractive.learnhvac.controller
 	import com.mcquilleninteractive.learnhvac.util.AboutInfo;
 	import com.mcquilleninteractive.learnhvac.util.HTMLToolTip;
 	import com.mcquilleninteractive.learnhvac.util.Logger;
+
 	
 	import flash.events.Event;
 	import flash.filesystem.*;
@@ -90,7 +91,10 @@ package com.mcquilleninteractive.learnhvac.controller
 			
 			FlexGlobals.topLevelApplication.addEventListener(Event.CLOSING, onAppClose, false, 0, true)	
 			
-					
+				
+
+
+			
 		}
 		
 		[Mediate(event="ApplicationEvent.START_APP")]
