@@ -173,6 +173,14 @@
 			}
 
 			
+			protected function onBtnClearResults(event:MouseEvent):void
+			{
+/* 				var event:ScenarioDataLoadedEvent = new ScenarioDataLoadedEvent(ScenarioDataLoadedEvent.ENERGY_PLUS_DATA_PARSED, true )
+				event.graphDataModel = IGraphDataModel(eplusData)
+				event.graphDataModelID = runID */
+				
+			}
+			
 		]]>
 	</fx:Script>
 	
@@ -220,7 +228,6 @@
 		<mx:VDividedBox 
 			height="100%" width="100%" 	
 		    barColor="#DDDDDD"
-			
 			>
 			
 			<mx:VBox
@@ -274,8 +281,24 @@
 			 	    
 			 		 />
 			</mx:VBox>
-		
+			
 		</mx:VDividedBox>
+		
+		<mx:VBox  
+			width="100%" 
+			height="40"
+			backgroundColor="0xADBBC2" 
+			paddingTop="5" 
+			paddingBottom="5"
+			borderStyle="solid"
+			borderSides="bottom"
+			verticalGap="-1"
+			verticalScrollPolicy="off"
+			>
+			
+			<mx:Button id="btnClearResults" label="Clear Results" height="30" click="onBtnClearResults(event)"/>
+			
+		</mx:VBox>
 		
 	</mx:VBox>
 	

@@ -384,7 +384,7 @@
 					 >
    	 
    	
-	<importControls:ShortTermOptions id="optionsPanel" visible="true"/> 
+	<importControls:ShortTermSimulationRunOptions id="optionsPanel" visible="true"/> 
    	 
 				     
 	<mx:Canvas id="inputsAndFaults"

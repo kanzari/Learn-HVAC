@@ -13,7 +13,7 @@
         </UIEvent>
         <Pause duration="2500"/>
         <Verify value="Basic Scenario" prop="automationName" description="Verify Basic Scenerio" isRetryable="true" delay="500" attempts="20" verifyBitmap="false" snapshotURL="E90FD87E-E062-816B-E41C-61F1C5DA26F9.snp" verifyBitmapFuzziness="0">
-          <Attribute name="text" expectedValue="Basic Scenario" type="property" actualValue="null"/>
+          <Attribute name="text" expectedValue="Basic Scenario" type="property" actualValue="Basic Scenario"/>
         </Verify>
       </Test>
       <Test name="Logout" description="null" defaultThinkTime="0" ignore="false">
@@ -58,7 +58,7 @@
         </UIEvent>
         <Pause duration="1500"/>
         <Verify value="Basic Scenario" prop="automationName" description="Verify Basic Scenerio" isRetryable="true" delay="500" attempts="20" verifyBitmap="false" snapshotURL="E90FD87E-E062-816B-E41C-61F1C5DA26F9.snp" verifyBitmapFuzziness="0">
-          <Attribute name="text" expectedValue="Basic Scenario" type="property" actualValue="Basic Scenario"/>
+          <Attribute name="text" expectedValue="Basic Scenario" type="property" actualValue="null"/>
         </Verify>
         <UIEvent command="Click" value="Open Scenario" prop="automationName" delay="1000" attempts="10" retryOnlyOnResponse="false"/>
         <Pause duration="3000"/>
@@ -77,6 +77,81 @@
         <UIEvent command="DragDrop" value="dgWatchVariables" prop="automationName" delay="1000" attempts="10" retryOnlyOnResponse="false">
           <arg value="move"/>
         </UIEvent>
+      </Test>
+    </TestCase>
+    <TestCase name="Long Term" description="null" ignore="false">
+      <Test name="Login as user 'rrd'" description="null" defaultThinkTime="0" ignore="false">
+        <UIEvent command="Input" value="username" prop="automationName" delay="500" attempts="10" retryOnlyOnResponse="false">
+          <arg value="rrd"/>
+        </UIEvent>
+        <UIEvent command="Input" value="password" prop="automationName" delay="500" attempts="10" retryOnlyOnResponse="false">
+          <arg value="rrdrrd"/>
+        </UIEvent>
+        <UIEvent command="Click" value="btnLogin" prop="id" delay="500" attempts="10" retryOnlyOnResponse="false">
+          <arg value=""/>
+        </UIEvent>
+        <Pause duration="2500"/>
+        <Verify value="Basic Scenario" prop="automationName" description="Verify Basic Scenerio" isRetryable="true" delay="500" attempts="20" verifyBitmap="false" snapshotURL="E90FD87E-E062-816B-E41C-61F1C5DA26F9.snp" verifyBitmapFuzziness="0">
+          <Attribute name="text" expectedValue="Basic Scenario" type="property" actualValue="Basic Scenario"/>
+        </Verify>
+        <UIEvent command="Click" value="Open Scenario" prop="automationName" delay="1000" attempts="10" retryOnlyOnResponse="false"/>
+        <Pause duration="3000"/>
+      </Test>
+      <Test name="change date" description="null" defaultThinkTime="250" ignore="false">
+        <UIEvent command="Change" value="appTabBar" prop="automationName" delay="1000" attempts="10" retryOnlyOnResponse="false">
+          <arg value="Long-term Sim."/>
+        </UIEvent>
+        <UIEvent command="Open" value="dfStopDate" prop="automationName" delay="1000" attempts="10" retryOnlyOnResponse="false"/>
+        <UIEvent command="Scroll" value="dfStopDate" prop="automationName" delay="1000" attempts="10" retryOnlyOnResponse="false">
+          <arg value="3"/>
+        </UIEvent>
+        <UIEvent command="Scroll" value="dfStopDate" prop="automationName" delay="1000" attempts="10" retryOnlyOnResponse="false">
+          <arg value="3"/>
+        </UIEvent>
+        <UIEvent command="Scroll" value="dfStopDate" prop="automationName" delay="1000" attempts="10" retryOnlyOnResponse="false">
+          <arg value="3"/>
+        </UIEvent>
+        <UIEvent command="Scroll" value="dfStopDate" prop="automationName" delay="1000" attempts="10" retryOnlyOnResponse="false">
+          <arg value="3"/>
+        </UIEvent>
+        <UIEvent command="Scroll" value="dfStopDate" prop="automationName" delay="1000" attempts="10" retryOnlyOnResponse="false">
+          <arg value="3"/>
+        </UIEvent>
+        <UIEvent command="Scroll" value="dfStopDate" prop="automationName" delay="1000" attempts="10" retryOnlyOnResponse="false">
+          <arg value="3"/>
+        </UIEvent>
+        <UIEvent command="Scroll" value="dfStopDate" prop="automationName" delay="1000" attempts="10" retryOnlyOnResponse="false">
+          <arg value="3"/>
+        </UIEvent>
+        <UIEvent command="Scroll" value="dfStopDate" prop="automationName" delay="1000" attempts="10" retryOnlyOnResponse="false">
+          <arg value="3"/>
+        </UIEvent>
+        <UIEvent command="Scroll" value="dfStopDate" prop="automationName" delay="1000" attempts="10" retryOnlyOnResponse="false">
+          <arg value="3"/>
+        </UIEvent>
+        <UIEvent command="Scroll" value="dfStopDate" prop="automationName" delay="1000" attempts="10" retryOnlyOnResponse="false">
+          <arg value="3"/>
+        </UIEvent>
+        <UIEvent command="Scroll" value="dfStopDate" prop="automationName" delay="1000" attempts="10" retryOnlyOnResponse="false">
+          <arg value="3"/>
+        </UIEvent>
+        <UIEvent command="Change" value="dfStopDate" prop="automationName" delay="1000" attempts="10" retryOnlyOnResponse="false">
+          <arg value="Sun Jan 2 2011"/>
+        </UIEvent>
+      </Test>
+      <Test name="Run Long Term Test" description="null" defaultThinkTime="250" ignore="false">
+        <UIEvent command="Click" value="btnRunEPlus" prop="automationName" delay="1000" attempts="10" retryOnlyOnResponse="false"/>
+        <Pause duration="28000"/>
+        <Verify value="Simulation Finished" prop="automationName" description="New Verify" isRetryable="true" delay="500" attempts="20" verifyBitmap="false" snapshotURL="verify-112-6438.snp" verifyBitmapFuzziness="0">
+          <Attribute name="text" expectedValue="Long-term simulation finished. Use the Analysis section to view results." type="property" actualValue="Long-term simulation finished. Use the Analysis section to view results."/>
+        </Verify>
+        <UIEvent command="Click" value="OK" prop="automationName" delay="1000" attempts="10" retryOnlyOnResponse="false"/>
+        <UIEvent command="Change" value="appTabBar" prop="automationName" delay="1000" attempts="10" retryOnlyOnResponse="false">
+          <arg value="Analysis"/>
+        </UIEvent>
+        <Verify value="1/2 23:00:00" prop="automationName" description="New Verify" isRetryable="true" delay="500" attempts="20" verifyBitmap="false" snapshotURL="verify-113-4461.snp" verifyBitmapFuzziness="0">
+          <Attribute name="text" expectedValue="1/2 23:00:00" type="property" actualValue="1/2 23:00:00"/>
+        </Verify>
       </Test>
     </TestCase>
   </TestSuite>

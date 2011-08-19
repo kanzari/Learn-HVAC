@@ -76,7 +76,7 @@
 	 	</fx:Script>
 	
 	
-		<head:GlassHeaders headerTitle="SIMULATION DATA"/>
+		<head:GlassHeaders headerTitle="SIMULATION RESULTS"/>
 	
 	 	<mx:TabNavigator id="tabNav" height="100%" 
 						 width="100%" 

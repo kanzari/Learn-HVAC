@@ -194,24 +194,35 @@
 	<mx:Label text="Run length:" fontWeight="bold" />
 			
 	<mx:HBox>					
-		<mx:Label text="Start date: " fontSize="9"  width="100"   />
-		<mx:DateField id="dfStartDate"	
-       		x="90" y="33"
+		<mx:Label text="Start date: " 
+				  fontSize="9"  
+				  width="100"   />
+		
+		<mx:DateField 
+			id="dfStartDate"	
+       		x="90" 
+			y="33"
+			editable="true"
 			yearNavigationEnabled="false"
     		visible="true"
     		change="dfStartDayChange()"
-    		
-    	   />	
+			width="102"
+    	   />
+		
 	</mx:HBox>
    
     
 	<mx:HBox>			
 		<mx:Label text="Stop date: " fontSize="9"  width="100"  />
-		<mx:DateField id="dfStopDate" 					   		
-       		x="270" y="33"	    	
+		<mx:DateField 
+			id="dfStopDate" 					   		
+       		x="270" 
+			y="33"
+			editable="true"
 			yearNavigationEnabled="false"
     		visible="true"
     		change="dfStopDayChange()"
+			width="102"
 	 	/>	
 	</mx:HBox>		
 		    	

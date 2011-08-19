@@ -186,7 +186,8 @@
 			</util:MenuItem>
 		
 			<util:MenuItem label="Scenario" id="scenario">
-				<util:MenuItem label="Close scenario" 
+				<util:MenuItem 
+					label="Close scenario" 
 					id="close_project" 
 					data="close_scenario" 
 					enabled="{applicationModel.scenarioLoaded}"/>

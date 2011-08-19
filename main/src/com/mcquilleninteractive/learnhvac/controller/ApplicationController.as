@@ -212,20 +212,10 @@ package com.mcquilleninteractive.learnhvac.controller
 				Logger.error("Couldn't copy Modelica files: Error: " + error,this)
 			}	
 			
-			//COPY ENERGYPLUS			
-			//if this is mac, copy the mac E+ files, otherwise copy the default (PC) ones
-/*			if (Capabilities.os.toLowerCase().indexOf("mac") != -1)
-			{				
-				var copyEnergyPlusFromDir:File = File.applicationDirectory.resolvePath("EnergyPlusMac")
-			}
-			else
-			{
-				copyEnergyPlusFromDir = File.applicationDirectory.resolvePath("EnergyPlus")
-			}*/
 			
 			var copyEnergyPlusFromDir:File = File.applicationDirectory.resolvePath("EnergyPlus")
-				
 			var copyEnergyPlusToDir:File = File.userDirectory.resolvePath(ApplicationModel.baseStorageDirPath + "EnergyPlus")
+				
 			try
 			{
 				copyEnergyPlusFromDir.copyTo(copyEnergyPlusToDir, true)
@@ -236,24 +226,8 @@ package com.mcquilleninteractive.learnhvac.controller
 				throw new Error("Couldn't copy " + copyEnergyPlusFromDir.nativePath +  " directory to the " + copyEnergyPlusToDir.nativePath + " folder.", "Startup Error")
 			}
 			
-			//If this is mac, copy the lib folder too
-/*			if (Capabilities.os.toLowerCase().indexOf("mac") != -1)
-			{				
-				var copyLibFromDir:File = File.applicationDirectory.resolvePath("lib")
-				var copyLibToDir:File = File.userDirectory.resolvePath(ApplicationModel.baseStorageDirPath + "lib")
-				try
-				{
-					copyLibFromDir.copyTo(copyLibToDir, true)
-				}
-				catch(error:Error)
-				{
-					Logger.error("Couldn't copy the lib directory to directory: " + copyLibToDir.nativePath + " error: " + error, this)
-					throw new Error("Couldn't copy " + copyLibFromDir.nativePath +  " directory to the " + copyLibToDir.nativePath + " folder.", "Startup Error")
-				}
-			}*/
-			
-			
-			
+
+
 			//copy the weather files to the storage directory	
 			var weatherFiles:File = File.applicationDirectory.resolvePath("weather")
 			var copyWeatherFiles:File = File.userDirectory.resolvePath(ApplicationModel.baseStorageDirPath + "weather")

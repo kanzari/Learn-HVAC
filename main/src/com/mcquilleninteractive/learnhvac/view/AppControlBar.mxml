@@ -236,18 +236,28 @@
 		    itemClick="onTabClick(event)"
 		    selectedIndex="0"
 		    focusEnabled="false"
-		   
+			tabWidth="160"
 			>
+			
 			<mx:dataProvider>       
-				<fx:Object label="Short-term Sim."  
+				<fx:Object 
+						label="Short-term Simulation"  
 						icon="{BuildingIcon}"
-						data="modelica"/>
-				<fx:Object label="Long-term Sim." 
+						data="modelica"
+						width="200"
+						/>
+				<fx:Object 
+						label="Long-term Simulation" 
 						icon="{SunIcon}"
-						data="eplus"/>
-   				<fx:Object label="Analysis"  
+						data="eplus"
+						width="200"
+						/>
+   				<fx:Object label="Results"  
 						icon="{ChartIcon}"
-   						data="analysis"/>                    
+   						data="analysis"
+						width="200"
+						/>       
+				
 			</mx:dataProvider>
 		</mx:TabBar>
 		

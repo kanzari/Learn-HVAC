@@ -409,10 +409,13 @@
 	
 			
 			<mx:Label text="Date:" width="100"/>
-			<mx:DateField id="dateField" 
-						  change="updateSimulationStartDateAndTime()"
-						  toolTip="Start date for the short-term simulation"	
-						  styleName="simDatePicker"
+			<mx:DateField 
+				id="dateField" 
+				change="updateSimulationStartDateAndTime()"
+				toolTip="Start date for the short-term simulation"	
+				styleName="simDatePicker"
+				editable="true"
+				width="102"
 						  />
 		</mx:HBox>
 	
