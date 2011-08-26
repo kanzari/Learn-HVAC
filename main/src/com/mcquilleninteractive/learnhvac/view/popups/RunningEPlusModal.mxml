@@ -46,7 +46,7 @@
 			
 		}
 		
-		[Mediate(event="ScenarioDataLoadedEvent.ENERGY_PLUS_DATA_PARSED")]
+		[Mediate(event="ScenarioDataLoadedEvent.ENERGY_PLUS_RESULTS_PARSED")]
 		public function onEPlusDataParsed(event:ScenarioDataLoadedEvent):void
 		{
 			Logger.debug("onEPlusDataParsed() called. Removing modal popup.", this)

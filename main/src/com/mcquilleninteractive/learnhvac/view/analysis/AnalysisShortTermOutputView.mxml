@@ -81,21 +81,40 @@
 			
 			
 			
+
+			
+			public function init(gdModel:IGraphDataModel):void
+			{				
+				mainView.visible = false
+				vbxNoData.visible = true
+			
+			}
+			
 			public function loadData(gdModel:IGraphDataModel):void
 			{				
 				mainView.visible = true
 				vbxNoData.visible = false
 				initTree(gdModel)
+				callLater(expandAll)	
 				txtStartDateTime.text = gdModel.startDateTimeString
 				txtStopDateTime.text = gdModel.stopDateTimeString
-				callLater(expandAll)				
 			}
+			
 			
 			public function initTree(gdModel:IGraphDataModel):void
 			{
 				treVariables.graphDataModel = gdModel
-				dataStructure = gdModel.dataStructureXML.Campus.Building
+					
+				//gdModel.dataStructureXML.Campus.Building.label = "Output";
+				dataStructure = gdModel.dataStructureXML.Campus.Building;
+				
+				
+				dataStructure[0].@label = 'Building';
+
+				
+			//	dataStructure.
 				treVariables.invalidateProperties()
+					
 			}		
 			
 			public function onCC():void
@@ -106,12 +125,12 @@
 			
 			private function collapseAll():void
 			{
-				treVariables.expandChildrenOf(dataStructure, false)
+				treVariables.expandChildrenOf(dataStructure[0], false)
 			}
 			
 			private function expandAll():void
 			{
-				treVariables.expandChildrenOf(dataStructure, true)
+				treVariables.expandChildrenOf(dataStructure[0], true)
 			}	
 			
 			//Label and icon functions for tree
@@ -172,9 +191,9 @@
 	</fx:Script>
 	
 	
-	<mx:VBox id="vbxNoData" width="100%" height="100%" paddingLeft="5">			
+	<mx:VBox id="vbxNoData" width="100%" height="100%" paddingLeft="5">		
 		<mx:Label text="{title}" fontWeight="bold" paddingTop="5" paddingBottom="5"/>
-		<mx:Label id="lblNoData" text="No Results" visible="true" width="120" />
+		<mx:Label id="lblNoData" text="nothing to display" visible="true" width="120" />
 	</mx:VBox>
 	
 	<mx:VBox  
@@ -201,12 +220,12 @@
 				 >
 			<mx:Label text="Period:" id="lblPeriod" fontWeight="bold"/>			
 			<mx:HBox>
-				<mx:Label width="95" text="Start date/time:" color="#8f843b"/>
+				<mx:Label width="95" text="Start:" color="#8f843b"/>
 				<mx:Label id="txtStartDateTime" width="120" text=""/>
 			</mx:HBox>
 			<mx:Spacer height="3"/>
 			<mx:HBox>
-				<mx:Label width="95" text="Stop date/time:" color="#8f843b"/>
+				<mx:Label width="95" text="Finish:" color="#8f843b"/>
 				<mx:Label id="txtStopDateTime" width="120" text=""/>
 			</mx:HBox>
 		</mx:VBox>

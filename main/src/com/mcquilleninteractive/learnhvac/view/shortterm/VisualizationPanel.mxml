@@ -5,7 +5,7 @@
 		xmlns:viz="com.mcquilleninteractive.learnhvac.view.visualization.*"
 		xmlns:overlay="com.mcquilleninteractive.learnhvac.view.shortterm.overlay.*"
 	 	width="670" height="500" backgroundColor="#333333"
-		creationComplete="onCreationComplete()"
+		addedToStage="onAddedToStage()"
 	    horizontalScrollPolicy="off"
 	    creationPolicy="all"
 		verticalScrollPolicy="off">
@@ -66,11 +66,22 @@
      	private var SetPoint3DControlImage:Class
 		
 		//private var pe:ParticleEngine
-		[Inject] 
+		
 		public var pe:ParticleEngine
 			
+		
+		[Inject]
+		public function setParticleEngine( pe:ParticleEngine ):void
+		{
+			if (pe !== null) { 
+				this.pe = pe;
+			} else {
+				Logger.debug("Injecting pe as Null", this);
+			}
+		}
 			
-		private function onCreationComplete():void
+		//private function onCreationComplete():void
+		private function onAddedToStage():void
 		{
 			
 			//add listener for miniNav,since it's not a part of SWIZ environment
@@ -227,7 +238,8 @@
 		public function playIntroAnim():void
 		{
 			dispatchEvent(new Event("introAnimStarted"))
-			animPanel.playIntroAnim()
+			onIntroAnimFinished();
+			//animPanel.playIntroAnim()
 		}
 		
 		
@@ -276,7 +288,7 @@
 			if (currNode == newNode) return			
 			hideNode()
 			currNode = newNode	
-			animPanel.navigateTo(currNode)
+			//animPanel.navigateTo(currNode)
 		}
 		
 		[Mediate(event="SimNavEvent.NAVIGATION")]		

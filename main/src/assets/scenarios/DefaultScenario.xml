@@ -99,9 +99,9 @@
         <displayName type="String">VAV reheat coil valve boot leakage</displayName>
         <description type="String"></description>
         <index type="Integer">33</index>
-        <lowValue type="Float">0.0</lowValue>
+        <lowValue type="Float">1.0</lowValue>
         <highValue type="Float">100.0</highValue>
-        <initialValue type="Float">0.0</initialValue>
+        <initialValue type="Float">50.0</initialValue>
 
         <ioType type="String">INPUT</ioType>
         <viewType type="String">PUBLIC</viewType>
@@ -114,8 +114,8 @@
         <faultWidgetType type="String">SLIDER</faultWidgetType>
         <faultIsActive type="Boolean">false</faultIsActive>
         <subsection type="String"></subsection>
-        <leftLabel type="String">Leaky</leftLabel>
-        <rightLabel type="String">Leaky</rightLabel>
+        <leftLabel type="String">1% leakage</leftLabel>
+        <rightLabel type="String">100% leakage</rightLabel>
 
         <zonePosition type="String">LEFT</zonePosition>
         <isPercentage type="Boolean">true</isPercentage>
@@ -152,10 +152,10 @@
         <displayName type="String">Leaky VAV reheat coil valve</displayName>
         <description type="String"></description>
         <index type="Integer">34</index>
-        <lowValue type="Float">0.0</lowValue>
+        <lowValue type="Float">1.0</lowValue>
 
         <highValue type="Float">100.0</highValue>
-        <initialValue type="Float">0.0</initialValue>
+        <initialValue type="Float">50.0</initialValue>
         <ioType type="String">INPUT</ioType>
         <viewType type="String">PUBLIC</viewType>
         <unitSI type="String">%</unitSI>
@@ -168,8 +168,8 @@
         <faultIsActive type="Boolean">false</faultIsActive>
         <subsection type="String"></subsection>
 
-        <leftLabel type="String">Leaky</leftLabel>
-        <rightLabel type="String">Leaky</rightLabel>
+        <leftLabel type="String">1% leakage</leftLabel>
+        <rightLabel type="String">100% leakage</rightLabel>
         <zonePosition type="String">CENTER</zonePosition>
         <isPercentage type="Boolean">true</isPercentage>
       </sysVar>
@@ -179,9 +179,9 @@
         <displayName type="String">Stuck VAV reheat coil valve</displayName>
         <description type="String"></description>
         <index type="Integer">35</index>
-        <lowValue type="Float">0.0</lowValue>
+        <lowValue type="Float">1.0</lowValue>
         <highValue type="Float">100.0</highValue>
-        <initialValue type="Float">0.0</initialValue>
+        <initialValue type="Float">50.0</initialValue>
 
         <ioType type="String">INPUT</ioType>
         <viewType type="String">PUBLIC</viewType>
@@ -194,8 +194,8 @@
         <faultWidgetType type="String">SLIDER</faultWidgetType>
         <faultIsActive type="Boolean">false</faultIsActive>
         <subsection type="String"></subsection>
-        <leftLabel type="String">open</leftLabel>
-        <rightLabel type="String">open</rightLabel>
+        <leftLabel type="String">1% open</leftLabel>
+        <rightLabel type="String">100% open</rightLabel>
 
         <zonePosition type="String">CENTER</zonePosition>
         <isPercentage type="Boolean">true</isPercentage>
@@ -224,10 +224,10 @@
         <displayName type="String">VAV fouled reheat coil</displayName>
         <description type="String"></description>
         <index type="Integer">36</index>
-        <lowValue type="Float">0.0</lowValue>
+        <lowValue type="Float">1.0</lowValue>
         <highValue type="Float">100.0</highValue>
 
-        <initialValue type="Float">0.0</initialValue>
+        <initialValue type="Float">50.0</initialValue>
         <ioType type="String">INPUT</ioType>
         <viewType type="String">PUBLIC</viewType>
         <unitSI type="String">%</unitSI>
@@ -239,9 +239,9 @@
         <faultWidgetType type="String">SLIDER</faultWidgetType>
         <faultIsActive type="Boolean">false</faultIsActive>
         <subsection type="String"></subsection>
-        <leftLabel type="String">Fouled</leftLabel>
+        <leftLabel type="String">1% Fouled</leftLabel>
 
-        <rightLabel type="String">Fouled</rightLabel>
+        <rightLabel type="String">100% Fouled</rightLabel>
         <zonePosition type="String">LEFT</zonePosition>
         <isPercentage type="Boolean">true</isPercentage>
       </sysVar>
@@ -362,9 +362,9 @@
         <description type="String"></description>
 
         <index type="Integer">37</index>
-        <lowValue type="Float">0.0</lowValue>
+        <lowValue type="Float">1.0</lowValue>
         <highValue type="Float">100.0</highValue>
-        <initialValue type="Float">0.0</initialValue>
+        <initialValue type="Float">50.0</initialValue>
         <ioType type="String">INPUT</ioType>
         <viewType type="String">PUBLIC</viewType>
 
@@ -377,8 +377,8 @@
         <faultIsActive type="Boolean">false</faultIsActive>
 
         <subsection type="String"></subsection>
-        <leftLabel type="String">Undersized</leftLabel>
-        <rightLabel type="String">Undersized</rightLabel>
+        <leftLabel type="String">1% Undersized</leftLabel>
+        <rightLabel type="String">100% Undersized</rightLabel>
         <zonePosition type="String">LEFT</zonePosition>
         <isPercentage type="Boolean">true</isPercentage>
       </sysVar>
@@ -727,9 +727,9 @@
         <ioType type="String">INPUT</ioType>
 
         <viewType type="String">PUBLIC</viewType>
-        <unitSI type="String"></unitSI>
+        <unitSI type="String">%</unitSI>
         <SItoIP type="String"></SItoIP>
-        <unitIP type="String"></unitIP>
+        <unitIP type="String">%</unitIP>
         <disabled type="Boolean">true</disabled>
         <isFault type="Boolean">true</isFault>
         <faultWidgetType type="String">SLIDER</faultWidgetType>
@@ -823,10 +823,10 @@
         <displayName type="String">Fouled cooling coil</displayName>
         <description type="String"></description>
         <index type="Integer">41</index>
-        <lowValue type="Float">0.0</lowValue>
+        <lowValue type="Float">1.0</lowValue>
 
         <highValue type="Float">100.0</highValue>
-        <initialValue type="Float">0.0</initialValue>
+        <initialValue type="Float">50.0</initialValue>
         <ioType type="String">INPUT</ioType>
         <viewType type="String">PUBLIC</viewType>
         <unitSI type="String">%</unitSI>
@@ -839,8 +839,8 @@
         <faultIsActive type="Boolean">false</faultIsActive>
         <subsection type="String"></subsection>
 
-        <leftLabel type="String">Fouled</leftLabel>
-        <rightLabel type="String">Fouled</rightLabel>
+        <leftLabel type="String">1% fouled</leftLabel>
+        <rightLabel type="String">100% fouled</rightLabel>
         <zonePosition type="String">LEFT</zonePosition>
         <isPercentage type="Boolean">true</isPercentage>
       </sysVar>
@@ -868,10 +868,10 @@
         <displayName type="String">Cooling coil valve boot leakage</displayName>
         <description type="String"></description>
         <index type="Integer">38</index>
-        <lowValue type="Float">0.0</lowValue>
+        <lowValue type="Float">1.0</lowValue>
 
         <highValue type="Float">100.0</highValue>
-        <initialValue type="Float">0.0</initialValue>
+        <initialValue type="Float">50.0</initialValue>
         <ioType type="String">INPUT</ioType>
         <viewType type="String">PUBLIC</viewType>
         <unitSI type="String">%</unitSI>
@@ -884,8 +884,8 @@
         <faultIsActive type="Boolean">false</faultIsActive>
         <subsection type="String"></subsection>
 
-        <leftLabel type="String">Leaky</leftLabel>
-        <rightLabel type="String">Leaky</rightLabel>
+        <leftLabel type="String">1% leakage</leftLabel>
+        <rightLabel type="String">100% leakage</rightLabel>
         <zonePosition type="String">LEFT</zonePosition>
         <isPercentage type="Boolean">true</isPercentage>
       </sysVar>
@@ -932,9 +932,9 @@
         <displayName type="String">Stuck cooling coil valve</displayName>
         <description type="String"></description>
         <index type="Integer">40</index>
-        <lowValue type="Float">0.0</lowValue>
+        <lowValue type="Float">1.0</lowValue>
         <highValue type="Float">100.0</highValue>
-        <initialValue type="Float">0.0</initialValue>
+        <initialValue type="Float">50.0</initialValue>
 
         <ioType type="String">INPUT</ioType>
         <viewType type="String">PUBLIC</viewType>
@@ -947,8 +947,8 @@
         <faultWidgetType type="String">SLIDER</faultWidgetType>
         <faultIsActive type="Boolean">false</faultIsActive>
         <subsection type="String"></subsection>
-        <leftLabel type="String">Stuck</leftLabel>
-        <rightLabel type="String">Stuck</rightLabel>
+        <leftLabel type="String">1% stuck</leftLabel>
+        <rightLabel type="String">100% Stuck</rightLabel>
 
         <zonePosition type="String">LEFT</zonePosition>
         <isPercentage type="Boolean">true</isPercentage>
@@ -996,9 +996,9 @@
         <description type="String"></description>
 
         <index type="Integer">39</index>
-        <lowValue type="Float">0.0</lowValue>
+        <lowValue type="Float">1.0</lowValue>
         <highValue type="Float">100.0</highValue>
-        <initialValue type="Float">0.0</initialValue>
+        <initialValue type="Float">50.0</initialValue>
         <ioType type="String">INPUT</ioType>
         <viewType type="String">PUBLIC</viewType>
 
@@ -1011,8 +1011,8 @@
 
         <faultIsActive type="Boolean">false</faultIsActive>
         <subsection type="String"></subsection>
-        <leftLabel type="String">Leaky</leftLabel>
-        <rightLabel type="String">Leaky</rightLabel>
+        <leftLabel type="String">1% leaky</leftLabel>
+        <rightLabel type="String">100% leaky</rightLabel>
         <zonePosition type="String">LEFT</zonePosition>
         <isPercentage type="Boolean">true</isPercentage>
 
@@ -1115,9 +1115,9 @@
         <description type="String"></description>
 
         <index type="Integer">42</index>
-        <lowValue type="Float">0.0</lowValue>
+        <lowValue type="Float">1.0</lowValue>
         <highValue type="Float">100.0</highValue>
-        <initialValue type="Float">0.0</initialValue>
+        <initialValue type="Float">50.0</initialValue>
         <ioType type="String">INPUT</ioType>
         <viewType type="String">PUBLIC</viewType>
 
@@ -1130,8 +1130,8 @@
 
         <faultIsActive type="Boolean">false</faultIsActive>
         <subsection type="String"></subsection>
-        <leftLabel type="String">Undersized</leftLabel>
-        <rightLabel type="String">Undersized</rightLabel>
+        <leftLabel type="String">1% undersized</leftLabel>
+        <rightLabel type="String">100% undersized</rightLabel>
         <zonePosition type="String">LEFT</zonePosition>
         <isPercentage type="Boolean">true</isPercentage>
 
@@ -1340,9 +1340,9 @@
 
         <description type="String"></description>
         <index type="Integer">25</index>
-        <lowValue type="Float">0.0</lowValue>
+        <lowValue type="Float">1.0</lowValue>
         <highValue type="Float">100.0</highValue>
-        <initialValue type="Float">0.0</initialValue>
+        <initialValue type="Float">50.0</initialValue>
         <ioType type="String">INPUT</ioType>
 
         <viewType type="String">PUBLIC</viewType>
@@ -1355,8 +1355,8 @@
         <faultWidgetType type="String">SLIDER</faultWidgetType>
         <faultIsActive type="Boolean">false</faultIsActive>
         <subsection type="String">Valve</subsection>
-        <leftLabel type="String">0% open</leftLabel>
-        <rightLabel type="String">100% open</rightLabel>
+        <leftLabel type="String">1% leakage</leftLabel>
+        <rightLabel type="String">100% leakage</rightLabel>
         <zonePosition type="String">NO_GRADIENT</zonePosition>
 
         <isPercentage type="Boolean">true</isPercentage>
@@ -1367,9 +1367,9 @@
         <description type="String"></description>
         <index type="Integer">27</index>
 
-        <lowValue type="Float">0.0</lowValue>
+        <lowValue type="Float">1.0</lowValue>
         <highValue type="Float">100.0</highValue>
-        <initialValue type="Float">0.0</initialValue>
+        <initialValue type="Float">50.0</initialValue>
         <ioType type="String">INPUT</ioType>
         <viewType type="String">PUBLIC</viewType>
         <unitSI type="String">%</unitSI>
@@ -1382,7 +1382,7 @@
         <faultIsActive type="Boolean">false</faultIsActive>
 
         <subsection type="String">Valve</subsection>
-        <leftLabel type="String">0% open</leftLabel>
+        <leftLabel type="String">1% open</leftLabel>
         <rightLabel type="String">100% open</rightLabel>
         <zonePosition type="String">NO_GRADIENT</zonePosition>
         <isPercentage type="Boolean">true</isPercentage>
@@ -1486,9 +1486,9 @@
         <description type="String"></description>
         <index type="Integer">26</index>
 
-        <lowValue type="Float">0.0</lowValue>
+        <lowValue type="Float">1.0</lowValue>
         <highValue type="Float">100.0</highValue>
-        <initialValue type="Float">0.0</initialValue>
+        <initialValue type="Float">50.0</initialValue>
         <ioType type="String">INPUT</ioType>
         <viewType type="String">PUBLIC</viewType>
         <unitSI type="String">%</unitSI>
@@ -1501,8 +1501,8 @@
         <faultIsActive type="Boolean">false</faultIsActive>
 
         <subsection type="String">Valve</subsection>
-        <leftLabel type="String">0% leaky</leftLabel>
-        <rightLabel type="String">100% leaky</rightLabel>
+        <leftLabel type="String">1% leakage</leftLabel>
+        <rightLabel type="String">100% leakage</rightLabel>
         <zonePosition type="String">LEFT</zonePosition>
         <isPercentage type="Boolean">true</isPercentage>
       </sysVar>
@@ -1549,10 +1549,10 @@
         <displayName type="String">Fouled heating coil</displayName>
         <description type="String"></description>
         <index type="Integer">28</index>
-        <lowValue type="Float">0.0</lowValue>
+        <lowValue type="Float">1.0</lowValue>
         <highValue type="Float">100.0</highValue>
 
-        <initialValue type="Float">0.0</initialValue>
+        <initialValue type="Float">50.0</initialValue>
         <ioType type="String">INPUT</ioType>
         <viewType type="String">PUBLIC</viewType>
         <unitSI type="String">%</unitSI>
@@ -1564,7 +1564,7 @@
         <faultWidgetType type="String">SLIDER</faultWidgetType>
         <faultIsActive type="Boolean">false</faultIsActive>
         <subsection type="String">Coil</subsection>
-        <leftLabel type="String">0% fouled</leftLabel>
+        <leftLabel type="String">1% fouled</leftLabel>
 
         <rightLabel type="String">100% fouled</rightLabel>
         <zonePosition type="String">LEFT</zonePosition>
@@ -1631,10 +1631,10 @@
         <displayName type="String">Under sized coil</displayName>
         <description type="String"></description>
         <index type="Integer">29</index>
-        <lowValue type="Float">0.0</lowValue>
+        <lowValue type="Float">1.0</lowValue>
 
         <highValue type="Float">100.0</highValue>
-        <initialValue type="Float">0.0</initialValue>
+        <initialValue type="Float">50.0</initialValue>
         <ioType type="String">INPUT</ioType>
         <viewType type="String">PUBLIC</viewType>
         <unitSI type="String">%</unitSI>
@@ -1647,7 +1647,7 @@
         <faultIsActive type="Boolean">false</faultIsActive>
         <subsection type="String">Coil</subsection>
 
-        <leftLabel type="String">0% undersized</leftLabel>
+        <leftLabel type="String">1% undersized</leftLabel>
         <rightLabel type="String">100% undersized</rightLabel>
         <zonePosition type="String">LEFT</zonePosition>
         <isPercentage type="Boolean">true</isPercentage>
@@ -1977,9 +1977,9 @@
         <isFault type="Boolean">true</isFault>
         <faultWidgetType type="String">SLIDER</faultWidgetType>
         <faultIsActive type="Boolean">false</faultIsActive>
-        <subsection type="String">Negative</subsection>
-        <leftLabel type="String">Positive</leftLabel>
-        <rightLabel type="String"></rightLabel>
+        <subsection type="String"></subsection>
+        <leftLabel type="String">Negative</leftLabel>
+        <rightLabel type="String">Positive</rightLabel>
 
         <zonePosition type="String">CENTER</zonePosition>
         <isPercentage type="Boolean">false</isPercentage>

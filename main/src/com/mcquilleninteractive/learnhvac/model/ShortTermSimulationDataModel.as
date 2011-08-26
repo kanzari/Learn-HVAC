@@ -56,12 +56,12 @@ package com.mcquilleninteractive.learnhvac.model
 					
 			//launch event for each run
 			Logger.debug("init() dispatching loaded event", this)
-			var event:ScenarioDataLoadedEvent = new ScenarioDataLoadedEvent(ScenarioDataLoadedEvent.SHORT_TERM_SYSVARS_LOADED,true)
+			var event:ScenarioDataLoadedEvent = new ScenarioDataLoadedEvent(ScenarioDataLoadedEvent.MODELICA_SYSVARS_LOADED,true)
 			event.graphDataModel = IGraphDataModel(runsArr[ShortTermSimulationDataModel.RUN_1])
 			event.graphDataModelID =  currRunID
 			dispatcher.dispatchEvent(event)
 				
-			var event2:ScenarioDataLoadedEvent = new ScenarioDataLoadedEvent(ScenarioDataLoadedEvent.SHORT_TERM_SYSVARS_LOADED,true)
+			var event2:ScenarioDataLoadedEvent = new ScenarioDataLoadedEvent(ScenarioDataLoadedEvent.MODELICA_SYSVARS_LOADED,true)
 			event2.graphDataModel = IGraphDataModel(runsArr[ShortTermSimulationDataModel.RUN_2])
 			event2.graphDataModelID =  ShortTermSimulationDataModel.RUN_2
 			dispatcher.dispatchEvent(event2)
@@ -82,8 +82,24 @@ package com.mcquilleninteractive.learnhvac.model
 		
 		public function currRunComplete():void
 		{
-			if (currRunID==ShortTermSimulationDataModel.RUN_1) initialLoaded = true
-			if (currRunID==ShortTermSimulationDataModel.RUN_2) comparisonLoaded = true
+			
+			var event:ScenarioDataLoadedEvent = new ScenarioDataLoadedEvent(ScenarioDataLoadedEvent.MODELICA_RESULTS_PARSED, true )
+			event.graphDataModelID =  currRunID
+				
+			if (currRunID==ShortTermSimulationDataModel.RUN_1) {
+				initialLoaded = true
+				event.graphDataModel = IGraphDataModel(runsArr[ShortTermSimulationDataModel.RUN_1])
+			}
+			
+			if (currRunID==ShortTermSimulationDataModel.RUN_2) {
+				comparisonLoaded = true
+				event.graphDataModel = IGraphDataModel(runsArr[ShortTermSimulationDataModel.RUN_2])
+			}
+			
+			dispatcher.dispatchEvent(event)
+			
+
+				
 		}
 
 

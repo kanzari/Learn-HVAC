@@ -102,7 +102,7 @@ package com.mcquilleninteractive.learnhvac.model
 			eplusData.energyPlusInputsMemento = longTermSimulationModel.getEnergyPlusInputsMemento()
 				
 			//launch event
-			var event:ScenarioDataLoadedEvent = new ScenarioDataLoadedEvent(ScenarioDataLoadedEvent.ENERGY_PLUS_DATA_PARSED, true )
+			var event:ScenarioDataLoadedEvent = new ScenarioDataLoadedEvent(ScenarioDataLoadedEvent.ENERGY_PLUS_RESULTS_PARSED, true )
 			event.graphDataModel = IGraphDataModel(eplusData)
 			event.graphDataModelID = runID
 				

@@ -4,15 +4,26 @@
 			xmlns:view="com.mcquilleninteractive.learnhvac.view.*"
 			xmlns:scenario="com.mcquilleninteractive.learnhvac.view.scenario.*"
 			xmlns:analysis="com.mcquilleninteractive.learnhvac.view.analysis.*" 
-			height="100%" 
-			width="100%" 
-			horizontalScrollPolicy="off" 
-			verticalScrollPolicy="off">
+			horizontalScrollPolicy="auto" 
+			verticalScrollPolicy="auto">
 	
 	<fx:Script>
 		<![CDATA[
 			import com.mcquilleninteractive.learnhvac.event.LoggedInEvent;
 			import com.mcquilleninteractive.learnhvac.model.ApplicationModel;
+			import com.mcquilleninteractive.learnhvac.model.DialogManager;
+			
+			
+			public var dialogManager:DialogManager
+			
+			[Inject]
+			public function setDialogManager( dialogManager:DialogManager ):void
+			{
+				if (dialogManager !== null) { 
+					dialogManager.theParentDisplayObj = this;
+				} 
+			}
+			
 			
 			[Inject] 
 			[Bindable]
@@ -46,15 +57,19 @@
 		
 		<view:AppControlBar id="appBarCanvas" width="100%" />	
 		
-		<mx:ViewStack width="100%" height="100%"
+		<mx:ViewStack
+				id="mainApplicationViewStack"
+				width="100%" 
+				height="100%"
 		  		paddingLeft="0" 
 				paddingRight="0" 
 				paddingBottom="0" 
 				paddingTop="0" 
-				resizeToContent="true" 
 				selectedIndex="{applicationModel.viewing}"
 			    historyManagementEnabled="false"
 			    creationPolicy="all"
+				resizeToContent="true"
+				
 				>
 			<scenario:SelectScenario id="pnlSelectScenario"/>
 			<view:LongTermSimulation id="pnlSetup"/>

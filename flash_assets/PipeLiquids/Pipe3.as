@@ -1,0 +1,1 @@
+﻿package  {		public class Pipe3 extends Pipe	{		public function Pipe3() 		{			// constructor code			beginX = -3			beginY = -55			endX = -3			endY = -44		}	}	}

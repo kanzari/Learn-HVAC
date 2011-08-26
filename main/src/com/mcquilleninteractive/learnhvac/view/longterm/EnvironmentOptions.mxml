@@ -19,6 +19,7 @@
 						
 			import mx.validators.Validator			
 			import mx.collections.ArrayCollection
+			import com.mcquilleninteractive.learnhvac.event.ScenarioLoadedEvent
 			
 		
 			[Bindable]
@@ -51,7 +52,7 @@
 			}
 			
 			[Mediate(event="ScenarioLoadedEvent.SCENARIO_LOADED")]
-			public function onScenarioLoaded():void
+			public function onScenarioLoaded(event: ScenarioLoadedEvent):void
 			{				
 				cboRegion.dataProvider = longTermSimulationModel.regionsAC
 				cboRegion.selectedIndex = longTermSimulationModel.regionSelectedIndex

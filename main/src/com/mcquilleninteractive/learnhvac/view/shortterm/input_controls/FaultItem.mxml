@@ -145,6 +145,13 @@
   				{
   					Logger.error("#FaultItem: unrecognized faultWidgetType: " + sysVar.faultWidgetType)
   				}
+				
+				if(value.faultIsActive) {
+					lblTitle.setStyle("fontWeight", "bold");
+				} else {
+					lblTitle.setStyle("fontWeight", "normal");
+				}
+
       		}
 					
 			private function sliderDataTip(val:Number):String
@@ -258,6 +265,7 @@
 				  	textAlign="left"
 				  	color="0x222222"
 				  	width="220"
+					fontWeight="normal"
 		/>
     	
     	
@@ -271,7 +279,7 @@
 	
 		<mx:Label 	id="lblRightLabel"
 					x="130" y="19" 
-					width="100"
+					width="130"
 				  	text="{data.rightLabel}"
 				  	textAlign="right"
 				  	color="0x555555"
@@ -302,6 +310,7 @@
 				focusOut="outFocusHandler(event)"
 		/>
 		
+
 		
 		<!--
 		<mx:Label 	id="lblCurrFaultValue2"
@@ -326,7 +335,25 @@
 			  toolTip="Drag icon to watch panel"
 			  />		 
 		
-				 
+		<mx:Label 	id="lblCurrFaultValue2"
+					x="294" 
+					y="42"
+					width="60" 
+					height="22" 
+					textAlign="left"
+					visible = "{data.faultIsActive}"
+					text="{data.units}"
+					/>
+
+		<mx:Image id="activeBar2"
+				  source="{FaultActiveBar}" 
+				  visible = "{data.faultIsActive}"
+				  x="350"	
+				  y="0"
+				  width="7"
+				  toolTip="Fault is active."
+				  />		
+		
     </mx:Canvas>
       	
 	

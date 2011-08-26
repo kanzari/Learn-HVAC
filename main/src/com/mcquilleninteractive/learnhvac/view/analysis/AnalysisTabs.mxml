@@ -7,19 +7,28 @@
 	<fx:Script>
 		<![CDATA[
 			import com.mcquilleninteractive.learnhvac.model.ScenarioModel;
-          	import mx.events.ItemClickEvent
-            
-            
+          	import mx.events.ItemClickEvent;
+			import com.mcquilleninteractive.learnhvac.event.ScenarioDataLoadedEvent;
+			import mx.controls.tabBarClasses.Tab;
+			
 			[Bindable]
 			[Inject] 
 			public var scenarioModel:ScenarioModel			
-				
+			private var meterTab : Tab;
+			
+			
 			public function onCreationComplete():void
 			{
-				
+				meterTab = runModeTabBar.getChildAt(1) as Tab;
+				meterTab.enabled = false;
 			}
 			
 					
+			[Mediate(event="ScenarioDataLoadedEvent.ENERGY_PLUS_RESULTS_PARSED")]
+			public function onEPlusDataParsed(event:ScenarioDataLoadedEvent):void
+			{
+				meterTab.enabled = true;
+			}
 			
 			public function onTabClick(event:ItemClickEvent):void
 			{
@@ -51,8 +60,8 @@
         itemClick="onTabClick(event)"
         >
         <mx:dataProvider>       
-            <fx:Object label="Core Data"	data="core"/>
-            <fx:Object label="Meter Data"	data="meter"/>                
+            <fx:Object label="CORE DATA"	data="core"/>
+            <fx:Object label="METER DATA"	data="meter"/>                
         </mx:dataProvider>
    	</mx:TabBar>
 	

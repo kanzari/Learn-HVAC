@@ -3,7 +3,7 @@
 	xmlns:view="com.mcquilleninteractive.learnhvac.view.*" 
 	xmlns:graphing="com.mcquilleninteractive.learnhvac.view.graphing.*" 
     backgroundColor="0xFFFFFF"
-    creationComplete="onCC()"
+    addedToStage="onAddedToStage()"
 	>
 	
 	
@@ -39,7 +39,11 @@
 			[Inject( source="longTermSimulationDataModel" )]
 			public function set longTermSimulationDataModel( model:LongTermSimulationDataModel ) : void
 			{
-				this._longTermSimulationDataModel = model;
+				if (model !== null) { 
+					this._longTermSimulationDataModel = model;
+				} else {
+					Logger.debug("Injecting model as Null", this);
+				}
 			}
 			
 			
@@ -51,7 +55,7 @@
 	    	private var dataAC:ArrayCollection
 	    	
 	    	
-	    	private function onCC():void
+	    	private function onAddedToStage():void
 	    	{
 	    		
 	    		//hash manages which lines are drawn on chart

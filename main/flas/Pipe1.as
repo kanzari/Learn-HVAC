@@ -1,0 +1,1 @@
+﻿package  {	import flash.events.MouseEvent;		public class Pipe1 extends Pipe	{		public function Pipe1() 		{			// constructor code						beginX = 0			beginY = 0			endX = 10			endY = -7					}			}	}

@@ -546,6 +546,11 @@ package org.swizframework.core
 		
 		protected function addRemovedDisplayObject( displayObject:DisplayObject ):void
 		{
+			
+			if (displayObject.id == "pnlSim") {
+				trace ("BeanFactory.addRemovedDisplayObject()");
+			}
+			
 			if( removedDisplayObjects.indexOf( displayObject ) == -1 )
 				removedDisplayObjects.push( displayObject );
 			

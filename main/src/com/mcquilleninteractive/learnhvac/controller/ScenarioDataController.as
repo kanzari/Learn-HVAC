@@ -83,7 +83,7 @@ package com.mcquilleninteractive.learnhvac.controller
 		
 		
 		[Mediate(event="ShortTermSimulationEvent.SIM_STOP")]		
-		public function onSimStop(event:Event):void
+		public function onSimStop(event:ShortTermSimulationEvent):void
 		{
 			scenarioDataModel.clearZoneEnergyUse()
 		}

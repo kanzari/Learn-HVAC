@@ -113,42 +113,52 @@ package com.mcquilleninteractive.learnhvac.util
 			}
 			
 			
-            var monsterLevel:String = ""
-              
+            var monsterLevel:String = "";
+             
+				
+			var msg : String = ""
+			
+			if (target!=null) {
+				msg = String(target) + " : ";
+			}
+				
+			msg	 += o.toString();
+				
+			
 			switch(lvl)
             {
             
             	case LogEventLevel.DEBUG:
                 	if (Log.isDebug()) {
-                    	myLogger.debug(String(target) + " : " + o.toString()) 
+                    	myLogger.debug(msg) 
                     }
                     break;
 				case LogEventLevel.INFO:
 					if (Log.isInfo()) {
-						myLogger.info(String(target) + " : " +o.toString()); 
+						myLogger.info(msg); 
                     	o = "INFO: " + String(target) + o
 					}
 					break;
 				case LogEventLevel.WARN:
 					if (Log.isWarn()) {
-                        myLogger.warn(String(target) + " : " + o.toString());
+                        myLogger.warn(msg);
                     	o = "WARN: " + String(target) + o
                     }
                     break;
                 case LogEventLevel.ERROR:
                     if (Log.isError()) {
-                        myLogger.error(String(target) + " : " + o.toString());
+                        myLogger.error(msg);
                     	o = "ERROR: " + String(target) + o
                     }
                     break;
                 case LogEventLevel.FATAL:
                     if (Log.isFatal()) {
-                        myLogger.fatal(String(target) + " : " + o.toString());
+                        myLogger.fatal(msg);
                     	o = "FATAL: " + String(target) + o
                     }
                     break;
 				case LogEventLevel.ALL:
-					myLogger.log(lvl, String(target) + " : " +  o.toString());
+					myLogger.log(lvl, msg);
 					break;
             }
             

@@ -17,7 +17,7 @@
 				import com.mcquilleninteractive.learnhvac.util.Conversions;
 				import com.mcquilleninteractive.learnhvac.util.Logger;
 				import com.mcquilleninteractive.learnhvac.vo.LongTermSimulationVO;
-				
+				import com.mcquilleninteractive.learnhvac.event.ScenarioLoadedEvent
 				import mx.validators.Validator;
 			
 			
@@ -25,10 +25,21 @@
 			[Inject] 
 			public var scenarioModel:ScenarioModel	
 				
-			[Bindable]	
-			[Inject] 		
-			public var longTermSimulationModel:LongTermSimulationModel	
+			[Bindable]
+			public var longTermSimulationModel:LongTermSimulationModel
 			
+			[Inject]
+			public function setScenarioModel( longTermSimulationModel:LongTermSimulationModel ):void
+			{
+				if (longTermSimulationModel !== null) { 
+					this.longTermSimulationModel = longTermSimulationModel;
+				} else {
+					Logger.debug("Injecting longTermSimulationModel as Null", this);
+				}
+			}
+				
+				
+				
 			private var _elevationView:ElevationView
 			private var _zoneSelector:ZoneSelector;
 			
@@ -60,7 +71,7 @@
 			}	
 			
 			[Mediate(event="ScenarioLoadedEvent.SCENARIO_LOADED")]			
-			public function onScenarioLoaded():void
+			public function onScenarioLoaded(event : ScenarioLoadedEvent):void
 			{				
 				_equipPeakLoad = Conversions.roundToDecimals(longTermSimulationModel.equipPeakLoad, 2)
 				_lightingPeakLoad =  Conversions.roundToDecimals(longTermSimulationModel.lightingPeakLoad, 2)

@@ -10,21 +10,23 @@
 			horizontalCenter="0"
 			addedToStage="onAddedToStage()"
 			xmlns:view="com.mcquilleninteractive.learnhvac.view.*"
+			initialize="canvas1_initializeHandler(event)"
 		>
 
 	<fx:Script>
 	    <![CDATA[
-	    	import com.mcquilleninteractive.learnhvac.event.ApplicationEvent;
-	    	import com.mcquilleninteractive.learnhvac.event.LoginEvent;
-	    	import com.mcquilleninteractive.learnhvac.event.LogoutEvent;
-	    	import com.mcquilleninteractive.learnhvac.model.ApplicationModel;
-	    	import com.mcquilleninteractive.learnhvac.util.AboutInfo;
-	    	import com.mcquilleninteractive.learnhvac.util.Logger;
-	    	
-	    	import mx.controls.Alert;
-	    	import mx.events.ValidationResultEvent;
-	    	
-	    	import flash.events.IEventDispatcher;
+			import com.mcquilleninteractive.learnhvac.event.ApplicationEvent;
+			import com.mcquilleninteractive.learnhvac.event.LoginEvent;
+			import com.mcquilleninteractive.learnhvac.event.LogoutEvent;
+			import com.mcquilleninteractive.learnhvac.model.ApplicationModel;
+			import com.mcquilleninteractive.learnhvac.util.AboutInfo;
+			import com.mcquilleninteractive.learnhvac.util.Logger;
+			
+			import flash.events.IEventDispatcher;
+			
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			import mx.events.ValidationResultEvent;
 			
 			[Bindable]
 			[Autowire(bean="applicationModel")]
@@ -47,28 +49,48 @@
 				
 			protected function onAddedToStage() : void
 			{
+				_versionNumber = AboutInfo.applicationVersion;
+				resetLogin();
+			}
+			
+			
+			protected function resetLogin() : void {
 				if (ApplicationModel.debugMode)
 				{
 					username.text = "rrd"
 					password.text = "rrdrrd"
-					onUsernameChange();
+				} else {
+					username.text = ""
+					password.text = ""
 				}
-				
-				_versionNumber = AboutInfo.applicationVersion
+				stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
+				onUsernameChange();
+				username.setFocus();
 			}
+			
+			protected function onKeyUp(event:KeyboardEvent):void
+			{
+				
+				if (event.charCode ==13) {
+					doLogin();
+				}
+				//trace("Key Pressed: " + String.fromCharCode(event.charCode) +         " (character code: " + event.charCode + ")");
+			}
+			
 			
 			[Mediate(event="LogoutEvent.LOGOUT")]
 			public function onLogout(cgEvent:LogoutEvent):void
 			{
-				username.text = ""
-				password.text = ""
-				onUsernameChange();
+				resetLogin();
 				vbxLoggingIn.visible = false
 			}		
 	
 			// mutate the loginBtn's click event into a cairngorm event			
 			private function doLogin() : void 
 			{
+				
+				stage.removeEventListener(KeyboardEvent.KEY_UP, onKeyUp);
+				
 				// validate the fields
 				var noUsername : Boolean = vUsername.validate().type == ValidationResultEvent.INVALID;
 				var noPassword : Boolean = vPassword.validate().type == ValidationResultEvent.INVALID;
@@ -128,7 +150,13 @@
 	    
 	    
 	    
-	    ]]>
+			protected function canvas1_initializeHandler(event:FlexEvent):void
+			{
+				// TODO Auto-generated method stub
+				password.enabled = true;
+			}
+			
+		]]>
 	</fx:Script>
 	
 	

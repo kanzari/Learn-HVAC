@@ -175,7 +175,7 @@
 			
 			protected function onBtnClearResults(event:MouseEvent):void
 			{
-/* 				var event:ScenarioDataLoadedEvent = new ScenarioDataLoadedEvent(ScenarioDataLoadedEvent.ENERGY_PLUS_DATA_PARSED, true )
+/* 				var event:ScenarioDataLoadedEvent = new ScenarioDataLoadedEvent(ScenarioDataLoadedEvent.ENERGY_PLUS_RESULTS_PARSED, true )
 				event.graphDataModel = IGraphDataModel(eplusData)
 				event.graphDataModelID = runID */
 				
@@ -188,7 +188,7 @@
 	
 	<mx:VBox id="vbxNoData" width="100%" height="100%" paddingLeft="5">		
 		<mx:Label text="{title}" fontWeight="bold" paddingTop="5" paddingBottom="5"/>
-		<mx:Label id="lblNoData" text="No data loaded " visible="true" width="120" />
+		<mx:Label id="lblNoData" text="nothing to display" visible="true" width="120" />
 	</mx:VBox>
 	
 	<mx:VBox 
@@ -214,12 +214,12 @@
 					 >
 				<mx:Label text="Period:" id="lblPeriod" fontWeight="bold"/>			
 				<mx:HBox>
-					<mx:Label width="95" text="Start date/time:" color="#8f843b"/>
+					<mx:Label width="95" text="Start:" color="#8f843b"/>
 					<mx:Label id="txtStartDateTime" width="120" text=""/>
 				</mx:HBox>
 				<mx:Spacer height="3"/>
 				<mx:HBox>
-					<mx:Label width="95" text="Stop date/time:" color="#8f843b"/>
+					<mx:Label width="95" text="Finish:" color="#8f843b"/>
 					<mx:Label id="txtStopDateTime" width="120" text=""/>
 				</mx:HBox>
 		</mx:VBox>

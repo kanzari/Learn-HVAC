@@ -39,33 +39,42 @@
 
 .appTabBar
 {
-	tabWidth: 135px;
+	tabWidth: 200px;
 	tabStyleName: "appTab";
-	selectedTabStyleName: "appTabSelected";
+	selectedTabTextStyleName : "appTabSelectedText";
+	
+	
+
 }
 
 .appTab
 {
-	fontFamily: Arial;
-    fontSize: 10;
+	fontFamily: Myriad;
+    fontSize: 12;
+	letterSpacing: .5px;
    	borderColor:#000;
-    color: #FFFFFF;
+    color: #999999;
     cornerRadius:0;
     backgroundColor:#607681;
-  	highlightAlphas: 0.3, 0.2;
+  	highlightAlphas: 0.2, 0.1;
    	fillAlphas: 0.1, 0.2, 0.3, 0.2;	
-   	textRollOverColor: #ffffff;
+   	textRollOverColor: #AAAAAA;
+	disabledTextFormat : "appTabDisabledText";
+	disabledIcon : Embed(source="/assets/img/chart_curve_add_disabled.png");
 }
 
-.appTabSelected
+.appTabSelectedText
 {
-	fontFamily: Arial;
-    fontSize: 10;
     color: #FFFFFF;
     cornerRadius:0;
-  	highlightAlphas: 0.3, 0.2;
+  	highlightAlphas: 0.2, 0.1;
    	fillAlphas: 0.1, 0.2, 0.3, 0.2;	
    	backgroundColor: #607681;
+	textRollOverColor: #FFFFFF;
+}
+.appTabDisabledText
+{
+	color: #333333;
 }
 
 
@@ -199,6 +208,20 @@
 {
 	borderStyle: inset;
 }
+
+.tabNavigator 
+{
+	paddingTop: 0;
+	paddingLeft: 0; 
+	paddingRight: 0;
+	paddingBottom: 0;
+	tabWidth: 105; 
+	borderStyle: none; 
+	cornerRadius: 4;
+	tabStyleName: "fseTabs";
+	backgroundColor: "#ffffff"
+}
+
 
 .fseTabs {
     cornerRadius: 6;
@@ -335,8 +358,8 @@
 
 .runModeTab
 {
-	fontFamily: Arial;
-    fontSize: 10;
+	fontFamily: Myriad;
+    fontSize: 12;
     borderColor: #92a8b3;
     color: #FFFFFF;
     cornerRadius:0;
@@ -348,8 +371,8 @@
 
 .runModeTabSelected
 {
-	fontFamily: Arial;
-    fontSize: 10;
+	fontFamily: Myriad;
+    fontSize: 12;
     color: #FFFFFF;
     cornerRadius:0;
 }
@@ -434,17 +457,6 @@
 
 
 
-.tabNavigator 
-{
-	paddingLeft: 5; 
-    paddingRight: 5;
-	paddingBottom: 10; 
-    backgroundAlpha: 0; 
-	tabWidth: 105; 
-    borderStyle: none; 
-    cornerRadius: 4;
-    tabStyleName: "fseTabs";
-}
 
 
 
@@ -472,6 +484,14 @@
 	fontFamily: "RussellSquare"; 
 }
 
- 
+.myToggleButtonBar {
+	cornerRadius: 6;
+}
+
+.simulationResultsVbox {
+	backgroundColor: #FFFFFF; 
+	paddingLeft: 4; 
+	paddingTop: 8;
+}
 
 		

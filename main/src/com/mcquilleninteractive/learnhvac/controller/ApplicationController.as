@@ -35,6 +35,8 @@ package com.mcquilleninteractive.learnhvac.controller
 	
 	import flash.events.IEventDispatcher;
 	import org.swizframework.controller.AbstractController;
+	import com.mcquilleninteractive.learnhvac.model.DialogManager;
+	
 	
 	public class ApplicationController  extends AbstractController
 	{
@@ -43,6 +45,20 @@ package com.mcquilleninteractive.learnhvac.controller
 		
 		[Inject] 
 		public var scenarioModel:ScenarioModel
+		
+		
+		public var dialogManager:DialogManager
+		
+		[Inject]
+		public function setDialogManager( dialogManager:DialogManager ):void
+		{
+			if (dialogManager !== null) { 
+				this.dialogManager = dialogManager;
+			} else {
+				Logger.debug("Injecting dialogManager as Null", this);
+			}
+		}
+		
 		
 		public function ApplicationController()
 		{

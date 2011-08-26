@@ -163,7 +163,7 @@ package com.mcquilleninteractive.learnhvac.util
         
         public  function resizeHandler(event:MouseEvent):void
         {
-            // Determine if the mouse pointer is in the lower right 7x7 pixel
+            // Determine if the mouse pointer is in the lower right 9x9 pixel
             // area of the panel. Initiate the resize if so.
             
             // Lower left corner of panel
@@ -171,8 +171,8 @@ package com.mcquilleninteractive.learnhvac.util
             var lowerLeftY:Number = y + height;
                 
             // Upper left corner of 7x7 hit area
-            var upperLeftX:Number = lowerLeftX-7;
-            var upperLeftY:Number = lowerLeftY-7;
+            var upperLeftX:Number = lowerLeftX-9;
+            var upperLeftY:Number = lowerLeftY-9;
                 
             // Mouse positionin Canvas
             var panelRelX:Number = event.localX + x;
@@ -215,6 +215,7 @@ package com.mcquilleninteractive.learnhvac.util
         {
         	try
         	{
+				parent.removeEventListener(MouseEvent.MOUSE_UP, stopResizePanel);
         		parent.removeEventListener(MouseEvent.MOUSE_MOVE, resizePanel);
         	}
             catch(e:Error)

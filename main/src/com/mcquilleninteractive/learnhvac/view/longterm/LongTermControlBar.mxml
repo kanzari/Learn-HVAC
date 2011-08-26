@@ -30,7 +30,7 @@
 			}
 			
 			[Mediate(event="ScenarioLoadedEvent.SCENARIO_LOADED")]
-			public function onScenarioLoaded(cgEvent:Event):void
+			public function onScenarioLoaded(event:ScenarioLoadedEvent):void
 			{
 				lblScenarioName.text = scenarioModel.name
 			}

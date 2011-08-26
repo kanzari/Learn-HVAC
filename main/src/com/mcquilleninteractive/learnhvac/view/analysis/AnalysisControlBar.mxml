@@ -7,7 +7,8 @@
 	height="35" width="100%" 
 	styleName="controlBar"
     horizontalGap="5"
-	verticalScrollPolicy="off">
+	verticalScrollPolicy="off"
+	>
 	
 	<fx:Metadata>
 		[Event(name="onStartLTSimulation", type="flash.events.Event")]		
@@ -15,11 +16,18 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import mx.events.FlexEvent;
+			import com.mcquilleninteractive.learnhvac.event.ScenarioDataLoadedEvent;
+			
+
 			
 			public function startSimulation():void
 			{	
 				dispatchEvent(new Event("onStartLTSimulation"))
 			}
+			
+
+
 			
 		]]>
 	</fx:Script>

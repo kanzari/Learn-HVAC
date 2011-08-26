@@ -7,13 +7,13 @@ package com.mcquilleninteractive.learnhvac.event{
 	public class ScenarioDataLoadedEvent extends Event
 	{
 						
-		// loaded but not parsed
-		public static const ENERGY_PLUS_FILE_LOADED : String = "EPlusFileLoaded";
-		public static const ENERGY_PLUS_DATA_PARSED : String = "EPlusDataParsed";
+		
+		public static const ENERGY_PLUS_FILE_LOADED : String = "EnergyPlusFileLoaded"; // loaded but not parsed
+		public static const ENERGY_PLUS_RESULTS_PARSED : String = "EnergyPlusResultsParsed"; // parsed
 
-		//loaded but not parsed
-		public static const SHORT_TERM_SYSVARS_LOADED : String = "ShortTermSysVarsLoaded";
-
+		public static const MODELICA_SYSVARS_LOADED : String = "ModelicaSysVarsLoaded";// loaded but not parsed
+		public static const MODELICA_RESULTS_PARSED : String = "ModelicaDataParsed";// loaded but not parsed
+		
 		public var graphDataModelID:String
 		public var graphDataModel:IGraphDataModel
 

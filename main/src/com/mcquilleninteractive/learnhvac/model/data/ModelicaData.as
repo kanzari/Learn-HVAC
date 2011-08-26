@@ -198,7 +198,7 @@ package com.mcquilleninteractive.learnhvac.model.data
 						
 		public function get startDateTimeString():String
 		{
-			return DateUtil.formatDateTime(_startDateTime) 		
+			return DateUtil.formatDateTimeFull(_startDateTime) 		
 		}
 		
 		
@@ -209,10 +209,10 @@ package com.mcquilleninteractive.learnhvac.model.data
 			var len:Number = dataArr[DATE_TIME].length
 			if (len==0)
 			{
-				return DateUtil.formatDateTime(_startDateTime)
+				return DateUtil.formatDateTimeFull(_startDateTime)
 			}
 			var stopDateTime:Date = dataArr[DATE_TIME][len-1] as Date
-			return DateUtil.formatDateTime(stopDateTime)
+			return DateUtil.formatDateTimeFull(stopDateTime)
 		}
 		
 		public function get inputListAC():ArrayCollection

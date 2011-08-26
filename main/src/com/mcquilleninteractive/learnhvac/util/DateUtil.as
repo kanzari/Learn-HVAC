@@ -38,6 +38,14 @@ package com.mcquilleninteractive.learnhvac.util
 				
 		}
 		
+		public static function formatDateTimeFull(d:Date):String
+		{
+			var time:String = DateUtil.formatTime(d)
+			var date:String = (d.month+1).toString() + "/" + d.date + "/" + d.fullYear;
+			
+			return date + " " + time
+			
+		}
 		
 	}
 }

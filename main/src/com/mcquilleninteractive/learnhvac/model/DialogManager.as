@@ -15,8 +15,11 @@ package com.mcquilleninteractive.learnhvac.model
 	public class DialogManager
 	{
 	
-		private static var _instance:DialogManager					//hold singleton instance
-		private static var _localInstantiation:Boolean;			//simple internal flag for proper creation of singleton
+		/**
+		 * 	private static var _instance:DialogManager					//hold singleton instance
+			private static var _localInstantiation:Boolean;			//simple internal flag for proper creation of singleton
+		 */
+
 		
 		//hold refs to dialogs that should only have one instance visible at a time
 		private var _outputPopUp:OutputPanel = null;
@@ -34,10 +37,14 @@ package com.mcquilleninteractive.learnhvac.model
 											"_ccLiquidsSchematic",
 											"_miniGraphsPopUpArr",
 											"_sysEnergyGraph",
-											"_zoneEnergyGraph" ] 
+											"_zoneEnergyGraph" ]
+			
+		public var theParentDisplayObj : flash.display.DisplayObject;
+		
 		
 		public function DialogManager()
 		{
+			Logger.debug("DialogManager.constructer", this);
 		}
 
 		
@@ -51,14 +58,32 @@ package com.mcquilleninteractive.learnhvac.model
 			{
 				_outputPopUp = new OutputPanel()
 				_outputPopUp.addEventListener(Event.CLOSE, onOutputPanelClose)
+				_outputPopUp.x=385
+				_outputPopUp.y=660
+				_outputPopUp.width=670
+				_outputPopUp.height=200	
 				PopUpManager.addPopUp(_outputPopUp,  FlexGlobals.topLevelApplication as DisplayObject, false);
 			}			
-			_outputPopUp.x=385
-			_outputPopUp.y=660
-			_outputPopUp.width=670
-			_outputPopUp.height=200	
 		}
-				
+		
+		[PreDestroy]
+		/**
+		 * [PreDestroy] methods are invoked when a bean is destroyed.
+		 */
+		public function preDestroy() : void
+		{
+			Logger.debug("DialogManager.preDestroy()", this);
+		}	
+		
+		[PostConstruct]
+		/**
+		 * [PostConstruct] methods are invoked after all dependencies are injected.
+		 */
+		public function postConstruct() : void
+		{
+			Logger.debug("DialogManager.postConstruct()", this);
+		}
+		
 		public function onOutputPanelClose(event:Event):void
 		{
 			_outputPopUp.removeEventListener(Event.CLOSE, onOutputPanelClose)
@@ -102,6 +127,7 @@ package com.mcquilleninteractive.learnhvac.model
 			{
 				_moviePopUp = new MovieViewer()
 				_moviePopUp.addEventListener(Event.CLOSE, onMovieViewClose)
+				//PopUpManager.addPopUp(_moviePopUp,  FlexGlobals.topLevelApplication as DisplayObject, false);
 				PopUpManager.addPopUp(_moviePopUp,  FlexGlobals.topLevelApplication as DisplayObject, false);
 				PopUpManager.centerPopUp(_moviePopUp)
 			}			

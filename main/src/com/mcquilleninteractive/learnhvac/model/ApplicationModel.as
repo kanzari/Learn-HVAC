@@ -121,7 +121,17 @@ package com.mcquilleninteractive.learnhvac.model
 				return "\u00B0C"
 			}
 		}
-			
+		
+		
+		[PreDestroy]
+		/**
+		 * [PreDestroy] methods are invoked when a bean is destroyed.
+		 */
+		public function preDestroy() : void
+		{
+			Logger.debug("ApplicationModel.preDestroy()", this);
+		}
+		
 		public function get installedVersion():String
 		{
 			

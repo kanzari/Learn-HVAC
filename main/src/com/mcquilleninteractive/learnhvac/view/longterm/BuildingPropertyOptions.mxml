@@ -26,6 +26,7 @@
 			import com.mcquilleninteractive.learnhvac.util.Logger;
 			import com.mcquilleninteractive.learnhvac.view.LongTermSimulation;
 			import com.mcquilleninteractive.learnhvac.vo.LongTermSimulationVO;
+			import com.mcquilleninteractive.learnhvac.event.ScenarioLoadedEvent;
 			
 			import flash.events.Event;
 			
@@ -34,12 +35,35 @@
 			import mx.validators.Validator;
 			
 			[Bindable]
-			[Inject] 
 			public var scenarioModel:ScenarioModel
 		
-			[Bindable]	
-			[Inject] 		
+			[Inject]
+			public function setScenarioModel( scenarioModel:ScenarioModel ):void
+			{
+				if (scenarioModel !== null) { 
+					this.scenarioModel = scenarioModel;
+				} else {
+					Logger.debug("Injecting scenarioModel as Null", this);
+				}
+			}
+			
+			
+			[Bindable]
 			public var longTermSimulationModel:LongTermSimulationModel
+			
+			
+			[Inject]
+			public function setLongTermSimulationModel( longTermSimulationModel:LongTermSimulationModel ):void
+			{
+				if (longTermSimulationModel !== null) { 
+					this.longTermSimulationModel = longTermSimulationModel;
+				} else {
+					Logger.debug("Injecting longTermSimulationModel as Null", this);
+				}
+			}
+			
+			
+			
 			
 			private var _validatorsArr:Array
 									
@@ -64,7 +88,7 @@
 			
 			
 			[Mediate(event="ScenarioLoadedEvent.SCENARIO_LOADED")]
-			public function onScenarioLoaded():void
+			public function onScenarioLoaded(event:ScenarioLoadedEvent):void
 			{								
 				cboMassLevel.dataProvider = longTermSimulationModel.massLevelsAC
 				cboMassLevel.selectedIndex = longTermSimulationModel.massLevelSelectedIndex

@@ -25,7 +25,6 @@
 	<model:DialogManager id="dialogManager" />
 	
 
-	
 	<controller:LoginController id="loginController" />
 	<controller:ApplicationController id="applicationController" />
 	<controller:ScenarioLibraryController id="scenarioLibraryController" />

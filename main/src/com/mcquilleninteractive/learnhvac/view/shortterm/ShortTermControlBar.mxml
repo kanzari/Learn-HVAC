@@ -41,8 +41,15 @@
 			[Inject] 
 			public var scenarioModel:ScenarioModel
 			
-			[Inject] 
 			public var dialogManager:DialogManager
+			
+			[Inject]
+			public function setDialogManager( dialogManager:DialogManager ):void
+			{
+				if (dialogManager !== null) { 
+					this.dialogManager = dialogManager;
+				}
+			}
 			
 			[Embed('assets/img/control_start.png')]
 			[Bindable]

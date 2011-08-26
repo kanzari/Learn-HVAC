@@ -14,48 +14,60 @@
 		    creationPolicy="all"
 		    hide="onHide()"
 		    show="onShow()"
+			remove="canvas1_removeHandler(event)"
 	  >
 	
 	<fx:Script>
 		<![CDATA[
+			import com.mcquilleninteractive.learnhvac.event.ApplicationEvent;
+			import com.mcquilleninteractive.learnhvac.event.CloseScenarioEvent;
+			import com.mcquilleninteractive.learnhvac.event.GraphEvent;
+			import com.mcquilleninteractive.learnhvac.event.LoadScenarioEvent;
+			import com.mcquilleninteractive.learnhvac.event.LogoutEvent;
+			import com.mcquilleninteractive.learnhvac.event.ResetInputsEvent;
+			import com.mcquilleninteractive.learnhvac.event.ScenarioLoadedEvent;
+			import com.mcquilleninteractive.learnhvac.event.ShortTermSimulationEvent;
+			import com.mcquilleninteractive.learnhvac.event.ShortTermSimulationUIEvent;
+			import com.mcquilleninteractive.learnhvac.event.ShowSchematicEvent;
+			import com.mcquilleninteractive.learnhvac.event.SimNavEvent;
+			import com.mcquilleninteractive.learnhvac.event.SysVarInfoPopupEvent;
+			import com.mcquilleninteractive.learnhvac.event.ViewMovieEvent;
+			import com.mcquilleninteractive.learnhvac.event.VisualizationEvent;
+			import com.mcquilleninteractive.learnhvac.model.ApplicationModel;
+			import com.mcquilleninteractive.learnhvac.model.DialogManager;
+			import com.mcquilleninteractive.learnhvac.model.ScenarioModel;
+			import com.mcquilleninteractive.learnhvac.model.ShortTermSimulationDataModel;
+			import com.mcquilleninteractive.learnhvac.model.ShortTermSimulationModel;
+			import com.mcquilleninteractive.learnhvac.model.SystemNodeModel;
+			import com.mcquilleninteractive.learnhvac.util.Logger;
+			import com.mcquilleninteractive.learnhvac.view.LongTermSimulation;
+			import com.mcquilleninteractive.learnhvac.view.popups.CCLiquidsSchematicPanel;
+			import com.mcquilleninteractive.learnhvac.view.popups.HCLiquidsSchematicPanel;
+			import com.mcquilleninteractive.learnhvac.view.popups.SimulationModal;
+			import com.mcquilleninteractive.learnhvac.event.ScenarioLoadedEvent;
+			import flash.events.Event;
 			
-		import com.mcquilleninteractive.learnhvac.event.ApplicationEvent;
-		import com.mcquilleninteractive.learnhvac.event.CloseScenarioEvent;
-		import com.mcquilleninteractive.learnhvac.event.GraphEvent;
-		import com.mcquilleninteractive.learnhvac.event.LoadScenarioEvent;
-		import com.mcquilleninteractive.learnhvac.event.LogoutEvent;
-		import com.mcquilleninteractive.learnhvac.event.ResetInputsEvent;
-		import com.mcquilleninteractive.learnhvac.event.ScenarioLoadedEvent;
-		import com.mcquilleninteractive.learnhvac.event.ShortTermSimulationEvent;
-		import com.mcquilleninteractive.learnhvac.event.ShortTermSimulationUIEvent;
-		import com.mcquilleninteractive.learnhvac.event.ShowSchematicEvent;
-		import com.mcquilleninteractive.learnhvac.event.SimNavEvent;
-		import com.mcquilleninteractive.learnhvac.event.SysVarInfoPopupEvent;
-		import com.mcquilleninteractive.learnhvac.event.ViewMovieEvent;
-		import com.mcquilleninteractive.learnhvac.event.VisualizationEvent;
-		import com.mcquilleninteractive.learnhvac.model.ApplicationModel;
-		import com.mcquilleninteractive.learnhvac.model.DialogManager;
-		import com.mcquilleninteractive.learnhvac.model.ScenarioModel;
-		import com.mcquilleninteractive.learnhvac.model.ShortTermSimulationDataModel;
-		import com.mcquilleninteractive.learnhvac.model.ShortTermSimulationModel;
-		import com.mcquilleninteractive.learnhvac.model.SystemNodeModel;
-		import com.mcquilleninteractive.learnhvac.util.Logger;
-		import com.mcquilleninteractive.learnhvac.view.LongTermSimulation;
-		import com.mcquilleninteractive.learnhvac.view.popups.CCLiquidsSchematicPanel;
-		import com.mcquilleninteractive.learnhvac.view.popups.HCLiquidsSchematicPanel;
-		import com.mcquilleninteractive.learnhvac.view.popups.SimulationModal;
-		
-		import flash.events.Event;
-		
-		import mx.collections.ArrayCollection;
-		import mx.containers.Panel;
-		import mx.controls.Alert;
-		import mx.core.IFlexDisplayObject;
-		import mx.core.UIComponent;
-		import mx.managers.PopUpManager;
+			import mx.collections.ArrayCollection;
+			import mx.containers.Panel;
+			import mx.controls.Alert;
+			import mx.core.IFlexDisplayObject;
+			import mx.core.UIComponent;
+			import mx.events.FlexEvent;
+			import mx.managers.PopUpManager;
+			
+			import org.hamcrest.mxml.object.Null;
 
-		[Inject] 
 		public var dialogManager:DialogManager
+		
+		[Inject]
+		public function setDialogManager( dialogManager:DialogManager ):void
+		{
+			if (dialogManager !== null) { 
+				this.dialogManager = dialogManager;
+			} else {
+				Logger.debug("Injecting dialogManager as Null", this);
+			}
+		}
 			
 		protected var dest:String 
 									
@@ -79,7 +91,26 @@
 		[Bindable]
 		[Embed(source='assets/img/long_term_import_icon.png')]
 		public var LongTermImportIcon:Class
-							
+			
+			
+		[PreDestroy]
+		/**
+		 * [PreDestroy] methods are invoked when a bean is destroyed.
+		 */
+		public function preDestroy() : void
+		{
+			Logger.debug("shortTermSimulation.preDestroy()", this);
+		}	
+		
+		[PostConstruct]
+		/**
+		 * [PostConstruct] methods are invoked after all dependencies are injected.
+		 */
+		public function postConstruct() : void
+		{
+			Logger.debug("shortTermSimulation.postConstruct()", this);
+		}
+			
 		protected function onHide():void
 		{
 			
@@ -214,7 +245,7 @@
 		}
 					
    		[Mediate(event="ScenarioLoadedEvent.SCENARIO_LOADED")]
-		public function onScenarioLoaded(event:Event):void
+		public function onScenarioLoaded(event:ScenarioLoadedEvent):void
 		{	
 			//set combobox dataProvider
 			vizInfo.cboAhuNav.dataProvider = scenarioModel.sysNodesForNavAC			
@@ -278,19 +309,31 @@
 				
 		
 			
+
+		protected function canvas1_removeHandler(event:FlexEvent):void
+		{
+			Logger.debug("Removed", this);
+		}
+
 		]]>
 	</fx:Script>
 	
 	<fx:Declarations>
 		<mx:Fade id="fadeIn" duration="200" alphaFrom="0.0" alphaTo="1.0"/>
-		
 	</fx:Declarations>
 	
 
        
-    <mx:VBox width="100%" height="100%" id="mainHolder"  verticalGap="0" verticalScrollPolicy="off">
+    <mx:VBox 
+		width="100%" 
+		height="100%" 
+		id="mainHolder"  
+		verticalGap="0" 
+		verticalScrollPolicy="off" 
+		horizontalScrollPolicy="off">
     	
-    	<shortterm:ShortTermControlBar id="controlBar" 
+    	<shortterm:ShortTermControlBar 
+			id="controlBar" 
     		width="100%" 
     		startSim="startSimulation()" 
     		stopSim="stopSimulation()" />
@@ -299,6 +342,8 @@
     	
 		<mx:Canvas id="innerCanvas" 
 			width="100%" height="100%"
+			horizontalScrollPolicy="off"
+			verticalScrollPolicy="off"
 			>
 			
 			<shortterm:InputPanel id="pnlInput" 

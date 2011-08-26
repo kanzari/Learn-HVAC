@@ -5,7 +5,7 @@
 			height="100%"
 			horizontalScrollPolicy="off"
 			verticalScrollPolicy="off"
-			addedToStage="canvas1_addedToStageHandler(event)"
+			creationComplete="onCC(event)"
 			>
 	
 	<fx:Style>
@@ -67,13 +67,10 @@
 		}
 		
 		
-		
-		
-
-			protected function canvas1_addedToStageHandler(event:Event):void
-			{
-				getDefaultScenarios();
-			}
+		protected function onCC(event:Event):void
+		{
+			getDefaultScenarios();
+		}
 
 		]]>
 
@@ -85,21 +82,23 @@
 		
 			<mx:VBox backgroundAlpha="0" width="275" height="100%" >
 				<mx:Label x="10" y="45" text="Select Scenario" width="133" fontWeight="bold"/>
+
 				<mx:Text text="Load a list of available scenarios from the local computer or from the hvaceprimer website. " width="275" height="51"/>
 				
 				
 				<mx:Button label="Get scenarios from server" 
-					width="209" height="32" 
-					id="btnGetRemoteScenarioList" 
-					click="getRemoteScenarioList()"
-					visible = "{!userModel.loggedInAsGuest}"	
-					/>
-			
+						   width="209" height="32" 
+						   id="btnGetRemoteScenarioList" 
+						   click="getRemoteScenarioList()"
+						   visible = "{!userModel.loggedInAsGuest}"	
+						   />
+				
 				<mx:Button label="Get default scenarios"
-					 width="209" 
-					 height="32" 
-					 id="btnGetDefaultScenarioList" 	
-					 click="getDefaultScenarios()"/>
+						   width="209" 
+						   height="32" 
+						   id="btnGetDefaultScenarioList" 	
+						   click="getDefaultScenarios()"/>
+			
 					 
 				<mx:Text text="( NOTE: You must have an active internet connection to get scenarios from the server )" width="275" height="51"/>
 			</mx:VBox>

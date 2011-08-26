@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Canvas xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx"
+<mx:Canvas 
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:view="com.mcquilleninteractive.learnhvac.view.*" 
+	xmlns:components="com.mcquilleninteractive.learnhvac.components.*"
 	width="100%"
+	height="35"
 	horizontalScrollPolicy="off"
 	verticalScrollPolicy="off"
-	height="35"
 	styleName="appControlBar"
-	xmlns:view="com.mcquilleninteractive.learnhvac.view.*" xmlns:components="com.mcquilleninteractive.learnhvac.components.*">
+	creationComplete="canvas1_creationCompleteHandler(event)"
+	>
     
 	
 	<fx:Script>
@@ -14,6 +19,7 @@
 			import com.mcquilleninteractive.learnhvac.event.GraphEvent;
 			import com.mcquilleninteractive.learnhvac.event.LogoutEvent;
 			import com.mcquilleninteractive.learnhvac.event.ScenarioDataEvent;
+			import com.mcquilleninteractive.learnhvac.event.ScenarioDataLoadedEvent;
 			import com.mcquilleninteractive.learnhvac.event.ScenarioLoadedEvent;
 			import com.mcquilleninteractive.learnhvac.model.ApplicationModel;
 			import com.mcquilleninteractive.learnhvac.model.LongTermSimulationDataModel;
@@ -22,6 +28,7 @@
 			import com.mcquilleninteractive.learnhvac.util.Logger;
 			import com.mcquilleninteractive.learnhvac.view.popups.SettingsPanel;
 			
+			import flash.events.IEventDispatcher;
 			import flash.net.URLRequest;
 			import flash.net.navigateToURL;
 			
@@ -30,12 +37,12 @@
 			import mx.containers.Panel;
 			import mx.controls.Alert;
 			import mx.events.CloseEvent;
+			import mx.events.FlexEvent;
 			import mx.events.ItemClickEvent;
 			import mx.events.MenuEvent;
 			import mx.managers.PopUpManager;
-			
-			import flash.events.IEventDispatcher;
-			
+			import mx.controls.tabBarClasses.Tab;
+				
 			[Bindable]
 			[Inject] 
 			public var userModel:UserModel
@@ -52,6 +59,11 @@
             [Embed(source="assets/img/chart_curve_add.png")]
             private var ChartIcon:Class;
             
+			[Bindable]
+			[Embed(source="assets/img/chart_curve_add_disabled.png")]
+			private var ChartIconDisabled:Class;
+			
+			
             [Bindable]
             [Embed(source="assets/img/icon_help.png")]
             private var InfoIcon:Class;
@@ -59,7 +71,6 @@
        		[Bindable]
             [Embed(source="assets/img/wrench_orange.png")]
             private var SettingsIcon:Class;
-            
             
        		[Bindable]
             [Embed(source="assets/img/bug.png")]
@@ -74,13 +85,33 @@
 			[Bindable]
 			private var SPCIcon:Class	
 			
+			
 			[Bindable]
-			[Inject] 
+			private var resultsAvailable:Boolean = false;
+			
+			[Bindable]
 			public var applicationModel:ApplicationModel 
+			
+			[Inject]
+			public function setApplicationModel( applicationModel:ApplicationModel ):void
+			{
+				if (applicationModel !== null) { 
+					this.applicationModel = applicationModel;
+				} else {
+					Logger.debug("Injecting applicationModel as Null", this);
+				}
+			}
+			
 			
 			
 			private var settingsPopup:SettingsPanel
 									
+			private var resultsTab : Tab;
+			
+			[Bindable]
+			private var resultsTabToolTip : String = "There are no results to display";
+			
+			
 					
 			public function onNewScenario():void
 			{
@@ -211,7 +242,37 @@
 			}	
 			
 			
-          	
+			[Mediate(event="ScenarioDataLoadedEvent.MODELICA_RESULTS_PARSED")]
+			public function onModelicaDataParsed(event:ScenarioDataLoadedEvent):void
+			{
+				setResultsTab(true);
+			}
+			
+			[Mediate(event="ScenarioDataLoadedEvent.ENERGY_PLUS_RESULTS_PARSED")]
+			public function onEPlusDataParsed(event:ScenarioDataLoadedEvent):void
+			{
+				setResultsTab(true);
+			}
+			
+			private function setResultsTab(isEnabled : Boolean) : void {
+				
+				resultsTab.enabled = isEnabled;
+				
+				if(isEnabled) {
+					resultsTab.toolTip = "Analyse the results of your simulations";
+				} else {
+					resultsTab.toolTip = "There are no results to display";
+				}
+
+			}
+			
+			
+			protected function canvas1_creationCompleteHandler(event:FlexEvent):void
+			{
+				resultsTab = appTabBar.getChildAt(2) as Tab;
+				setResultsTab(false);
+			}
+			
 		]]>
 	</fx:Script>		
 				
@@ -226,7 +287,7 @@
     		  	verticalAlign="bottom"
        		 	horizontalGap="0" 
     		 	horizontalAlign="left"
-		    	visible="{applicationModel.viewing != ApplicationModel.PANEL_SELECT_SCENARIO}"
+				visible="{applicationModel.viewing != ApplicationModel.PANEL_SELECT_SCENARIO}"
     		  	>
     		  	
 		<mx:TabBar 
@@ -236,29 +297,33 @@
 		    itemClick="onTabClick(event)"
 		    selectedIndex="0"
 		    focusEnabled="false"
-			tabWidth="160"
 			>
 			
 			<mx:dataProvider>       
 				<fx:Object 
-						label="Short-term Simulation"  
+						label="SHORT-TERM SIMULATION"  
 						icon="{BuildingIcon}"
 						data="modelica"
 						width="200"
 						/>
 				<fx:Object 
-						label="Long-term Simulation" 
+						label="LONG-TERM SIMULATION" 
 						icon="{SunIcon}"
 						data="eplus"
 						width="200"
 						/>
-   				<fx:Object label="Results"  
+   				<fx:Object 
+					label="RESULTS ANALYSIS"
 						icon="{ChartIcon}"
+						disabledIcon="{ChartIconDisabled}"
    						data="analysis"
 						width="200"
-						/>       
+						enabled="false"
+						toolTip="{resultsTabToolTip}"
+						/>
 				
 			</mx:dataProvider>
+			
 		</mx:TabBar>
 		
    			 

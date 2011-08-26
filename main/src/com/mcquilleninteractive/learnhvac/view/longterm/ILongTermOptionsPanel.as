@@ -1,7 +1,8 @@
 package com.mcquilleninteractive.learnhvac.view.longterm
 {
 	import com.mcquilleninteractive.learnhvac.vo.LongTermSimulationVO
-	
+	import com.mcquilleninteractive.learnhvac.event.ScenarioLoadedEvent
+		
 	public interface ILongTermOptionsPanel
 	{
 		function initializeValues():void 
@@ -10,6 +11,6 @@ package com.mcquilleninteractive.learnhvac.view.longterm
 		function unitsUpdate():void
 		function isValid():Boolean
 		function get errorMsg():String
-		function onScenarioLoaded():void
+		function onScenarioLoaded(event:ScenarioLoadedEvent):void
 	}
 }

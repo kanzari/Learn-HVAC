@@ -1,35 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:VBox xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx"  
-		  xmlns:analysis="com.mcquilleninteractive.learnhvac.view.analysis.*" 
-		  xmlns:graphing="com.mcquilleninteractive.learnhvac.view.graphing.*"
-		  xmlns:head="com.mcquilleninteractive.learnhvac.view.layout.*"
-		  styleName="glassPods"	
-			xmlns:myComps="*"
-			creationComplete="onCC()"
-			>
+<mx:VBox 
+		xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx"  
+		xmlns:analysis="com.mcquilleninteractive.learnhvac.view.analysis.*" 
+		xmlns:graphing="com.mcquilleninteractive.learnhvac.view.graphing.*"
+		xmlns:head="com.mcquilleninteractive.learnhvac.view.layout.*"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		styleName="glassPods"	
+		xmlns:myComps="*"
+		creationComplete="onCC()"
+		paddingLeft="5"
+		paddingRight="5"
+		paddingBottom="10"
+		paddingTop="10"
+		>
 
 	 	<fx:Script>
 	 		<![CDATA[
-	 		import com.mcquilleninteractive.learnhvac.model.data.*
-	 		import com.mcquilleninteractive.learnhvac.model.ApplicationModel	
-	 		import com.mcquilleninteractive.learnhvac.model.LongTermSimulationDataModel	
-	 		import com.mcquilleninteractive.learnhvac.model.ShortTermSimulationDataModel
-	 		import com.mcquilleninteractive.learnhvac.util.Logger
-			import mx.collections.XMLListCollection
-			import com.mcquilleninteractive.learnhvac.event.ScenarioDataLoadedEvent	
-			import mx.managers.DragManager
-			import mx.events.DragEvent
+				import com.mcquilleninteractive.learnhvac.event.ScenarioDataLoadedEvent;
+				import com.mcquilleninteractive.learnhvac.model.ApplicationModel;
+				import com.mcquilleninteractive.learnhvac.model.LongTermSimulationDataModel;
+				import com.mcquilleninteractive.learnhvac.model.ShortTermSimulationDataModel;
+				import com.mcquilleninteractive.learnhvac.model.data.*;
+				import com.mcquilleninteractive.learnhvac.util.Logger;
+				import fl.controls.Button;
+				import mx.collections.XMLListCollection;
+				import mx.events.DragEvent;
+				import mx.managers.DragManager;
 			
+				private var tabShortTerm : mx.controls.Button;
+				private var tabLongTerm : mx.controls.Button;
+				
 			
 			public function onCC():void
 			{
-				//shortTermRun1.setType(ShortTermSimulationDataModel.RUN_1)
-				//shortTermRun2.setType(ShortTermSimulationDataModel.RUN_2)
+				
+
+				
+				tabShortTerm = tabNav.getTabAt(0);
+				tabLongTerm = tabNav.getTabAt(1);
+				
+				tabShortTerm.enabled = false;
+				tabLongTerm.enabled = false;
+				
+				navigatorLongTermRun1.enabled = false;
+				navigatorLongTermRun2.enabled = false;
+				
+				navigatorShortTermRun1.enabled = false;
+				navigatorShortTermRun2.enabled = false;
+				
+				tabShortTerm.toolTip = "There are no short-term results to display";
+				tabLongTerm.toolTip = "There are no long-term results to display";
+				
+
 			}
 			
 			
-			[Mediate(event="ScenarioDataLoadedEvent.SHORT_TERM_SYSVARS_LOADED")]
-			public function onModelicaDataParsed(event:ScenarioDataLoadedEvent):void
+ 			[Mediate(event="ScenarioDataLoadedEvent.MODELICA_SYSVARS_LOADED")]
+			public function onModelicaSysvarsLoaded(event:ScenarioDataLoadedEvent):void
 			{				
 				var graphDataModel:IGraphDataModel = event.graphDataModel
 				
@@ -39,19 +66,63 @@
 				switch(event.graphDataModelID)
 				{
 					case ShortTermSimulationDataModel.RUN_1:
+						shortTermRun1.init(graphDataModel)
+						break
+					case ShortTermSimulationDataModel.RUN_2:
+						shortTermRun2.init(graphDataModel)
+						break
+				}	
+				
+			}
+			
+			[Mediate(event="ScenarioDataLoadedEvent.MODELICA_RESULTS_PARSED")]
+			public function onModelicaDataParsed(event:ScenarioDataLoadedEvent):void
+			{				
+				var graphDataModel:IGraphDataModel = event.graphDataModel
+				
+				//for now we're just expecting "run1" and "run2"
+				//but later we might want to support multiple models
+				//isShortTermEnabled = true;
+					
+				if (!tabShortTerm.enabled) {
+					tabShortTerm.enabled = true;
+					tabShortTerm.toolTip = "Short-term simulation results";
+				}
+
+				
+				switch(event.graphDataModelID)
+				{
+					case ShortTermSimulationDataModel.RUN_1:
 						shortTermRun1.loadData(graphDataModel)
+						
+						if (!navigatorShortTermRun1.enabled) {
+							navigatorShortTermRun1.enabled = true;
+							navigatorShortTermRun1.toolTip = "Result Set: Run 1";
+						}
 						break
 					case ShortTermSimulationDataModel.RUN_2:
 						shortTermRun2.loadData(graphDataModel)
+						
+						if (!navigatorShortTermRun2.enabled) {
+							navigatorShortTermRun2.enabled = true;
+							navigatorShortTermRun2.toolTip = "Result Set: Run 2";
+						}
 						break
 				}	
 				
 			}
 			
 			
-			[Mediate(event="ScenarioDataLoadedEvent.ENERGY_PLUS_DATA_PARSED")]
+ 			[Mediate(event="ScenarioDataLoadedEvent.ENERGY_PLUS_RESULTS_PARSED")]
 			public function onEPlusDataParsed(evt:ScenarioDataLoadedEvent):void
 			{
+				
+				
+				if (!tabLongTerm.enabled) {
+					tabLongTerm.enabled = true;
+					tabLongTerm.toolTip = "Long-term simulation results";
+				}
+				
 				var event:ScenarioDataLoadedEvent = ScenarioDataLoadedEvent(evt)
 				var graphDataModel:IGraphDataModel = event.graphDataModel
 				
@@ -61,63 +132,164 @@
 				switch(event.graphDataModelID)
 				{
 					case LongTermSimulationDataModel.RUN_1:
-						longTermRun1.loadData(graphDataModel)
+						
+						if (!navigatorLongTermRun1.enabled) {
+							navigatorLongTermRun1.enabled = true;
+							navigatorLongTermRun1.toolTip = "Result Set: Run 1";
+						}
+
+						longTermRun1.loadData(graphDataModel);
 						break
 					case LongTermSimulationDataModel.RUN_2:
-						longTermRun2.loadData(graphDataModel)
+
+						if (!navigatorLongTermRun2.enabled) {
+							navigatorLongTermRun2.enabled = true;
+							navigatorLongTermRun2.toolTip = "Result Set: Run 2";
+						}
+						
+						longTermRun2.loadData(graphDataModel);
 						break
 				}	
 				
-			}
-					
+			}  
+			
+
 				
 		 			
 	 		]]>
 	 	</fx:Script>
 	
 	
-		<head:GlassHeaders headerTitle="SIMULATION RESULTS"/>
 	
-	 	<mx:TabNavigator id="tabNav" height="100%" 
-						 width="100%" 
-						 creationPolicy="all" 
-						 backgroundColor="#FFFFFF"
-						 tabWidth="50"
-						 paddingLeft="0"
-						 paddingRight="0"
-						 paddingTop="0"
-						 styleName="tabNavigator">
-	 			
-	 		<analysis:AnalysisLongTermOutputView id="longTermRun1" 
-										 name="L1"
-										 toolTip="Long-term Simulation Run 1"
-										 title="Long-term Simulation Run 1"
-										 runID="{LongTermSimulationDataModel.RUN_1}"
-										 label="L1" 
-										 width="100%" height="100%"/>
-	 		<analysis:AnalysisLongTermOutputView id="longTermRun2" 
-										 toolTip="Long-term Simulation Run 2"
-										 title="Long-term Simulation Run 2"
-										 runID="{LongTermSimulationDataModel.RUN_2}"
-										 name="L2" 
-										 label="L2" 
-										 width="100%" height="100%"/>
-	 		<analysis:AnalysisShortTermOutputView id="shortTermRun1" 
-										 toolTip="Short-term Simulation Run 1" 
-										 title="Short-term Simulation Run 1"
-										 name="S1"
-										 runID="{ShortTermSimulationDataModel.RUN_1}"
-										 label="S1" 
-										 width="100%" height="100%"/>
-	 		<analysis:AnalysisShortTermOutputView id="shortTermRun2" 
-										 name="S2"
-										 runID="{ShortTermSimulationDataModel.RUN_2}"
-										 toolTip="Short-term Simulation Run 2" 
-										 title="Short-term Simulation Run 2"
-										 label="S2" 
-										 width="100%" height="100%"/>
-	 				
-	 	</mx:TabNavigator>
+	<mx:TabNavigator id="tabNav" 
+					 height="100%" 
+					 width="100%" 
+					 tabWidth="100"
+					 styleName="tabNavigator">
+		
+		
+		
+
+		<mx:VBox 
+			label="Short-term"
+			id="shortTermTab"
+			styleName="simulationResultsVbox"
+			height="100%" 
+			width="100%"
+			>		
+				
+			
+			<mx:ToggleButtonBar dataProvider="{shortTermViewStack}" 
+								buttonStyleName="myToggleButtonBar" 
+								/> 
+			
+			
+			<mx:ViewStack id="shortTermViewStack" 
+						   width="100%" height="100%"> 
+				
+				<s:NavigatorContent 
+					id="navigatorShortTermRun1" 
+					label="Run 1" 
+					width="100%" 
+					height="100%" 
+					> 
+					
+					<analysis:AnalysisShortTermOutputView 
+						id="shortTermRun1" 
+						title="Run 1"
+						runID="{ShortTermSimulationDataModel.RUN_1}"
+						label="Run 1" 
+						width="100%" 
+						height="100%"/>
+					
+				</s:NavigatorContent> 
+				
+				<s:NavigatorContent 
+					id="navigatorShortTermRun2" 
+					label="Run 2" 
+					width="100%" 
+					height="100%"> 
+					
+					<analysis:AnalysisShortTermOutputView 
+						id="shortTermRun2" 
+						runID="{ShortTermSimulationDataModel.RUN_2}"
+						title="Run 2"
+						label="Run 2" 
+						width="100%" 
+						height="100%"/>
+					
+				</s:NavigatorContent> 
+				
+
+			</mx:ViewStack> 
+			
+			
+		</mx:VBox>
+		
+		
+		<mx:VBox 
+			label="Long-term"
+			id="longTermTab"
+			styleName="simulationResultsVbox"
+			height="100%" 
+			width="100%" 
+			>
+			
+
+		<mx:ToggleButtonBar dataProvider="{longTermViewStack}" 
+							buttonStyleName="myToggleButtonBar" 
+							/> 
+		
+		
+		<mx:ViewStack id="longTermViewStack" 
+					  width="100%" height="100%"> 
+			
+			<s:NavigatorContent 
+				id="navigatorLongTermRun1" 
+				label="Run 1" 
+				width="100%" 
+				height="100%"
+				> 
+				
+				<analysis:AnalysisShortTermOutputView id="longTermRun1" 
+													  toolTip="Long-term Simulation Run 1" 
+													  title="Run 1"
+													  runID="{LongTermSimulationDataModel.RUN_1}"
+													  label="Run 1" 
+													  width="100%" height="100%"/>
+				
+			</s:NavigatorContent> 
+			
+			<s:NavigatorContent 
+				id="navigatorLongTermRun2" 
+				label="Run 2" 
+				width="100%" 
+				height="100%"
+				>
+				
+				<analysis:AnalysisShortTermOutputView id="longTermRun2" 
+													  runID="{LongTermSimulationDataModel.RUN_2}"
+													  toolTip="Long-term Simulation Run 2" 
+													  title="Run 2"
+													  label="Run 2" 
+													  width="100%" height="100%"/>
+			</s:NavigatorContent> 
+			
+			
+		</mx:ViewStack> 
+		
+		
+	</mx:VBox>
+		
+
+
+		
+
+		
+	</mx:TabNavigator>
+	
+	
+
 	 	
 	 	
 </mx:VBox>

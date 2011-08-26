@@ -424,14 +424,6 @@
 		<mx:HBox>
 	
 			<mx:Label text="Time:"  width="100" />
-			<!--		<yahoo:TimeStepper id="timeStepper" 
-			showSeconds="false" 
-			change="updateSimulationStartDateAndTime()"
-			width="70"
-			styleName="simTimeStepper"
-			toolTip="Start time for the short-term simulation"
-			/>-->
-			
 			<yahoo:TimeStepper id="timeStepper" 
 							   styleName="simTimeStepper"
 							   change="updateSimulationStartDateAndTime()"
